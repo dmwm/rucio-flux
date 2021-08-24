@@ -1,0 +1,16 @@
+replicaCount: 3
+authReplicaCount: 2
+ingress:
+  hosts: 
+    - cms-rucio-flux.cern.ch
+authIngress:
+  hosts: 
+    - cms-rucio-auth-flux.cern.ch
+traceIngress:
+  hosts: 
+    - cms-rucio-trace-flux.cern.ch
+
+config:
+    conveyor:
+        use_preparer: "True"
+

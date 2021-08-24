@@ -1,0 +1,31 @@
+conveyorTransferSubmitterCount: 1
+conveyorPollerCount: 1
+conveyorFinisherCount: 1
+darkReaperCount: 1
+
+reaper2:
+  includeRses: "cms_type=int"
+  greedy: 1
+  threads: 1
+
+darkReaper:
+#  rses: "T2_US_Purdue_Test"
+  includeRses: "T2_US_Purdue"
+
+ftsRenewal:
+  # Non-flux based is 19h
+  schedule: "42 17 * * *"
+conveyorTransferSubmitter:
+  threads: 1
+
+podLabels:
+  rucioInstance: "flux"
+
+config:
+    common:
+        loglevel: "DEBUG"
+        #loglevel: "INFO"
+    conveyor:
+      use_preparer: "True"
+      filter_transfertool: "fts3"
+

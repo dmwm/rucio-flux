@@ -1,0 +1,43 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rucio-daemons
+spec:
+  releaseName: daemons-flux
+  chart:
+    spec:
+      chart: rucio-daemons
+      sourceRef:
+        kind: HelmRepository
+        name: rucio
+        namespace: flux-system
+#      chart: ./charts/rucio-daemons
+#      sourceRef:
+#        kind: GitRepository
+#        name: rucio-git
+#        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cms-rucio-common-daemons
+    - kind: ConfigMap
+      name: cms-rucio-daemons
+    - kind: ConfigMap
+      name: flux-rucio-daemons
+    - kind: ConfigMap
+      name: flux-release-daemons
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: db_string
+      targetPath: config.database.default
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: kronos_password
+      targetPath: config.tracer_kronos.password
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: kronos_password
+      targetPath: config.trace.password

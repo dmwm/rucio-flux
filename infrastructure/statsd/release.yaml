@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: statsd-exporter
+spec:
+  releaseName: statsd-exporter
+  chart:
+    spec:
+      chart: ./helm/rucio-statsd-exporter
+      sourceRef:
+        kind: GitRepository
+        name: cms-helm
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: mappings
+    - kind: ConfigMap
+      name: instance-settings

@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rucio
+resources:
+  - release.yaml
+configMapGenerator:
+  - name: cms-rucio-common-server
+    files:
+      - values.yaml=../cms-rucio-common.yaml
+  - name: cms-rucio-server
+    files:
+      - values.yaml=cms-rucio-server.yaml
+  - name: flux-rucio-server
+    files:
+      - values.yaml=flux-rucio-server.yaml
+  - name: flux-release-server
+    files:
+      - values.yaml=flux-release.yaml
+configurations:
+  - kustomizeconfig.yaml
