@@ -22,13 +22,13 @@ spec:
       retries: 3
   valuesFrom:
     - kind: ConfigMap
-      name: cms-rucio-common-daemons
+      name: cms-rucio-common
     - kind: ConfigMap
       name: cms-rucio-daemons
     - kind: ConfigMap
       name: flux-rucio-daemons
     - kind: ConfigMap
-      name: flux-release-daemons
+      name: flux-release
     - kind: Secret
       name: rucio-secrets
       valuesKey: db_string

@@ -22,16 +22,14 @@ spec:
       retries: 3
   valuesFrom:
     - kind: ConfigMap
-      name: cms-rucio-common-server
+      name: cms-rucio-common
     - kind: ConfigMap
       name: cms-rucio-server
     - kind: ConfigMap
       name: flux-rucio-server
     - kind: ConfigMap
-      name: flux-release-server
+      name: flux-release
     - kind: Secret
       name: rucio-secrets
       valuesKey: db_string
       targetPath: config.database.default
-
-# FIXME: Can we produce a common "cms-rucio-common" and "flux-release"
