@@ -2,6 +2,20 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: rucio
 resources:
-  - ../base/namespace.yaml
+  - ../base
   - ../base/rucio-daemons
   - ../base/rucio-server
+  - rucio-daemons-helm.yaml
+  - rucio-server-helm.yaml
+configMapGenerator:
+  - name: flux-rucio-server
+    files:
+      - values.yaml=flux-rucio-server.yaml
+  - name: flux-rucio-daemons
+    files:
+      - values.yaml=flux-rucio-daemons.yaml
+  - name: flux-release
+    files:
+      - values.yaml=flux-release.yaml
+configurations:
+  - kustomizeconfig.yaml
