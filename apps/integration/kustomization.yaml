@@ -5,8 +5,10 @@ resources:
   - ../base
   - ../base/rucio-daemons
   - ../base/rucio-server
+  - ../base/rucio-webui
   - rucio-daemons-helm.yaml
   - rucio-server-helm.yaml
+  - rucio-webui-helm.yaml
 configMapGenerator:
   - name: flux-rucio-server
     files:
@@ -14,6 +16,9 @@ configMapGenerator:
   - name: flux-rucio-daemons
     files:
       - values.yaml=flux-rucio-daemons.yaml
+  - name: flux-rucio-webui
+    files:
+      - values.yaml=flux-rucio-webui.yaml
   - name: flux-release
     files:
       - values.yaml=flux-release.yaml
