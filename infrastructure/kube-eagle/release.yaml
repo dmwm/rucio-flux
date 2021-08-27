@@ -1,26 +1,24 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: prometheus
+  name: kube-eagle
 spec:
-  releaseName: prometheus
+  releaseName: kube-eagle
   chart:
     spec:
-      chart: prometheus
+      chart: kube-eagle
       sourceRef:
         kind: HelmRepository
-        name: prometheus-community
+        name: kube-eagle
         namespace: flux-system
-      version: "13.6.0"
   interval: 1h0m0s
   valuesFrom:
     - kind: ConfigMap
-      name: cms-prometheus-values
+      name: cms-eagle-values
       valuesKey: values.yaml
     - kind: ConfigMap
-      name: flux-prometheus-values
+      name: flux-eagle-values
       valuesKey: values.yaml
   install:
     remediation:
       retries: 3
-  

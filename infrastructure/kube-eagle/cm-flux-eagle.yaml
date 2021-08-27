@@ -1,0 +1,13 @@
+# FIXME: Not sure this is needed any more, at least the ingress part. Do we collect and send this information with our
+# internal Prometheus install?
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flux-eagle-values
+  namespace: kube-eagle
+data:
+  values.yaml: |+
+    ingress:
+      hosts:
+        - cmsrucio-eagle-flux.cern.ch
