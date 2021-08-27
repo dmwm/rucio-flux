@@ -5,4 +5,5 @@ resources:
   - prometheus.yaml
   - rucio.yaml
   - rucio-git.yaml
-  - cms-helm.yaml
+  - cms-kubernetes.yaml
+  - cms-kubernetes-git.yaml
