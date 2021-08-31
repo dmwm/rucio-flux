@@ -6,9 +6,11 @@ resources:
   - ../base/rucio-daemons
   - ../base/rucio-server
   - ../base/rucio-webui
+  - ../base/cms-rucio-consistency
   - rucio-daemons-helm.yaml
   - rucio-server-helm.yaml
   - rucio-webui-helm.yaml
+  - cms-rucio-consistency.yaml
 configMapGenerator:
   - name: flux-rucio-server
     files:
@@ -22,5 +24,11 @@ configMapGenerator:
   - name: flux-release
     files:
       - values.yaml=flux-release.yaml
+  - name: flux-consistency
+    files:
+      - values.yaml=flux-consistency.yaml
+  - name: flux-consistency-jobs
+    files:
+      - values.yaml=flux-consistency-jobs.yaml
 configurations:
   - kustomizeconfig.yaml
