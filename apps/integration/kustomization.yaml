@@ -7,10 +7,17 @@ resources:
   - ../base/rucio-server
   - ../base/rucio-webui
   - ../base/cms-rucio-consistency
+  - ../base/cms-rucio-traces
+#  - ../base/cms-rucio-cronjobs   # Not needed, no master config file
   - rucio-daemons-helm.yaml
   - rucio-server-helm.yaml
   - rucio-webui-helm.yaml
-  - cms-rucio-consistency.yaml
+  - cms-rucio-cronjobs.yaml
+  - cms-rucio-traces.yaml
+#  - cms-rucio-consistency.yaml
+# loadtest
+# webdav loadtest
+
 configMapGenerator:
   - name: flux-rucio-server
     files:
@@ -30,5 +37,8 @@ configMapGenerator:
   - name: flux-consistency-jobs
     files:
       - values.yaml=flux-consistency-jobs.yaml
+  - name: flux-cronjobs
+    files:
+      - values.yaml=flux-cronjobs.yaml
 configurations:
   - kustomizeconfig.yaml

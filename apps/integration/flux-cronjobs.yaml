@@ -1,0 +1,3 @@
+cronjobSettings:
+  daemonName: "flux-daemons"
+  instance: "int"
