@@ -10,13 +10,16 @@ resources:
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-traces
 #  - ../base/cms-rucio-cronjobs   # Not needed, no master config file
-  - rucio-daemons-helm.yaml
+# Shut it all down on flux - working fine
   - rucio-server-helm.yaml
-  - rucio-webui-helm.yaml
-  - rucio-probes-helm.yaml
-  - cms-rucio-cronjobs.yaml
+#  - rucio-daemons-helm.yaml
+#  - rucio-webui-helm.yaml
+#  - rucio-probes-helm.yaml
+#  - cms-rucio-cronjobs.yaml
 #  - cms-rucio-traces.yaml
 #  - cms-rucio-consistency.yaml
+
+# Yet to be implemented
 # loadtest
 # webdav loadtest
 
