@@ -19,7 +19,7 @@ resources:
 #  - cms-rucio-traces.yaml
 #  - cms-rucio-consistency.yaml
 
-# Yet to be implemented
+# Yet to be implemented:
 # loadtest
 # webdav loadtest
 
