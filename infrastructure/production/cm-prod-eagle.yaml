@@ -4,10 +4,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: flux-eagle-values
+  name: instance-eagle-values
   namespace: kube-eagle
 data:
   values.yaml: |+
     ingress:
       hosts:
-        - cmsrucio-eagle-flux.cern.ch
+        - cms-rucio-eagle.cern.ch

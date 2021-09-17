@@ -6,6 +6,8 @@ resources:
   - ../prometheus
   - ./statsd
   - ../statsd
+  - cm-prod-eagle.yaml
+  - ../kube-eagle
 
 #configMapGenerator:
 #  - name: flux-rucio-server
