@@ -4,31 +4,12 @@ resources:
   - ../sources
   - cm-flux-prometheus.yaml
   - ../prometheus
+  - ./statsd
+  - ../statsd
 
 #configMapGenerator:
 #  - name: flux-rucio-server
 #    files:
 #      - values.yaml=flux-rucio-server.yaml
-#  - name: flux-rucio-daemons
-#    files:
-#      - values.yaml=flux-rucio-daemons.yaml
-#  - name: flux-rucio-webui
-#    files:
-#      - values.yaml=flux-rucio-webui.yaml
-#  - name: flux-rucio-probes
-#    files:
-#      - values.yaml=flux-rucio-probes.yaml
-#  - name: flux-release
-#    files:
-#      - values.yaml=flux-release.yaml
-#  - name: flux-consistency
-#    files:
-#      - values.yaml=flux-consistency.yaml
-#  - name: flux-consistency-jobs
-#    files:
-#      - values.yaml=flux-consistency-jobs.yaml
-#  - name: flux-cronjobs
-#    files:
-#      - values.yaml=flux-cronjobs.yaml
 #configurations:
 #  - kustomizeconfig.yaml
