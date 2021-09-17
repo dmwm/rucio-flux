@@ -5,4 +5,4 @@ resources:
   - namespace.yaml
   - release.yaml
   - cm-cms-prometheus.yaml
-  - cm-flux-prometheus.yaml
+#  - cm-flux-prometheus.yaml
