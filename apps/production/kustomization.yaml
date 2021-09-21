@@ -4,7 +4,7 @@ namespace: rucio
 resources:
   - ../base
 #  - ../base/rucio-daemons
-
+  - ../base/rucio-server
 
 #  - ../base/rucio-server
 #  - ../base/rucio-webui

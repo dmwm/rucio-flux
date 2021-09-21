@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: rucio
 resources:
   - rucio-daemons-helm.yaml
-
 configMapGenerator:
   - name: cms-rucio-daemons
     files:

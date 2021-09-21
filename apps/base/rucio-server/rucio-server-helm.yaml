@@ -3,7 +3,7 @@ kind: HelmRelease
 metadata:
   name: rucio-server
 spec:
-  releaseName: server-flux
+  releaseName: server
   chart:
     spec:
       chart: rucio-server
@@ -26,9 +26,9 @@ spec:
     - kind: ConfigMap
       name: cms-rucio-server
     - kind: ConfigMap
-      name: flux-rucio-server
+      name: instance-rucio-server
     - kind: ConfigMap
-      name: flux-release
+      name: instance-rucio-release
     - kind: Secret
       name: rucio-secrets
       valuesKey: db_string
