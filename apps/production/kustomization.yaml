@@ -1,8 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: rucio
 resources:
   - ../base
-  - ../base/rucio-daemons
+#  - ../base/rucio-daemons
+
+
 #  - ../base/rucio-server
 #  - ../base/rucio-webui
 #  - ../base/rucio-probes
@@ -11,7 +14,7 @@ resources:
 #  - ../base/cms-rucio-cronjobs   # Not needed, no master config file
 # Shut it all down on flux - working fine
 #  - rucio-server-helm.yaml
-  - rucio-daemons-helm.yaml
+#  - rucio-daemons-helm.yaml
 #  - rucio-webui-helm.yaml
 #  - rucio-probes-helm.yaml
 #  - cms-rucio-cronjobs.yaml
@@ -22,29 +25,29 @@ resources:
 
 
 configMapGenerator:
-  - name: prod-rucio-server
+  - name: instance-rucio-server
     files:
       - values.yaml=prod-rucio-server.yaml
-  - name: prod-rucio-daemons
+  - name: instance-rucio-daemons
     files:
       - values.yaml=prod-rucio-daemons.yaml
-  - name: prod-rucio-webui
-    files:
-      - values.yaml=prod-rucio-webui.yaml
-  - name: prod-rucio-probes
-    files:
-      - values.yaml=prod-rucio-probes.yaml
-  - name: prod-release
+#  - name: prod-rucio-webui
+#    files:
+#      - values.yaml=prod-rucio-webui.yaml
+#  - name: prod-rucio-probes
+#    files:
+#      - values.yaml=prod-rucio-probes.yaml
+  - name: instance-rucio-release
     files:
       - values.yaml=prod-release.yaml
-  - name: prod-consistency
-    files:
-      - values.yaml=prod-consistency.yaml
-  - name: prod-consistency-jobs
-    files:
-      - values.yaml=prod-consistency-jobs.yaml
-  - name: prod-cronjobs
-    files:
-      - values.yaml=prod-cronjobs.yaml
+#  - name: prod-consistency
+#    files:
+#      - values.yaml=prod-consistency.yaml
+#  - name: prod-consistency-jobs
+#    files:
+#      - values.yaml=prod-consistency-jobs.yaml
+#  - name: prod-cronjobs
+#    files:
+#      - values.yaml=prod-cronjobs.yaml
 configurations:
   - kustomizeconfig.yaml
