@@ -3,7 +3,7 @@ kind: HelmRelease
 metadata:
   name: rucio-probes
 spec:
-  releaseName: probes-flux
+  releaseName: probes
   chart:
     spec:
       chart: rucio-probes
@@ -26,9 +26,9 @@ spec:
     - kind: ConfigMap
       name: cms-rucio-probes
     - kind: ConfigMap
-      name: flux-rucio-probes
+      name: instance-rucio-probes
     - kind: ConfigMap
-      name: flux-release
+      name: instance-rucio-release
     - kind: Secret
       name: rucio-secrets
       valuesKey: db_string

@@ -1,12 +1,15 @@
 image:
   repository: cmssw/rucio-probes
 
+probeSettings:
+  ftsProxySecret: daemons-rucio-x509up
+
 config:
   nagios:
     fts_vo: "cms"
     update_distances: "False"
   monitor:
-    prometheus_servers: "prometheus-pushgateway:9091"
+    prometheus_servers: "prometheus-pushgateway.prometheus:9091"
     prometheus_prefix: "rucio_"
 
 probes:

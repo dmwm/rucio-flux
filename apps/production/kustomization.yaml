@@ -5,6 +5,7 @@ resources:
   - ../base
 #  - ../base/rucio-daemons
   - ../base/rucio-server
+  - ../base/rucio-probes
 
 #  - ../base/rucio-server
 #  - ../base/rucio-webui
@@ -34,9 +35,9 @@ configMapGenerator:
 #  - name: prod-rucio-webui
 #    files:
 #      - values.yaml=prod-rucio-webui.yaml
-#  - name: prod-rucio-probes
-#    files:
-#      - values.yaml=prod-rucio-probes.yaml
+  - name: instance-rucio-probes
+    files:
+      - values.yaml=prod-rucio-probes.yaml
   - name: instance-rucio-release
     files:
       - values.yaml=prod-release.yaml
