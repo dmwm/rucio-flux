@@ -6,12 +6,10 @@ resources:
 #  - ../base/rucio-daemons
   - ../base/rucio-server
   - ../base/rucio-probes
+  - ../base/cms-rucio-traces
 
-#  - ../base/rucio-server
 #  - ../base/rucio-webui
-#  - ../base/rucio-probes
 #  - ../base/cms-rucio-consistency
-#  - ../base/cms-rucio-traces
 #  - ../base/cms-rucio-cronjobs   # Not needed, no master config file
 # Shut it all down on flux - working fine
 #  - rucio-server-helm.yaml
@@ -32,6 +30,9 @@ configMapGenerator:
   - name: instance-rucio-daemons
     files:
       - values.yaml=prod-rucio-daemons.yaml
+  - name: instance-traces
+    files:
+      - values.yaml=prod-traces.yaml
 #  - name: prod-rucio-webui
 #    files:
 #      - values.yaml=prod-rucio-webui.yaml
