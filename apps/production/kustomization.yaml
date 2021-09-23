@@ -3,10 +3,14 @@ kind: Kustomization
 namespace: rucio
 resources:
   - ../base
-#  - ../base/rucio-daemons
+  - ../base/rucio-daemons
   - ../base/rucio-server
   - ../base/rucio-probes
   - ../base/cms-rucio-traces
+
+  - ../options/loadtest-daemons
+  - ../options/loadtest
+  - ../options/webdav-loadtest
 
 #  - ../base/rucio-webui
 #  - ../base/cms-rucio-consistency
@@ -30,6 +34,9 @@ configMapGenerator:
   - name: instance-rucio-daemons
     files:
       - values.yaml=prod-rucio-daemons.yaml
+  - name: loadtest-rucio-daemons
+    files:
+      - values.yaml=loadtest-rucio-daemons.yaml
   - name: instance-traces
     files:
       - values.yaml=prod-traces.yaml
@@ -39,6 +46,12 @@ configMapGenerator:
   - name: instance-rucio-probes
     files:
       - values.yaml=prod-rucio-probes.yaml
+  - name: instance-loadtest
+    files:
+      - values.yaml=prod-loadtest.yaml
+  - name: webdav-loadtest
+    files:
+      - values.yaml=webdav-loadtest.yaml
   - name: instance-rucio-release
     files:
       - values.yaml=prod-release.yaml

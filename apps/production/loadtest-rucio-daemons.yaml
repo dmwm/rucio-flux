@@ -1,0 +1,29 @@
+abacusAccountCount: 0
+abacusRseCount: 0
+conveyorStagerCount: 0
+hermesCount: 0
+judgeCleanerCount: 0
+judgeEvaluatorCount: 0
+judgeInjectorCount: 0
+judgeRepairerCount: 0
+tracerKronosCount: 0
+transmogrifierCount: 0
+undertakerCount: 0
+darkReaperCount: 0
+reaperCount: 0
+reaper2Count: 0
+minosCount: 0
+necromancerCount: 0
+conveyorTransferSubmitterCount: 1
+conveyorPreparerCount: 0
+conveyorPollerCount: 0
+conveyorFinisherCount: 0
+
+ftsRenewal:
+  schedule: "42 4 * * *"
+  servers: "https://fts3-devel.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446,https://fts00.grid.hep.ph.ic.ac.uk:8446"
+
+conveyorTransferSubmitter:
+  activities: "'Functional Test'"
+  groupBulk: 10
+  archiveTimeout: 0

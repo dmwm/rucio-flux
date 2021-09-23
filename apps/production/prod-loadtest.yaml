@@ -1,0 +1,5 @@
+loadtest:
+  rucioHome: "/opt/rucio-prod/"
+  proxySecret: "daemons-rucio-x509up"
+  sourceExpression:   "cms_type=real&tier<3&tier>0"
+  destinationExpression:   "cms_type=real&tier<3&tier>0"

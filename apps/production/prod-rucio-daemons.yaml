@@ -1,9 +1,32 @@
-reaper2Count: 4
-judgeInjectorCount: 3
-judgeRepairerCount: 2
-conveyorPollerCount: 2
-conveyorFinisherCount: 4
-judgeEvaluatorCount: 8
+#reaper2Count: 4
+#judgeInjectorCount: 3
+#judgeRepairerCount: 2
+#conveyorPollerCount: 2
+#conveyorFinisherCount: 4
+#judgeEvaluatorCount: 8
+
+# Temporary until we can turn on the real daemons
+
+abacusAccountCount: 0
+abacusRseCount: 0
+conveyorStagerCount: 0
+hermesCount: 0
+judgeCleanerCount: 0
+judgeEvaluatorCount: 0
+judgeInjectorCount: 0
+judgeRepairerCount: 0
+tracerKronosCount: 0
+transmogrifierCount: 0
+undertakerCount: 0
+darkReaperCount: 0
+reaperCount: 0
+reaper2Count: 0
+minosCount: 0
+necromancerCount: 0
+conveyorTransferSubmitterCount: 0
+conveyorPreparerCount: 0
+conveyorPollerCount: 0
+conveyorFinisherCount: 0
 
 # Should be one in normal running
 
