@@ -3,14 +3,14 @@ kind: Kustomization
 namespace: rucio
 resources:
   - ../base
-  - ../base/rucio-daemons
+#  - ../base/rucio-daemons
   - ../base/rucio-server
   - ../base/rucio-probes
   - ../base/cms-rucio-traces
 
-  - ../options/loadtest-daemons
-  - ../options/loadtest
-  - ../options/webdav-loadtest
+#  - ../options/loadtest-daemons
+#  - ../options/loadtest
+#  - ../options/webdav-loadtest
 
 #  - ../base/rucio-webui
 #  - ../base/cms-rucio-consistency
@@ -23,7 +23,6 @@ resources:
 #  - cms-rucio-cronjobs.yaml
 #  - cms-rucio-traces.yaml
 #  - cms-rucio-consistency.yaml
-#  - ../base/rucio-server
 
 
 
