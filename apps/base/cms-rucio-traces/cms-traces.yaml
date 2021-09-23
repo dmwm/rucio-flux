@@ -5,7 +5,7 @@ xrootdReplicaCount: 0
 
 image:
   repository: cmssw/rucio-tracers
-  tag: "4.0.3"
+  tag: "4.0.5"
 wmagentBroker:
     stompURIProducer: "cms-mb.cern.ch:61313"
     stompURIConsumer: "cms-mb.cern.ch:61313"
