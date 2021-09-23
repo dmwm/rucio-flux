@@ -13,7 +13,7 @@ resources:
 #  - ../options/webdav-loadtest
 
 #  - ../base/rucio-webui
-#  - ../base/cms-rucio-consistency
+  - ../base/cms-rucio-consistency
 #  - ../base/cms-rucio-cronjobs   # Not needed, no master config file
 # Shut it all down on flux - working fine
 #  - rucio-server-helm.yaml
@@ -54,12 +54,12 @@ configMapGenerator:
   - name: instance-rucio-release
     files:
       - values.yaml=prod-release.yaml
-#  - name: prod-consistency
-#    files:
-#      - values.yaml=prod-consistency.yaml
-#  - name: prod-consistency-jobs
-#    files:
-#      - values.yaml=prod-consistency-jobs.yaml
+  - name: instance-consistency
+    files:
+      - values.yaml=prod-consistency.yaml
+  - name: instance-consistency-jobs
+    files:
+      - values.yaml=prod-consistency-jobs.yaml
 #  - name: prod-cronjobs
 #    files:
 #      - values.yaml=prod-cronjobs.yaml

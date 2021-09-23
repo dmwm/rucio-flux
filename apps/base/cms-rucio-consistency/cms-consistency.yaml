@@ -1,2 +1,4 @@
 scratchStorageClass:
   create: true
+consistency:
+  rucioCfgSecret: "server-rucio-server.cfg"
