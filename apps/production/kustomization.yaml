@@ -5,27 +5,14 @@ resources:
   - ../base
   - ../base/rucio-daemons
   - ../base/rucio-server
+  - ../base/rucio-webui
   - ../base/rucio-probes
   - ../base/cms-rucio-traces
-
+  - ../base/cms-rucio-consistency
+  - ../base/cms-rucio-cron
 #  - ../options/loadtest-daemons
 #  - ../options/loadtest
 #  - ../options/webdav-loadtest
-
-#  - ../base/rucio-webui
-  - ../base/cms-rucio-consistency
-  - ../base/cms-rucio-cron
-
-# Shut it all down on flux - working fine
-#  - rucio-server-helm.yaml
-#  - rucio-daemons-helm.yaml
-#  - rucio-webui-helm.yaml
-#  - rucio-probes-helm.yaml
-#  - cms-rucio-cronjobs.yaml
-#  - cms-rucio-traces.yaml
-#  - cms-rucio-consistency.yaml
-
-
 
 configMapGenerator:
   - name: instance-rucio-server
@@ -40,9 +27,9 @@ configMapGenerator:
   - name: instance-traces
     files:
       - values.yaml=prod-traces.yaml
-#  - name: prod-rucio-webui
-#    files:
-#      - values.yaml=prod-rucio-webui.yaml
+  - name: instance-rucio-webui
+    files:
+      - values.yaml=prod-rucio-webui.yaml
   - name: instance-rucio-probes
     files:
       - values.yaml=prod-rucio-probes.yaml
