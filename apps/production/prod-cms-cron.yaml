@@ -1,0 +1,3 @@
+cronjobSettings:
+  daemonName: "daemons"
+  instance: "prod"

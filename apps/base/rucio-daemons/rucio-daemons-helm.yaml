@@ -41,3 +41,11 @@ spec:
       name: rucio-secrets
       valuesKey: kronos_password
       targetPath: config.trace.password
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: gitlab_token
+      targetPath: config.cms.gitlab
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: monit_token
+      targetPath: config.cms.monit

@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: rucio
 resources:
   - ../base
-#  - ../base/rucio-daemons
+  - ../base/rucio-daemons
   - ../base/rucio-server
   - ../base/rucio-probes
   - ../base/cms-rucio-traces
@@ -14,7 +14,8 @@ resources:
 
 #  - ../base/rucio-webui
   - ../base/cms-rucio-consistency
-#  - ../base/cms-rucio-cronjobs   # Not needed, no master config file
+  - ../base/cms-rucio-cron
+
 # Shut it all down on flux - working fine
 #  - rucio-server-helm.yaml
 #  - rucio-daemons-helm.yaml
@@ -60,8 +61,8 @@ configMapGenerator:
   - name: instance-consistency-jobs
     files:
       - values.yaml=prod-consistency-jobs.yaml
-#  - name: prod-cronjobs
-#    files:
-#      - values.yaml=prod-cronjobs.yaml
+  - name: instance-rucio-cron
+    files:
+      - values.yaml=prod-cms-cron.yaml
 configurations:
   - kustomizeconfig.yaml
