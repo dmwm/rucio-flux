@@ -10,9 +10,9 @@ resources:
   - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
-#  - ../options/loadtest-daemons
-#  - ../options/loadtest
-#  - ../options/webdav-loadtest
+  - ../options/loadtest-daemons
+  - ../options/loadtest
+  - ../options/webdav-loadtest
 
 configMapGenerator:
   - name: instance-rucio-server
