@@ -8,8 +8,5 @@ configMapGenerator:
   - name: mappings
     files:
       - values.yaml=statsd-prometheus-mapping.yaml
-  - name: instance-settings
-    files:
-      - values.yaml=flux-statsd-exporter.yaml
 configurations:
   - kustomizeconfig.yaml

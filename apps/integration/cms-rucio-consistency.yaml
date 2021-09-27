@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rucio-consistency
+spec:
+  releaseName: consistency-flux
+  chart:
+    spec:
+      chart: rucio-consistency
+      sourceRef:
+        kind: HelmRepository
+        name: cms-kubernetes
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cms-consistency
+    - kind: ConfigMap
+      name: flux-consistency
+    - kind: ConfigMap
+      name: flux-consistency-jobs
+    - kind: ConfigMap
+      name: flux-release

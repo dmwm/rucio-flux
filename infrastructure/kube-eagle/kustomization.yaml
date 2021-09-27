@@ -5,4 +5,3 @@ resources:
   - namespace.yaml
   - release.yaml
   - cm-cms-eagle.yaml
-  - cm-flux-eagle.yaml

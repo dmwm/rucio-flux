@@ -1,0 +1,32 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rucio-traces
+spec:
+  releaseName: traces-flux
+  chart:
+    spec:
+      chart: rucio-traces
+      sourceRef:
+        kind: HelmRepository
+        name: cms-kubernetes
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cms-traces
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: db_string
+      targetPath: config.database.default
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: kronos_password
+      targetPath: wmagentBroker.stompPassword
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: kronos_password
+      targetPath: cmsswPopBroker.stompPassword

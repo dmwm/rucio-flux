@@ -1,0 +1,8 @@
+image:
+  repository: cmssw/rucio-ui
+ingress:
+  hosts: 
+    - "cms-rucio-webui.cern.ch"
+proxy:
+  rucioProxy: "cms-rucio.cern.ch"
+  rucioAuthProxy: "cms-rucio-auth.cern.ch:443"

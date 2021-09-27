@@ -1,0 +1,4 @@
+# Values for rucio-traces.
+wmagentReplicaCount: 1
+cmsswPopReplicaCount: 1
+xrootdReplicaCount: 1

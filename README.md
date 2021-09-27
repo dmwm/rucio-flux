@@ -4,9 +4,9 @@
 We have two clusters: integration and production.
 The end goal is to leverage Flux and Kustomize to manage both clusters while minimizing duplicated declarations.
 
-We will configure Flux to install, test and upgrade Rucio using
+Flux is configured to install, test and upgrade Rucio using
 `HelmRepository` and `HelmRelease` custom resources.
-Flux will monitor the Helm repository, and it will automatically
+Flux monitors the Helm repository and this Git repository, and it will automatically
 upgrade the Helm releases to their latest chart version based on semver ranges.
 
 ## Prerequisites
@@ -37,6 +37,7 @@ The Git repository contains the following top directories:
 ```
 ├── apps
 │   ├── base
+│   ├── options
 │   ├── production 
 │   └── integration
 ├── infrastructure
@@ -47,17 +48,21 @@ The Git repository contains the following top directories:
     └── integration
 ```
 
-The apps configuration is structured into:
+The apps configuration is structured as follows:
 
-- **apps/base/** dir contains namespaces and Helm release definitions
-- **apps/production/** dir contains the production Helm release values
-- **apps/integration/** dir contains the staging values
+- **apps/base/** dir contains namespaces, Helm release definitions, and the helm config files applicable to all CMS Rucio clusters. The helm files are converted into Kubernetes ConfigMaps by `kustomizeconfig.yaml` in each directory.
+- **apps/production/** dir contains the production Helm release values all grouped in a single directory. `kustomization.yaml` shows which components are running for the production server and generates ConfigMaps from the relevant YAML files.
+- **apps/integration/** dir contains the integration values similarly grouped
+- **apps/options/** dir contains namespaces and Helm release definitions for optional components which may not run in every server
+- **infrastructure/** contains the defintions of helm repositories and the releases for 3rd party products we install
+- **infrastructure/production(integration)/** dir contains the configuration changes specific to a cluster for the products in integration
 
+Changes are applied in a cascading way which you can see from **apps/base/PRODUCT/PRODUCT-helm** where settings from later in the **valuesFrom** list take precedence over those from earlier in the list.
 
-Note that with `path: ./apps/staging` we configure Flux to sync the staging Kustomize overlay and 
-with `dependsOn` we tell Flux to create the infrastructure items before deploying the apps.
+Note that with `path: ./apps/production` we configure Flux 
+with `dependsOn` to tell Flux to create the infrastructure items before deploying the apps.
 
-Fork this repository on your personal GitHub account and export your GitHub access token, username and repo name:
+To instal this in a kubernetes cluster, fork this repository on your personal GitHub account and export your GitHub access token, username and repo name:
 
 ```sh
 export GITHUB_TOKEN=<your-token>
@@ -65,7 +70,15 @@ export GITHUB_USER=<your-username>
 export GITHUB_REPO=<repository-name>
 ```
 
-Verify that your staging cluster satisfies the prerequisites with:
+The Rucio setup relies on a number of secrets being created before flux is bootstrapped. Run the `create_flux_secrets.sh` script. 
+This relies on three pieces of information not supplied by any repository:
+- `$HOSTP12`: The certificate for a node in the Rucio cluster which also has entries for the node aliases like `cms-rucio.cern.ch`
+- `$ROBOTP12`: The Robot certificate used for all FTS/gfal operations. This also gets used to authenticate as `root` to Rucio. 
+- `INSTANCE-secrets.yaml` (not a YAML file): A file providing the true secrets of the Rucio install (database connection strings, passwords and tokens for various services)
+
+You will need to get these from someone who has them for the server you are looing to setup.
+
+Verify that your staging cluster satisfies the flux prerequisites with:
 
 ```sh
 flux check --pre
@@ -107,13 +120,10 @@ flux-system   	main/797cd90cc8e81feb30cfe471a5186b86daf2758d	True
 infrastructure	main/797cd90cc8e81feb30cfe471a5186b86daf2758d	True
 ```
 
+Or get an overview of everything flux has control over with 
+```console
+$ flux get all -A
+...
+```
 
-## Testing
-
-Any change to the Kubernetes manifests or to the repository structure should be validated in CI before
-a pull requests is merged into the main branch and synced on the cluster.
-
-This repository contains the following GitHub CI workflows:
-
-* the [test](./.github/workflows/test.yaml) workflow validates the Kubernetes manifests and Kustomize overlays with kubeval
-* the [e2e](./.github/workflows/e2e.yaml) workflow starts a Kubernetes cluster in CI and tests the staging setup by running Flux in Kubernetes Kind
+Once you have verified changes working in your own cluster, make a PR against `dmwm/rucio-flux` to have the changes deployed in production (or the integration server).

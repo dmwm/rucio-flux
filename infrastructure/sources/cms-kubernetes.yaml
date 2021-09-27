@@ -3,5 +3,6 @@ kind: HelmRepository
 metadata:
   name: cms-kubernetes
 spec:
-  interval: 30m
+  interval: 5m
+#  interval: 30m
   url: https://dmwm.github.io/CMSKubernetes/

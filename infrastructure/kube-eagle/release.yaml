@@ -17,7 +17,7 @@ spec:
       name: cms-eagle-values
       valuesKey: values.yaml
     - kind: ConfigMap
-      name: flux-eagle-values
+      name: instance-eagle-values
       valuesKey: values.yaml
   install:
     remediation:

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: flux-prometheus-values
+  name: instance-prometheus-values
   namespace: prometheus
 data:
   values.yaml: |+
