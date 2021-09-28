@@ -63,7 +63,4 @@ tracerKronos:
 config:
     common:
         loglevel: "INFO"
-    tracer_kronos:
-        # FIXME: Both used to be 50 before 1.24 problems with Kronos
-        chunksize: "50"
-        prefetch_size: "50"
+
