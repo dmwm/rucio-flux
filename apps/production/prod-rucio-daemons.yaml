@@ -54,17 +54,9 @@ transmogrifier:
   threads: 4
   sleepTime: 30
 
-tracerKronos:
-  # FIXME: Was 5 before 1.24 problems with Kronos (around still dropping connections)
-  threads: 2
-
 
 config:
     common:
         loglevel: "INFO"
 #        loglevel: "DEBUG"
 
-    tracer_kronos:
-        # FIXME: Both used to be 50 before 1.24 problems with Kronos
-        chunksize: "50"
-        prefetch_size: "50"
