@@ -1,9 +1,9 @@
-reaperCount: 4
-judgeInjectorCount: 3
+reaperCount: 2
+judgeInjectorCount: 2
 judgeRepairerCount: 2
 conveyorPollerCount: 2
 conveyorFinisherCount: 4
-judgeEvaluatorCount: 8
+judgeEvaluatorCount: 2
 
 darkReaper:
   includeRses: "reaper=True"
@@ -54,9 +54,13 @@ transmogrifier:
   threads: 4
   sleepTime: 30
 
+tracerKronos:
+  # FIXME: Was 5 before 1.24 problems with Kronos (around still dropping connections)
+  threads: 2
+  sleepTimeFiles: 10
+  sleepTimeDatasets: 30
 
 config:
     common:
         loglevel: "INFO"
-#        loglevel: "DEBUG"
 
