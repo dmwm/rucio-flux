@@ -4,6 +4,7 @@ judgeRepairerCount: 2
 conveyorPollerCount: 2
 conveyorFinisherCount: 4
 judgeEvaluatorCount: 2
+tracerKronosCount: 2
 
 darkReaper:
   includeRses: "reaper=True"
