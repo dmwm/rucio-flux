@@ -3,16 +3,16 @@ kind: Kustomization
 namespace: rucio
 resources:
   - ../base
-#  - ../base/rucio-daemons
-#  - ../base/rucio-server
-#  - ../base/rucio-webui
-#  - ../base/rucio-probes
+  - ../base/rucio-daemons
+  - ../base/rucio-server
+  - ../base/rucio-webui
+  - ../base/rucio-probes
   - ../base/cms-rucio-traces
-#  - ../base/cms-rucio-consistency
-#  - ../base/cms-rucio-cron
-#  - ../options/loadtest-daemons
-#  - ../options/loadtest
-#  - ../options/webdav-loadtest
+  - ../base/cms-rucio-consistency
+  - ../base/cms-rucio-cron
+  - ../options/loadtest-daemons
+  - ../options/loadtest
+  - ../options/webdav-loadtest
 
 configMapGenerator:
   - name: instance-rucio-server
