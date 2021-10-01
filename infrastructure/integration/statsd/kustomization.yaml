@@ -4,6 +4,6 @@ namespace: prometheus
 configMapGenerator:
   - name: instance-settings
     files:
-      - values.yaml=flux-statsd-exporter.yaml
+      - values.yaml=int-statsd-exporter.yaml
 configurations:
   - kustomizeconfig.yaml

@@ -7,46 +7,37 @@ resources:
   - ../base/rucio-server
   - ../base/rucio-webui
   - ../base/rucio-probes
+#  - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
-  - ../base/cms-rucio-traces
-#  - ../base/cms-rucio-cronjobs   # Not needed, no master config file
-# Shut it all down on flux - working fine
-  - rucio-server-helm.yaml
-#  - rucio-daemons-helm.yaml
-#  - rucio-webui-helm.yaml
-#  - rucio-probes-helm.yaml
-#  - cms-rucio-cronjobs.yaml
-#  - cms-rucio-traces.yaml
-#  - cms-rucio-consistency.yaml
-
-# Yet to be implemented:
-# loadtest
-# webdav loadtest
+  - ../base/cms-rucio-cron
+#  - ../options/loadtest-daemons
+#  - ../options/loadtest
+#  - ../options/webdav-loadtest
 
 configMapGenerator:
-  - name: flux-rucio-server
+  - name: instance-rucio-server
     files:
-      - values.yaml=flux-rucio-server.yaml
-  - name: flux-rucio-daemons
+      - values.yaml=int-rucio-server.yaml
+  - name: instance-rucio-daemons
     files:
-      - values.yaml=flux-rucio-daemons.yaml
-  - name: flux-rucio-webui
+      - values.yaml=int-rucio-daemons.yaml
+  - name: instance-rucio-webui
     files:
-      - values.yaml=flux-rucio-webui.yaml
-  - name: flux-rucio-probes
+      - values.yaml=prod-rucio-webui.yaml
+  - name: instance-rucio-probes
     files:
-      - values.yaml=flux-rucio-probes.yaml
-  - name: flux-release
+      - values.yaml=int-rucio-probes.yaml
+  - name: instance-rucio-release
     files:
-      - values.yaml=flux-release.yaml
-  - name: flux-consistency
+      - values.yaml=int-release.yaml
+  - name: instance-consistency
     files:
-      - values.yaml=flux-consistency.yaml
-  - name: flux-consistency-jobs
+      - values.yaml=int-consistency.yaml
+  - name: instance-consistency-jobs
     files:
-      - values.yaml=flux-consistency-jobs.yaml
-  - name: flux-cronjobs
+      - values.yaml=int-consistency-jobs.yaml
+  - name: instance-rucio-cron
     files:
-      - values.yaml=flux-cronjobs.yaml
+      - values.yaml=int-cms-cron.yaml
 configurations:
   - kustomizeconfig.yaml
