@@ -13,7 +13,7 @@ n=0
 kubectl get node -l role=ingress -o name | grep -v master | while read node; do
   # Remove any existing aliases
   openstack server unset --property landb-alias ${node##node/}
-  echo $((n++))
   cnames="cms-rucio-int--load-${n}-,cms-rucio-auth-int--load-${n}-,cms-rucio-webui-int--load-${n}-,cms-rucio-eagle-int--load-${n}-,cms-rucio-trace-int--load-${n}-"
+  echo $((n++))
   openstack server set --property landb-alias=$cnames ${node##node/}
 done
