@@ -2,13 +2,13 @@ replicaCount: 1
 authReplicaCount: 1
 ingress:
   hosts: 
-    - cms-rucio-flux.cern.ch
+    - cms-rucio-int.cern.ch
 authIngress:
   hosts: 
-    - cms-rucio-auth-flux.cern.ch
+    - cms-rucio-auth-int.cern.ch
 traceIngress:
   hosts: 
-    - cms-rucio-trace-flux.cern.ch
+    - cms-rucio-trace-int.cern.ch
 
 config:
     conveyor:

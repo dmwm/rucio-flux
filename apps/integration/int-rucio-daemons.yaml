@@ -3,7 +3,7 @@ conveyorPollerCount: 1
 conveyorFinisherCount: 1
 darkReaperCount: 1
 
-reaper2:
+reaper:
   includeRses: "cms_type=int"
   greedy: 1
   threads: 1
@@ -15,11 +15,12 @@ darkReaper:
 ftsRenewal:
   # Non-flux based is 19h
   schedule: "42 17 * * *"
+
 conveyorTransferSubmitter:
   threads: 1
 
 podLabels:
-  rucioInstance: "flux"
+  rucioInstance: "int"
 
 config:
     common:
