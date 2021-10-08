@@ -323,7 +323,8 @@ deckard:
     T2_BR_UERJ:
       interval: 1
     T2_CH_CERN:
-      maxdarkfraction: 0.03
+      maxdarkfraction: 0.00
+      minagedark: 7
       interval: 1
     T2_CH_CSCS:
       interval: 1
