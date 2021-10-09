@@ -296,9 +296,9 @@ deckard:
     repository: ericvaandering/deckard
     tag: "1.1.1"
   sites:
-    T0_CH_CERN_Disk:
-      interval: 1
-      maxdarkfraction: "0.0000001"
+    #T0_CH_CERN_Disk:
+    #  interval: 1
+    #  maxdarkfraction: "0.0000001"
     T1_DE_KIT_Disk:
       interval: 1
     T1_ES_PIC_Disk:
