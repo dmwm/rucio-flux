@@ -339,7 +339,6 @@ deckard:
     T2_DE_DESY:
       interval: 1
     T2_DE_RWTH:
-      maxdarkfraction: 0.05
       interval: 1
     T2_EE_Estonia:
       interval: 1
@@ -361,16 +360,13 @@ deckard:
     T2_HU_Budapest:
       interval: 1
     T2_IN_TIFR:
-      maxdarkfraction: 0.05
       interval: 1
     T2_IT_Bari:
-      maxdarkfraction: 0.05
       interval: 1
     T2_IT_Legnaro:
       interval: 1
     T2_IT_Pisa:
       interval: 1
-      maxdarkfraction: 0.03
     T2_IT_Rome:
       interval: 1
     T2_KR_KISTI:
@@ -380,7 +376,7 @@ deckard:
     T2_PL_Swierk:
       interval: 1
     T2_PT_NCG_Lisbon:
-      maxdarkfraction: 0.03
+      maxdarkfraction: 0.04
       interval: 1
     T2_RU_IHEP:
       interval: 1
@@ -389,7 +385,6 @@ deckard:
     T2_RU_ITEP:
       interval: 1
     T2_RU_JINR:
-      maxdarkfraction: 0.05
       interval: 1
     T2_TR_METU:
       interval: 1
@@ -409,8 +404,8 @@ deckard:
       interval: 1
     T2_US_Florida:
       interval: 1
+      maxdarkfraction: 0.04
     T2_US_MIT:
-      maxdarkfraction: 0.03
       interval: 1
     T2_US_Nebraska:
       maxdarkfraction: 0.03
@@ -418,8 +413,6 @@ deckard:
     T2_US_Purdue:
       interval: 1
     T2_US_UCSD:
-      maxdarkfraction: 0.10
-      maxmissfraction: 0.10
       interval: 1
     T2_US_Vanderbilt:
       interval: 1
