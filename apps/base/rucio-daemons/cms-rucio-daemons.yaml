@@ -36,7 +36,8 @@ abacusRse:
 
 reaper:
   greedy: 0
-  threads: 8
+  threads: 4
+  sleepTime: 120
   resources:
     requests:
       memory: 750Mi
