@@ -7,8 +7,5 @@ configMapGenerator:
   - name: cms-rucio-webui
     files:
       - values.yaml=cms-rucio-webui.yaml
-  - name: instance-rucio-release-patch
-    files:
-      - values.yaml=ui-release-patch.yaml
 configurations:
   - kustomizeconfig.yaml
