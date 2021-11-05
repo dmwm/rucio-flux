@@ -387,6 +387,7 @@ deckard:
     T2_RU_JINR:
       interval: 1
     T2_TR_METU:
+      maxdarkfraction: 0.15
       interval: 1
     T2_TW_NCHC:
       interval: 1
