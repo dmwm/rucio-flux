@@ -309,6 +309,7 @@ deckard:
     T1_ES_PIC_Disk:
       interval: 1
     T1_FR_CCIN2P3_Disk:
+      maxdarkfraction: 0.03
       interval: 1
     T1_IT_CNAF_Disk:
       interval: 1
