@@ -4,6 +4,7 @@ metadata:
   name: rucio-webui
 spec:
   releaseName: webui
+  version: "1.26.0"
   chart:
     spec:
       chart: rucio-ui
