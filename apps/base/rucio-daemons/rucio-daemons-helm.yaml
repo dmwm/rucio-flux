@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: rucio-daemons
-      version: "1.26.8"
+      version: "1.27.1"
       sourceRef:
         kind: HelmRepository
         name: rucio
