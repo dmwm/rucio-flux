@@ -1,10 +1,4 @@
 consistency:
-  ignore:
-    - /store/backfill
-    - /store/test
-    - /store/unmerged
-    - /store/temp
-    - /store/express/tier0_harvest
   sites:
     T1_DE_KIT_Disk:
       interval: 7
