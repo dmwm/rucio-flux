@@ -35,28 +35,10 @@ probes:
     interval: 1
   check_updated_dids:
     interval: 1
-  check_expected_total_number_of_files_per_rse:
-    interval: 60
-  check_not_OK_rules_per_rse:
-    interval: 1
-  check_number_of_missing_files_per_rse:
-    interval: 1
   check_obsolete_replicas:
     interval: 10
   check_deletable_replicas:
     interval: 10
-  check_report_free_space:
-    interval: 120
-  check_rules_with_0_completion_volume:
-    interval: 1
-  check_expiring_rules_per_rse:
-    interval: 1
-  check_missing_data_at_rse:
-    interval: 1
-  check_unlocked_replicas_per_rse:
-    interval: 1
-  check_space_uniquely_used_by_rucio:
-    interval: 30
   check_expired_locked_rules:
     interval: 1
 voProbes:
@@ -74,4 +56,28 @@ voProbes:
     voName: cms
   check_missing_data_at_rse:
     interval: 15
+    voName: cms
+  check_number_of_missing_files_per_rse:
+    interval: 1
+    voName: cms
+  check_missing_data_at_rse:
+    interval: 1
+    voName: cms
+  check_expiring_rules_per_rse:
+    interval: 1
+    voName: cms
+  check_expected_total_number_of_files_per_rse:
+    interval: 60
+    voName: cms
+  check_rules_with_0_completion_volume:
+    interval: 1
+    voName: cms
+  check_not_OK_rules_per_rse:
+    interval: 1
+    voName: cms
+  check_report_free_space:
+    interval: 120
+    voName: cms
+  check_unlocked_replicas_per_rse:
+    interval: 1
     voName: cms
