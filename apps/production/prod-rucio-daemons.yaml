@@ -12,6 +12,8 @@ darkReaper:
 reaper:
   includeRses: "reaper=True"
   threads: 8
+  chunkSize: 1000
+  sleepTime: 30
 
 conveyorTransferSubmitter:
   threads: 5
