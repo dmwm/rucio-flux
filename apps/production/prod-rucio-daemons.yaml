@@ -1,4 +1,4 @@
-reaperCount: 2
+reaperCount: 4
 judgeInjectorCount: 2
 judgeRepairerCount: 2
 conveyorPollerCount: 2
@@ -11,6 +11,7 @@ darkReaper:
 
 reaper:
   includeRses: "reaper=True"
+  threads: 8
 
 conveyorTransferSubmitter:
   threads: 5
