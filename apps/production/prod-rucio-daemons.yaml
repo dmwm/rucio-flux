@@ -58,8 +58,7 @@ transmogrifier:
   sleepTime: 30
 
 tracerKronos:
-  # FIXME: Was 5 before 1.24 problems with Kronos (around still dropping connections)
-  threads: 2
+  threads: 5
   sleepTimeFiles: 10
   sleepTimeDatasets: 30
 
