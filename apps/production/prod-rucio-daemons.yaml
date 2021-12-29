@@ -58,7 +58,7 @@ transmogrifier:
   sleepTime: 30
 
 tracerKronos:
-  threads: 5
+  threads: 4
   sleepTimeFiles: 10
   sleepTimeDatasets: 30
 
