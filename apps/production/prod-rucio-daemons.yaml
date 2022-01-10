@@ -6,6 +6,7 @@ conveyorPollerCount: 2
 conveyorFinisherCount: 4
 judgeEvaluatorCount: 2
 tracerKronosCount: 3
+cacheConsumerCount: 0
 
 darkReaper:
   includeRses: "reaper=True"
