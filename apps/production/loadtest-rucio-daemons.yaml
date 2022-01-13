@@ -27,3 +27,4 @@ conveyorTransferSubmitter:
   activities: "'Functional Test'"
   groupBulk: 10
   archiveTimeout: 0
+  ignoreAvailability: true
