@@ -318,7 +318,7 @@ deckard:
     T1_RU_JINR_Disk:
       interval: 1
     T1_US_FNAL_Disk:
-      maxdarkfraction: 0.05
+      maxdarkfraction: 0.03
       interval: 1
     T2_AT_Vienna:
       interval: 1
@@ -337,6 +337,7 @@ deckard:
       interval: 1
     T2_CN_Beijing:
       interval: 1
+      maxmissfraction: 0.26
     T2_DE_DESY:
       interval: 1
     T2_DE_RWTH:
@@ -377,7 +378,7 @@ deckard:
     T2_PL_Swierk:
       interval: 1
     T2_PT_NCG_Lisbon:
-      maxdarkfraction: 0.04
+      maxdarkfraction: 0.03
       interval: 1
     T2_RU_IHEP:
       interval: 1
@@ -385,7 +386,7 @@ deckard:
       interval: 1
     T2_RU_ITEP:
       interval: 1
-      maxdarkfraction: 0.25
+      maxdarkfraction: 0.03
     T2_RU_JINR:
       interval: 1
     T2_TR_METU:
@@ -406,7 +407,7 @@ deckard:
       interval: 1
     T2_US_Florida:
       interval: 1
-      maxdarkfraction: 0.04
+      maxdarkfraction: 0.03
     T2_US_MIT:
       interval: 1
     T2_US_Nebraska:
