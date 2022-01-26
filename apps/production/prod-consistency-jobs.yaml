@@ -308,7 +308,6 @@ deckard:
     T1_ES_PIC_Disk:
       interval: 1
     T1_FR_CCIN2P3_Disk:
-      maxdarkfraction: 0.03
       interval: 1
     T1_FR_CCIN2P3_Tape:
       interval: 1
@@ -318,7 +317,6 @@ deckard:
     T1_RU_JINR_Disk:
       interval: 1
     T1_US_FNAL_Disk:
-      maxdarkfraction: 0.03
       interval: 1
     T2_AT_Vienna:
       interval: 1
@@ -327,7 +325,6 @@ deckard:
     T2_BE_UCL:
       interval: 1
     T2_BR_SPRACE:
-      maxdarkfraction: 0.03
       interval: 1
     T2_BR_UERJ:
       interval: 1
@@ -353,7 +350,6 @@ deckard:
     T2_FR_GRIF_IRFU:
       interval: 1
     T2_FR_GRIF_LLR:
-      maxdarkfraction: 0.03
       interval: 1
     T2_FR_IPHC:
       interval: 1
@@ -378,7 +374,6 @@ deckard:
     T2_PL_Swierk:
       interval: 1
     T2_PT_NCG_Lisbon:
-      maxdarkfraction: 0.03
       interval: 1
     T2_RU_IHEP:
       interval: 1
@@ -386,7 +381,6 @@ deckard:
       interval: 1
     T2_RU_ITEP:
       interval: 1
-      maxdarkfraction: 0.03
     T2_RU_JINR:
       interval: 1
     T2_TR_METU:
@@ -407,11 +401,9 @@ deckard:
       interval: 1
     T2_US_Florida:
       interval: 1
-      maxdarkfraction: 0.03
     T2_US_MIT:
       interval: 1
     T2_US_Nebraska:
-      maxdarkfraction: 0.03
       interval: 1
     T2_US_Purdue:
       interval: 1
