@@ -329,6 +329,7 @@ deckard:
       interval: 1
     T2_BR_SPRACE:
       interval: 1
+      maxdarkfraction: 0.1
     T2_BR_UERJ:
       interval: 1
     T2_CH_CERN:
