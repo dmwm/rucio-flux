@@ -327,7 +327,7 @@ deckard:
     T2_BE_UCL:
       interval: 1
     T2_BR_SPRACE:
-      maxdarkfraction: 0.03
+      maxdarkfraction: 0.08
       interval: 1
     T2_BR_UERJ:
       interval: 1
