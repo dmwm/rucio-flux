@@ -199,7 +199,7 @@ consistency:
       server: ruhex-osgce.rutgers.edu
       interval: 7
     T1_IT_CNAF_Disk:
-      server: xrootd-cms.infn.it:1194
+      server: xrootd-cms.cr.cnaf.infn.it
       interval: 7
     T2_BR_SPRACE:
       server: osg-se.sprace.org.br
