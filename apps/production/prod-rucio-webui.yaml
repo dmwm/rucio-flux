@@ -1,5 +1,3 @@
-image:
-  repository: cmssw/rucio-ui
 ingress:
   hosts: 
     - "cms-rucio-webui.cern.ch"
