@@ -1,5 +1,5 @@
 image:
-  repository: cmssw/rucio-server
+  repository: registry.cern.ch/cmsrucio/rucio-server
 
 # For NGINX ingress. Eventually becomes plain server
 
