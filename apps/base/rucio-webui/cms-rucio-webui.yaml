@@ -1,5 +1,5 @@
 image:
-  repository: cmssw/rucio-ui
+  repository: registry.cern.ch/cmsrucio/rucio-ui
   tag: release-1.19.8
 
 replicaCount: 1

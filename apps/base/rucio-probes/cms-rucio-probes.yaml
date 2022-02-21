@@ -1,5 +1,5 @@
 image:
-  repository: cmssw/rucio-probes
+  repository: registry.cern.ch/cmsrucio/rucio-probes
 
 probeSettings:
   ftsProxySecret: daemons-rucio-x509up
