@@ -66,3 +66,8 @@ config:
     common:
         loglevel: "INFO"
 
+# FIXME: Need to back this out and the equivalent ones in integrtion when Rucio updates to 2048 bits
+ftsRenewal:
+  image:
+    repository: registry.cern.ch/cmsrucio/fts-cron
+    tag: latest
