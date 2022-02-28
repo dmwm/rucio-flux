@@ -1,3 +1,7 @@
 cronjobSettings:
   daemonName: "daemons"
   instance: "prod"
+
+image:
+  repository: registry.cern.ch/cmsrucio/rucio_client
+  tag: "latest"
