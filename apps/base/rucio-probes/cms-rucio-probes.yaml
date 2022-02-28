@@ -70,5 +70,8 @@ voProbes:
     interval: 20
     voName: cms
   check_report_used_space:
-    interval: 25
+    interval: 30
+    voName: cms
+  check_missing_data_at_rse:
+    interval: 15
     voName: cms
