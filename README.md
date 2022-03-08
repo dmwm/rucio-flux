@@ -11,7 +11,10 @@ upgrade the Helm releases to their latest chart version based on semver ranges.
 
 ## Prerequisites
 
-You will need a Kubernetes cluster version 1.16 or newer and kubectl version 1.18.
+You will need a Kubernetes cluster version 1.22 or newer and kubectl version 1.18.
+
+> NGINX ingress controller MUST be configured to allow ssl-passthrough. To check that on a cern instance, you can take a look at the daemonset on kube-system namespace called `cern-magnum-ingress-nginx-controller` and check the presence of `--enable-ssl-passthrough` flag 
+
 For a quick local test, you can use [Kubernetes kind](https://kind.sigs.k8s.io/docs/user/quick-start/).
 Any other Kubernetes setup will work as well though.
 
