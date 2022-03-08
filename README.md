@@ -15,6 +15,8 @@ You will need a Kubernetes cluster version 1.22 or newer and kubectl version 1.1
 
 > NGINX ingress controller MUST be configured to allow ssl-passthrough. To check that on a cern instance, you can take a look at the daemonset on kube-system namespace called `cern-magnum-ingress-nginx-controller` and check the presence of `--enable-ssl-passthrough` flag 
 
+> CERN kubernetes cluster templates may include a prometheus node exporter that conflicts with the one provided here. You can remove it by running `kubectl -n kube-system delete service cern-magnum-prometheus-node-exporter` followed by `kubectl -n kube-system delete daemonset cern-magnum-prometheus-node-exporter`.
+
 For a quick local test, you can use [Kubernetes kind](https://kind.sigs.k8s.io/docs/user/quick-start/).
 Any other Kubernetes setup will work as well though.
 
