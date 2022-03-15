@@ -11,6 +11,16 @@ traceIngress:
     - cms-rucio-trace-int.cern.ch
 
 config:
-    conveyor:
-        use_preparer: "True"
+  conveyor:
+    use_preparer: "True"
+  oidc:
+    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
+    admin_issuer: "cms"
+    expected_audience: "rucio"
 
+additionalSecrets:
+  idpsecrets:
+    secretName: idpsecrets
+    mountPath: /opt/rucio/etc/
+    subPaths:
+      - idpsecrets.json
