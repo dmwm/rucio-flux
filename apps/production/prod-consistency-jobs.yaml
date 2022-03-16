@@ -36,8 +36,9 @@ consistency:
     #  server: xroot-data02.ncg.ingrid.pt:1094
     #  interval: 1
     T2_UK_SGrid_Bristol:
-      server: lcgse01.phy.bris.ac.uk:11001
-      #server: heplnx228.pp.rl.ac.uk:1094
+      server: xrootd.phy.bris.ac.uk:1094
+      server_root: /xrootd/cms/store/
+      remove_prefix: /xrootd/cms/
       interval: 7
     T2_DE_RWTH:
       server: grid-cms-xrootd.physik.rwth-aachen.de:1094
