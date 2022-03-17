@@ -15,7 +15,7 @@ You will need a Kubernetes cluster version 1.22 or newer and kubectl version 1.1
 
 > NGINX ingress controller MUST be configured to allow ssl-passthrough. To check that on a cern instance, you can take a look at the daemonset on kube-system namespace called `cern-magnum-ingress-nginx-controller` and check the presence of `--enable-ssl-passthrough` flag 
 
-> CERN kubernetes cluster templates may include a prometheus node exporter that conflicts with the one provided here. You can remove it by running `kubectl -n kube-system delete service cern-magnum-prometheus-node-exporter` followed by `kubectl -n kube-system delete daemonset cern-magnum-prometheus-node-exporter`.
+> CERN kubernetes cluster templates may include a prometheus node exporter that conflicts with the one provided here. You can remove it by running `kubectl -n kube-system delete service cern-magnum-prometheus-node-exporter` followed by `kubectl -n kube-system delete daemonset cern-magnum-prometheus-node-exporter`. Better is to request the cluster without monitoring enabled (it's a flag).
 
 For a quick local test, you can use [Kubernetes kind](https://kind.sigs.k8s.io/docs/user/quick-start/).
 Any other Kubernetes setup will work as well though.
@@ -81,7 +81,21 @@ This relies on three pieces of information not supplied by any repository:
 - `$ROBOTP12`: The Robot certificate used for all FTS/gfal operations. This also gets used to authenticate as `root` to Rucio. 
 - `INSTANCE-secrets.yaml` (not a YAML file): A file providing the true secrets of the Rucio install (database connection strings, passwords and tokens for various services)
 
-You will need to get these from someone who has them for the server you are looing to setup.
+The format of this file is
+
+```text
+# This is an ENV secret file
+
+db_string="oracle://...)"
+kronos_password="..."  # Used to connect to the message broker
+trace_password="..." # Used to connect to the message broker
+monit_token="..." # Used to connect to FacOps MONIT pages for site status
+gitlab_token="..." # Token for SITECONF gitlab repositroy
+globus_client="..." # Not currently used
+globus_refresh="..." # Not currently used
+```
+
+You will need to get these files or values from someone who has them for the server you are looking to setup.
 
 Verify that your staging cluster satisfies the flux prerequisites with:
 
@@ -97,8 +111,10 @@ flux bootstrap github \
     --repository=${GITHUB_REPO} \
     --branch=main \
     --personal \
-    --path=clusters/integration
+    --path=clusters/integration # or production
 ```
+
+The actual clusters are done WITHOUT the `--personal` flag, `GITHUB_USER=dmwm`, and a GitHub personal access token which has commit rights to the dmwm/rucio-flux repository.
 
 The bootstrap command commits the manifests for the Flux components in `clusters/staging/flux-system` dir
 and creates a deploy key with read-only access on GitHub, so it can pull changes inside the cluster.
@@ -112,8 +128,6 @@ nginx    	nginx  	5.6.14  	False    	True 	release reconciliation succeeded
 podinfo  	podinfo	5.0.3   	False    	True 	release reconciliation succeeded	
 redis    	redis  	11.3.4  	False    	True 	release reconciliation succeeded
 ```
-
-
 
 Watch the production reconciliation:
 
