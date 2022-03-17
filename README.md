@@ -86,7 +86,7 @@ The format of this file is
 ```text
 # This is an ENV secret file
 
-db_string="oracle://...)"
+db_string="oracle://..."
 kronos_password="..."  # Used to connect to the message broker
 trace_password="..." # Used to connect to the message broker
 monit_token="..." # Used to connect to FacOps MONIT pages for site status
