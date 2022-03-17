@@ -19,7 +19,8 @@
     "grantTypes": [
       "refresh_token",
       "urn:ietf:params:oauth:grant-type:token-exchange",
-      "authorization_code"
+      "authorization_code",
+      "client_credentials"
     ],
     "responseTypes": [
       "code"
