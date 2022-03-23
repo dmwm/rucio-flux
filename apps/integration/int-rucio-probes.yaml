@@ -1,6 +1,4 @@
 probes:
-  check_not_OK_rules:
-    interval: 1
   check_expired_rules:
     interval: 1
 
