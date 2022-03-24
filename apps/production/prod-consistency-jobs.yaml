@@ -401,6 +401,7 @@ deckard:
       interval: 1
     T2_UK_SGrid_Bristol:
       interval: 1
+      maxmissfraction: 1.0
     T2_UK_SGrid_RALPP:
       interval: 1
     T2_US_Caltech:
