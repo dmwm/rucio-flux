@@ -44,6 +44,7 @@ echo "Removing existing secrets"
 
 kubectl -n rucio delete secret rucio-server.tls-secret
 kubectl -n rucio delete secret ${DAEMON_NAME}-fts-cert ${DAEMON_NAME}-fts-key ${DAEMON_NAME}-hermes-cert ${DAEMON_NAME}-hermes-key 
+kubectl -n rucio delete secret ${SERVER_NAME}-fts-cert ${SERVER_NAME}-fts-key
 kubectl -n rucio delete secret ${LOADTEST_NAME}-fts-cert ${LOADTEST_NAME}-fts-key
 kubectl -n rucio delete secret ${DAEMON_NAME}-rucio-ca-bundle ${DAEMON_NAME}-rucio-ca-bundle-reaper
 kubectl -n rucio delete secret ${GLOBUS_NAME}-rucio-ca-bundle ${GLOBUS_NAME}-rucio-ca-bundle-reaper
@@ -78,6 +79,8 @@ kubectl create -n rucio secret generic ${UI_NAME}-hostkey --from-file=hostkey.pe
 
 kubectl -n rucio create secret generic ${DAEMON_NAME}-fts-cert --from-file=$ROBOTCERT
 kubectl -n rucio create secret generic ${DAEMON_NAME}-fts-key --from-file=$ROBOTKEY
+kubectl -n rucio create secret generic ${SERVER_NAME}-fts-cert --from-file=$ROBOTCERT
+kubectl -n rucio create secret generic ${SERVER_NAME}-fts-key --from-file=$ROBOTKEY
 kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-cert --from-file=$ROBOTCERT
 kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-key --from-file=$ROBOTKEY
 kubectl -n rucio create secret generic ${DAEMON_NAME}-hermes-cert --from-file=$ROBOTCERT
