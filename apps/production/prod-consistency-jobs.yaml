@@ -317,9 +317,10 @@ deckard:
       interval: 1
     T1_RU_JINR_Disk:
       interval: 1
+      maxdarkfraction: 0.017
     T1_US_FNAL_Disk:
       interval: 1
-      maxdarkfraction: 0.04
+      maxdarkfraction: 0.05
       maxmissfraction: 0.02
     T2_AT_Vienna:
       interval: 1
