@@ -251,7 +251,7 @@ consistency:
       server: xrootd-local.unl.edu:1094
       interval: 7
     T2_US_UCSD:
-      server: gftp-1.t2.ucsd.edu:1094
+      server: redirector.t2.ucsd.edu:1095
       interval: 7
     T2_US_Vanderbilt:
       server: xrootd-vanderbilt.sites.opensciencegrid.org
@@ -418,7 +418,7 @@ deckard:
       interval: 1
     T2_US_UCSD:
       interval: 1
-      maxmissfraction: 0.22
+      maxmissfraction: 0.9
     T2_US_Vanderbilt:
       interval: 1
     T2_US_Wisconsin:
