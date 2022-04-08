@@ -41,6 +41,10 @@ spec:
     - kind: Secret
       name: rucio-secrets
       valuesKey: kronos_password
+      targetPath: config.messaging_cache.password
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: kronos_password
       targetPath: config.trace.password
     - kind: Secret
       name: rucio-secrets
