@@ -398,6 +398,7 @@ deckard:
       interval: 1
     T2_UK_London_Brunel:
       interval: 1
+      maxmissfraction: 0.9
     T2_UK_London_IC:
       interval: 1
     T2_UK_SGrid_Bristol:
