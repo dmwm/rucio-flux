@@ -98,7 +98,7 @@ consistency:
       server: heplnx228.pp.rl.ac.uk:1094
       interval: 7
     T2_US_Wisconsin:
-      server: g22n07.hep.wisc.edu:1094
+      server: pubxrootd.hep.wisc.edu:1094
       interval: 7
     #T2_CN_Beijing_Test:
     #  server: seadmin.ihep.ac.cn:1094
