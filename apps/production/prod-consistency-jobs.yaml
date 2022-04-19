@@ -419,7 +419,7 @@ deckard:
       interval: 1
     T2_US_UCSD:
       interval: 1
-      maxmissfraction: 0.9
+      maxmissfraction: 1.0
     T2_US_Vanderbilt:
       interval: 1
     T2_US_Wisconsin:
