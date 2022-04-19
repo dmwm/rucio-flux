@@ -55,7 +55,7 @@ consistency:
     #  server: xrd-ds06.sprace.org.br:1094
     #  interval: 1
     T2_RU_IHEP:
-      server: vobox0002.m45.ihep.su:1095
+      server: dp0015.m45.ihep.su:1094
       interval: 7
     #T2_TR_METU_Test:
     #  server: eymir.grid.metu.edu.tr:11001
