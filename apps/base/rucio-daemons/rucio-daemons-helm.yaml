@@ -48,6 +48,10 @@ spec:
       targetPath: config.trace.password
     - kind: Secret
       name: rucio-secrets
+      valuesKey: kronos_password
+      targetPath: config.messaging_fts3.password
+    - kind: Secret
+      name: rucio-secrets
       valuesKey: gitlab_token
       targetPath: config.cms.gitlab
     - kind: Secret
