@@ -66,6 +66,12 @@ conveyorPoller:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
 
+conveyorReceiver:
+  fullMode: 1
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+
 # Settings to renew FTS	proxy
 ftsRenewal:
   enabled: 1
@@ -168,6 +174,7 @@ config:
     brokers: "dashb-mb.cern.ch"
     voname: "cms"
     nonssl_port: "61113"
+    use_ssl: "False"
 
 transmogrifier:
   threads: 4
@@ -206,11 +213,6 @@ abacusAccount:
 
 # Unused daemons which supply prometheus
 automatix:
-  podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-
-conveyorReceiver:
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
