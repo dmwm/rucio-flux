@@ -12,6 +12,42 @@ export UI_NAME=webui
 export GLOBUS_NAME=cms-globus
 export LOADTEST_NAME=loadtest-daemons
 
+# Maintanance options. Allowing certificate renewal
+
+if [ $UPDATE_HOST_CERTS -eq 1 ]; then
+    openssl pkcs12 -in $HOSTP12 -clcerts -nokeys -out ./tls.crt
+    openssl pkcs12 -in $HOSTP12 -nocerts -nodes -out ./tls.key
+    # Secrets for the auth server
+    cp tls.key hostkey.pem
+    cp tls.crt hostcert.pem
+    kubectl -n rucio create secret generic ${SERVER_NAME}-hostcert --from-file=hostcert.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${SERVER_NAME}-hostkey --from-file=hostkey.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+
+    kubectl -n rucio create secret generic ${SERVER_NAME}-auth-hostcert --from-file=hostcert.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${SERVER_NAME}-auth-hostkey --from-file=hostkey.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+
+    export UI_NAME=webui
+    kubectl create -n rucio secret generic ${UI_NAME}-hostcert --from-file=hostcert.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl create -n rucio secret generic ${UI_NAME}-hostkey --from-file=hostkey.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+    exit 0
+
+elif [ $UPDATE_FTS_CERTS -eq 1 ]; then
+    openssl pkcs12 -in $ROBOTP12 -clcerts -nokeys -out usercert.pem
+    openssl pkcs12 -in $ROBOTP12 -nocerts -nodes -out new_userkey.pem
+
+    export ROBOTCERT=usercert.pem
+    export ROBOTKEY=new_userkey.pem
+    kubectl -n rucio create secret generic ${DAEMON_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${DAEMON_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${SERVER_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${SERVER_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${DAEMON_NAME}-hermes-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${DAEMON_NAME}-hermes-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
+    exit 0
+fi
+
 echo
 echo "When prompted, enter the password used to encrypt the HOST P12 file"
 

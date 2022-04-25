@@ -146,3 +146,19 @@ $ flux get all -A
 ```
 
 Once you have verified changes working in your own cluster, make a PR against `dmwm/rucio-flux` to have the changes deployed in production (or the integration server).
+
+## Mantainance
+
+### Renew FTS Robot certificates
+
+
+
+```bash
+ROBOTP12=<PATH TO FTS P12 HERE> UPDATE_FTS_CERTS=1 ./scripts/create_flux_secrets.sh
+```
+
+### Renew Host certificates
+
+```bash
+HOSTP12=<PATH TO HOST P12 HERE> UPDATE_HOST_CERTS=1 ./scripts/create_flux_secrets.sh
+```
