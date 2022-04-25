@@ -18,6 +18,7 @@ conveyorTransferSubmitterCount: 1
 conveyorPreparerCount: 0
 conveyorPollerCount: 0
 conveyorFinisherCount: 0
+conveyorReceiverCount: 0
 
 ftsRenewal:
   schedule: "42 4 * * *"
