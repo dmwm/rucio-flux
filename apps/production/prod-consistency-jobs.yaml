@@ -36,8 +36,9 @@ consistency:
     #  server: xroot-data02.ncg.ingrid.pt:1094
     #  interval: 1
     T2_UK_SGrid_Bristol:
-      server: lcgse01.phy.bris.ac.uk:11001
-      #server: heplnx228.pp.rl.ac.uk:1094
+      server: xrootd.phy.bris.ac.uk:1094
+      server_root: /xrootd/cms/store/
+      remove_prefix: /xrootd/cms/
       interval: 7
     T2_DE_RWTH:
       server: grid-cms-xrootd.physik.rwth-aachen.de:1094
@@ -54,7 +55,7 @@ consistency:
     #  server: xrd-ds06.sprace.org.br:1094
     #  interval: 1
     T2_RU_IHEP:
-      server: vobox0002.m45.ihep.su:1095
+      server: dp0015.m45.ihep.su:1094
       interval: 7
     #T2_TR_METU_Test:
     #  server: eymir.grid.metu.edu.tr:11001
@@ -97,7 +98,7 @@ consistency:
       server: heplnx228.pp.rl.ac.uk:1094
       interval: 7
     T2_US_Wisconsin:
-      server: g22n07.hep.wisc.edu:1094
+      server: pubxrootd.hep.wisc.edu:1094
       interval: 7
     #T2_CN_Beijing_Test:
     #  server: seadmin.ihep.ac.cn:1094
@@ -250,7 +251,7 @@ consistency:
       server: xrootd-local.unl.edu:1094
       interval: 7
     T2_US_UCSD:
-      server: gftp-1.t2.ucsd.edu:1094
+      server: redirector.t2.ucsd.edu:1095
       interval: 7
     T2_US_Vanderbilt:
       server: xrootd-vanderbilt.sites.opensciencegrid.org
@@ -316,9 +317,10 @@ deckard:
       interval: 1
     T1_RU_JINR_Disk:
       interval: 1
+      maxdarkfraction: 0.017
     T1_US_FNAL_Disk:
       interval: 1
-      maxdarkfraction: 0.04
+      maxdarkfraction: 0.05
       maxmissfraction: 0.02
     T2_AT_Vienna:
       interval: 1
@@ -396,10 +398,12 @@ deckard:
       interval: 1
     T2_UK_London_Brunel:
       interval: 1
+      maxmissfraction: 0.9
     T2_UK_London_IC:
       interval: 1
     T2_UK_SGrid_Bristol:
       interval: 1
+      maxmissfraction: 1.0
     T2_UK_SGrid_RALPP:
       interval: 1
     T2_US_Caltech:
@@ -415,7 +419,7 @@ deckard:
       interval: 1
     T2_US_UCSD:
       interval: 1
-      maxmissfraction: 0.22
+      maxmissfraction: 1.0
     T2_US_Vanderbilt:
       interval: 1
     T2_US_Wisconsin:

@@ -20,6 +20,7 @@ reaperCount: 1
 minosCount: 1
 necromancerCount: 1
 darkReaperCount: 1
+conveyorReceiverCount: 0
 
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
@@ -61,6 +62,12 @@ conveyorFinisher:
     prometheus.io/port: "8080"
 
 conveyorPoller:
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+
+conveyorReceiver:
+  fullMode: 1
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
@@ -140,26 +147,34 @@ monitoring:
   serviceMonitorEnabled: false
 
 config:
-    common:
-        loglevel: "INFO"
-    messaging_hermes:
-        port: "61323"
-        brokers: "cms-mb.cern.ch"
-        ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
-        ssl_cert_file: "/opt/rucio/certs/usercert.pem"
-        destination: "/topic/cms.rucio.events"
-        voname: "cms"
-    monitor:
-      enable_metrics: "True"
-      metrics_port: "8080"
-    tracer_kronos:
-        username: "cmsrucio"
-        port: "61313"
-        brokers: "cms-mb.cern.ch"
-        queue: "/queue/Consumer.kronos.cms.rucio.tracer"
-        # FIXME: Both used to be 50 before 1.24 problems with Kronos
-        chunksize: "1"
-        prefetch_size: "10"
+  common:
+    loglevel: "INFO"
+  messaging_hermes:
+    port: "61323"
+    brokers: "cms-mb.cern.ch"
+    ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
+    ssl_cert_file: "/opt/rucio/certs/usercert.pem"
+    destination: "/topic/cms.rucio.events"
+    voname: "cms"
+  monitor:
+    enable_metrics: "True"
+    metrics_port: "8080"
+  tracer_kronos:
+    username: "cmsrucio"
+    port: "61313"
+    brokers: "cms-mb.cern.ch"
+    queue: "/queue/Consumer.kronos.cms.rucio.tracer"
+    # FIXME: Both used to be 50 before 1.24 problems with Kronos
+    chunksize: "1"
+    prefetch_size: "10"
+  messaging_fts3:
+    username: "cmsrucio"
+    port: "61123"
+    destination: "/queue/Consumer.cmsrucio.transfer.fts_monitoring_complete"
+    brokers: "dashb-mb.cern.ch"
+    voname: "cms"
+    nonssl_port: "61113"
+    use_ssl: "False"
 
 transmogrifier:
   threads: 4
@@ -198,11 +213,6 @@ abacusAccount:
 
 # Unused daemons which supply prometheus
 automatix:
-  podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-
-conveyorReceiver:
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"

@@ -24,3 +24,7 @@ additionalSecrets:
     mountPath: /opt/rucio/etc/
     subPaths:
       - idpsecrets.json
+
+optional_config:
+  SQLALCHEMY_WARN_20: 1
+  PYTHONWARNINGS: "always::DeprecationWarning"

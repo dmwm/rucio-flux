@@ -36,6 +36,8 @@ ingress:
 
 useSSL:
   authServer: true
+ftsRenewal:
+  enabled: true
 
 authService:
   type: ClusterIP
