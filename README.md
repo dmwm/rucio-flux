@@ -31,6 +31,8 @@ Or install the CLI by downloading precompiled binaries using a Bash script:
 curl -s https://fluxcd.io/install.sh | sudo bash
 ```
 
+> __(OPTIONAL)__ if OIDC authentication is enabled on the rucio-server configuration, you'll have to follow [this](./scripts/create_iam_clients/README.md) preparatory steps.
+
 ## Repository structure
 
 The Git repository contains the following top directories:
