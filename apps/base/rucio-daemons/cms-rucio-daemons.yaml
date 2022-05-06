@@ -67,7 +67,6 @@ conveyorPoller:
     prometheus.io/port: "8080"
 
 conveyorReceiver:
-  fullMode: 1
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
