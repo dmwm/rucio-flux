@@ -11,6 +11,7 @@ traceReplicaCount: 1
 
 httpd_config:
   encoded_slashes: "True"
+  legacy_dn: "True"
 #  mpm_mode: "worker"
 #  start_servers: "1"
 #  min_spare_threads: "1"
