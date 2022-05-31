@@ -8,6 +8,8 @@ conveyorPollerCount: 0
 conveyorReceiverCount: 0
 conveyorFinisherCount: 0
 judgeEvaluatorCount: 2
+# Remove
+judgeCleanerCount: 0
 tracerKronosCount: 3
 
 darkReaper:
