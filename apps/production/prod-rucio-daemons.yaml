@@ -2,14 +2,11 @@
 reaperCount: 4
 judgeInjectorCount: 2
 judgeRepairerCount: 2
-# 3 & 2 1 4
-conveyorTransferSubmitterCount: 0
-conveyorPollerCount: 0
-conveyorReceiverCount: 0
-conveyorFinisherCount: 0
+conveyorTransferSubmitterCount: 3
+conveyorPollerCount: 2
+conveyorReceiverCount: 1
+conveyorFinisherCount: 4
 judgeEvaluatorCount: 2
-# Remove
-judgeCleanerCount: 0
 tracerKronosCount: 3
 
 darkReaper:
