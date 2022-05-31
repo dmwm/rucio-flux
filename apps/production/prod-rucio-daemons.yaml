@@ -2,11 +2,13 @@
 reaperCount: 4
 judgeInjectorCount: 2
 judgeRepairerCount: 2
-conveyorPollerCount: 2
-conveyorFinisherCount: 4
+# 3 & 2 1 4
+conveyorSubmitterCount: 0
+conveyorPollerCount: 0
+conveyorReceiverCount: 0
+conveyorFinisherCount: 0
 judgeEvaluatorCount: 2
 tracerKronosCount: 3
-conveyorReceiverCount: 1
 
 darkReaper:
   includeRses: "reaper=True"
