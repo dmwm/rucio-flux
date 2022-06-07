@@ -1,0 +1,10 @@
+# This is not used yet, but we will migrate here in the future
+
+
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: cms-rucio
+spec:
+  interval: 5m
+  url: https://registry.cern.ch/chartrepo/cmsrucio
