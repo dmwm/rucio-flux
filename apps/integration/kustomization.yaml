@@ -10,7 +10,7 @@ resources:
 #  - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
-  - ../options/globus-daemons
+#  - ../options/globus-daemons
 #  - ../options/loadtest
 #  - ../options/webdav-loadtest
 
