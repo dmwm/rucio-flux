@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Things to fix for Globus
+#  Warning  FailedMount  26s (x10 over 4m35s)  kubelet            MountVolume.SetUp failed for volume "proxy-volume" : secret "globus-daemons-rucio-x509up" not found              │·
+#  Warning  FailedMount  26s (x10 over 4m35s)  kubelet            MountVolume.SetUp failed for volume "ca-volume" : secret "globus-daemons-rucio-ca-bundle" not found              │·
+
 # This script will create the various secrets needed by our installation. Before running set the following env variables
 
 # HOSTP12   - The .p12 file corresponding to the host certificate
