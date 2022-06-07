@@ -15,6 +15,7 @@ resources:
   - ../options/loadtest-daemons
   - ../options/loadtest
   - ../options/webdav-loadtest
+#  - ../options/globus-daemons
 
 configMapGenerator:
   - name: instance-rucio-server

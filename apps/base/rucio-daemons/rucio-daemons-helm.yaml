@@ -62,3 +62,11 @@ spec:
       name: rucio-secrets
       valuesKey: monit_token
       targetPath: config.cms.monit
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: globus_client
+      targetPath: optional_config.rucio_cfg_cms_globus_client
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: globus_refresh
+      targetPath: optional_config.rucio_cfg_cms_globus_refresh
