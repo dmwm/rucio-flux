@@ -5,4 +5,4 @@ metadata:
 spec:
   interval: 5m
 #  interval: 30m
-  url: https://dmwm.github.io/CMSKubernetes/
+  url: https://registry.cern.ch/chartrepo/cmsweb
