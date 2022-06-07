@@ -1,6 +1,7 @@
 conveyorTransferSubmitterCount: 1
 conveyorPollerCount: 1
 conveyorFinisherCount: 1
+conveyorPreparerCount: 1
 darkReaperCount: 1
 cacheConsumerCount: 1
 
