@@ -1,0 +1,63 @@
+reaperCount: 1
+conveyorTransferSubmitterCount: 1
+conveyorPollerCount: 1
+conveyorPreparerCount: 0
+conveyorFinisherCount: 0
+
+abacusAccountCount: 0
+abacusRseCount: 0
+conveyorStagerCount: 0
+hermesCount: 0
+judgeCleanerCount: 0
+judgeEvaluatorCount: 0
+judgeInjectorCount: 0
+judgeRepairerCount: 0
+tracerKronosCount: 0
+transmogrifierCount: 0
+undertakerCount: 0
+darkReaperCount: 0
+reaper2Count: 0
+minosCount: 0
+necromancerCount: 0
+conveyorReceiverCount: 0
+cacheConsumerCount: 0
+
+ftsRenewal:
+  enabled: 1
+  schedule: "42 13 * * *"
+  image:
+    repository: registry.cern.ch/cmsrucio/fts-cron
+    tag: latest
+
+config:
+    common:
+        loglevel: "DEBUG"
+        #loglevel: "INFO"
+    conveyor:
+      use_preparer: "True"
+      scheme: "srm,gsiftp,root,http,https"
+      transfertool: "globus,fts3"
+      filter_transfertool: "globus"
+      transfertype: bulk
+      globus_auth_app: CMSRucioProduction
+
+conveyorTransferSubmitter:
+  activities: "'User Subscriptions'"
+    # Same size or smaller than bulk which is 100
+  threads: 1
+  bulk: 50
+  groupBulk: 50
+  sourceStrategy: "throughput"
+
+conveyorPoller:
+  config:
+    conveyor:
+      transfertool: "globus"
+
+# Move to reaper
+reaper:
+  includeRses: "rse=T3_US_Theta"
+  scheme: "globus"
+  chunk_size: 1
+  greedy: 1
+  threads: 1

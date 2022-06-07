@@ -1,0 +1,41 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: globus-daemons
+spec:
+  releaseName: globus-daemons
+  chart:
+    spec:
+      chart: rucio-daemons
+      version: ">=1.28.0 <1.29.0"
+      sourceRef:
+        kind: HelmRepository
+        name: rucio
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cms-rucio-common
+    - kind: ConfigMap
+      name: cms-rucio-daemons
+    - kind: ConfigMap
+      name: instance-rucio-daemons
+    - kind: ConfigMap
+      name: instance-rucio-release
+    - kind: ConfigMap
+      name: globus-rucio-daemons
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: db_string
+      targetPath: config.database.default
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: globus_client
+      targetPath: optional_config.rucio_cfg_cms_globus_client
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: globus_refresh
+      targetPath: optional_config.rucio_cfg_cms_globus_refresh
