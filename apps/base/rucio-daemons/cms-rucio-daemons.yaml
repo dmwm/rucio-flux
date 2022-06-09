@@ -169,8 +169,9 @@ config:
     brokers: "cms-mb.cern.ch"
     queue: "/queue/Consumer.kronos.cms.rucio.tracer"
     # FIXME: Both used to be 50 before 1.24 problems with Kronos
-    chunksize: "1"
-    prefetch_size: "10"
+    # FIXME: 1 and 10 until 1.28 problems
+    chunksize: "50"
+    prefetch_size: "50"
   messaging_fts3:
     username: "cmsrucio"
     port: "61123"
