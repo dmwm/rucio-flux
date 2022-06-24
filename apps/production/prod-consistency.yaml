@@ -1,6 +1,6 @@
 consistency:
   instance: "prod"
-  defaultRoot: "/store"
+  defaultRoot: "/store/"
   schema: "CMS_RUCIO_PROD"
 reportStorageClass:
   osShareID: f704fcbe-a909-4467-95b9-19661c1d4e66
