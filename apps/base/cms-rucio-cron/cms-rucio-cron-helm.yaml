@@ -9,7 +9,7 @@ spec:
       chart: rucio-cron-jobs
       sourceRef:
         kind: HelmRepository
-        name: cms-kubernetes
+        name: cms-rucio
         namespace: flux-system
   interval: 5m
   install:
