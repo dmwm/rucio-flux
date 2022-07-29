@@ -8,7 +8,7 @@ __N.B.__ only IAM admins can create the clients needed for RUCIO. If you are not
 - Get a valid token with IAM profile and store it in `TOKEN` env var
 - Register the client via the proper REST call with:
 ```bash
-curl -vvv -XPOST -H "Content-type: application/json" -H "Authorization: Bearer ${TOKEN}" https://cms-auth.web.cern.ch/api/clients -d "@client-configs/req-client-user-auth.json"
+curl -vvv -XPOST -H "Content-type: application/json" -H "Authorization: Bearer ${TOKEN}" https://cms-auth.web.cern.ch/api/clients -d "@client-configs/req-client-user-auth-INSTANCENAMEHERE.json"
 ```
 - Take note of `client_id` and `client_secret` in the response
 
