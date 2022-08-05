@@ -322,7 +322,9 @@ deckard:
       interval: 1
       maxdarkfraction: 0.05
       maxmissfraction: 0.02
-    T2_UK_RAL_Tape:
+    T1_UK_RAL_Disk:
+      interval: 1
+    T1_UK_RAL_Tape:
       interval: 1
       maxdarkfraction: "0.0000001"
     T2_AT_Vienna:
