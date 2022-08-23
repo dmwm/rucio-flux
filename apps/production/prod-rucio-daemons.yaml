@@ -3,7 +3,7 @@ reaperCount: 4
 judgeInjectorCount: 2
 judgeRepairerCount: 2
 conveyorTransferSubmitterCount: 3
-conveyorPollerCount: 2
+conveyorPollerCount: 4
 conveyorReceiverCount: 1
 conveyorFinisherCount: 4
 judgeEvaluatorCount: 2
@@ -23,6 +23,7 @@ conveyorTransferSubmitter:
 
 conveyorPoller:
   threads: 5
+  ftsBulk: 500
   resources: 
     limits:
       cpu: 2000m
