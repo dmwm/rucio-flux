@@ -23,7 +23,6 @@ conveyorTransferSubmitter:
 
 conveyorPoller:
   threads: 5
-  ftsBulk: 500
   resources: 
     limits:
       cpu: 2000m
