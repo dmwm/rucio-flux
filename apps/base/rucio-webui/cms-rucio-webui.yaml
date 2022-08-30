@@ -13,3 +13,6 @@ ingress:
 
 proxy:
   rucioProxyScheme: "http"
+
+httpd_config:
+  legacy_dn: "True"
