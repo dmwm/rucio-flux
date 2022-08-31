@@ -24,7 +24,7 @@ conveyorReceiverCount: 0
 
 automaticRestart:
   enabled: 1
-  selectorLabel: "auto-restart=true"
+  selectorLabel: "app=rucio-daemons-tracer-kronos"
 
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
