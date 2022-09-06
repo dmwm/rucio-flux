@@ -18,11 +18,16 @@ consistency:
     T1_ES_PIC_Disk:
       interval: 7
       server: xrootd-cmst1-door.pic.es
+    T1_UK_RAL_Tape:
+      interval: 0
+      maxdarkfraction: "0.0000001"
     T1_US_FNAL_Disk:
       interval: 7
       server: cmsdcadisk.fnal.gov
       server_root: /dcache/uscmsdisk/store/
       remove_prefix: /dcache/uscmsdisk/
+      maxdarkfraction: 0.05
+      maxmissfraction: 0.02
     T2_TW_NCHC:
       server: se01.grid.nchc.org.tw:11001
       interval: 7
