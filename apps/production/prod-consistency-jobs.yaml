@@ -218,6 +218,7 @@ consistency:
     T2_DE_DESY:
       server: t2-cms-xrootd01.desy.de:1094
       interval: 7
+      maxmissfraction: 0.03
     T2_EE_Estonia:
       server: xrootd.hep.kbfi.ee:1094
       interval: 7
