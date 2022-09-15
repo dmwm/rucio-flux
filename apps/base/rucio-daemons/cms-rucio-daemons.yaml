@@ -100,9 +100,9 @@ hermes:
     prometheus.io/port: "8080"
   resources:
     requests:
-      memory: 400Mi
+      memory: 800Mi
     limits:
-      memory: 600Mi
+      memory: 1600Mi
 
 judgeEvaluator: 
   resources:
