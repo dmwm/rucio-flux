@@ -40,10 +40,6 @@ spec:
       targetPath: config.tracer_kronos.password
     - kind: Secret
       name: rucio-secrets
-      valuesKey: hermes_password
-      targetPath: config.messaging_hermes.password
-    - kind: Secret
-      name: rucio-secrets
       valuesKey: kronos_password
       targetPath: config.messaging_cache.password
     - kind: Secret

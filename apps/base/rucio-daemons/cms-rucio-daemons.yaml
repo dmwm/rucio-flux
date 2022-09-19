@@ -91,8 +91,10 @@ ftsRenewal:
   servers: "https://fts3-devel.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446"
 
 hermes:
-  threads: 3
-  bulk: 1000
+  useSSL: 1
+  threads: 5
+  bulk: 500
+  brokerTimeout: 300
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
@@ -157,10 +159,10 @@ config:
   common:
     loglevel: "INFO"
   messaging_hermes:
-    username: "cmsrucio"
-    nonssl_port: "61023"
-    use_ssl: "False"
+    port: "61323"
     brokers: "cms-mb.cern.ch"
+    ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
+    ssl_cert_file: "/opt/rucio/certs/usercert.pem"
     destination: "/topic/cms.rucio.events"
     voname: "cms"
   monitor:
