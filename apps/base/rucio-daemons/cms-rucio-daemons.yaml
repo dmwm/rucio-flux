@@ -92,17 +92,16 @@ ftsRenewal:
 
 hermes:
   useSSL: 1
-  threads: 5
-  bulk: 500
-  brokerTimeout: 300
+  threads: 3
+  bulk: 1000
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
   resources:
     requests:
-      memory: 800Mi
+      memory: 900Mi
     limits:
-      memory: 1600Mi
+      memory: 9000Mi
 
 judgeEvaluator: 
   resources:
@@ -159,10 +158,9 @@ config:
   common:
     loglevel: "INFO"
   messaging_hermes:
-    port: "61323"
+    nonssl_port: "61013"
+    use_ssl: "False"
     brokers: "cms-mb.cern.ch"
-    ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
-    ssl_cert_file: "/opt/rucio/certs/usercert.pem"
     destination: "/topic/cms.rucio.events"
     voname: "cms"
   monitor:
