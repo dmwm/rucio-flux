@@ -92,8 +92,8 @@ ftsRenewal:
 
 hermes:
   useSSL: 1
-  threads: 5
-  bulk: 500
+  threads: 3
+  bulk: 1000
   brokerTimeout: 300
   podAnnotations:
     prometheus.io/scrape: "true"
