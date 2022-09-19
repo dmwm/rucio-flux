@@ -68,10 +68,6 @@ tracerKronos:
 config:
     common:
         loglevel: "INFO"
-    messaging_hermes:
-        port: "61023"
-        nonssl_port: "61023"
-    
 
 # FIXME: Need to back this out and the equivalent ones in integrtion when Rucio updates to 2048 bits
 ftsRenewal:
