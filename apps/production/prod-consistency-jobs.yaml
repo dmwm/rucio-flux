@@ -272,6 +272,8 @@ consistency:
       server_root: /eos/cms/tier0/store/
       remove_prefix: /eos/cms/tier0/
       interval: 7
+      maxdarkfraction: 0.04
+      maxmissfraction: 0.04
     T1_FR_CCIN2P3_Tape:
       server: ccxrootdcms.in2p3.fr:1094
       server_root: /pnfs/in2p3.fr/data/cms/data/store/
