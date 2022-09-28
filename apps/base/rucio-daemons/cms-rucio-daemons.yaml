@@ -93,7 +93,6 @@ ftsRenewal:
 hermes:
   threads: 3
   bulk: 1000
-  brokerTimeout: 300
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
