@@ -248,3 +248,7 @@ undertaker:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
 
+persistentVolumes:
+  grid-cern-ch:
+    name: csi-cvmfs-grid-pvc
+    mountPath: /cvmfs/grid.cern.ch
