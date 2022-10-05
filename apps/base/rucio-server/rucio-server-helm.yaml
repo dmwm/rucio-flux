@@ -34,3 +34,7 @@ spec:
       name: rucio-secrets
       valuesKey: db_string
       targetPath: config.database.default
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: trace_password
+      targetPath: config.trace.password

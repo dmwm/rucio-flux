@@ -102,3 +102,8 @@ config:
       #config.trace.tracedir: directory where traces are written to (default "/var/log/rucio/trace")
       tracedir: "/var/log/rucio/trace"
 
+persistentVolumes:
+  grid-cern-ch:
+    name: csi-cvmfs-grid-pvc
+    mountPath: /cvmfs/grid.cern.ch
+    

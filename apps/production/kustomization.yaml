@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: rucio
 resources:
   - ../base
+  - ../base/cms-rucio-cvmfs
   - ../base/rucio-daemons
   - ../base/rucio-server
   - ../base/rucio-webui
