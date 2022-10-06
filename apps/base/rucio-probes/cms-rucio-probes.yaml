@@ -60,9 +60,6 @@ voProbes:
   check_number_of_missing_files_per_rse:
     interval: 1
     voName: cms
-  check_missing_data_at_rse:
-    interval: 1
-    voName: cms
   check_expiring_rules_per_rse:
     interval: 1
     voName: cms
@@ -81,3 +78,6 @@ voProbes:
   check_unlocked_replicas_per_rse:
     interval: 1
     voName: cms
+
+optional_config:
+  policy_pkg_path: /opt/rucio/policy
