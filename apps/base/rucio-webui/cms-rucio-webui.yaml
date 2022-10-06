@@ -21,3 +21,7 @@ persistentVolumes:
   grid-cern-ch:
     name: csi-cvmfs-grid-pvc
     mountPath: /cvmfs/grid.cern.ch
+
+optional_config:
+  policy_pkg_path: /opt/rucio/policy
+  
