@@ -24,7 +24,8 @@ conveyorReceiverCount: 0
 
 automaticRestart:
   enabled: 1
-  selectorLabel: "app=rucio-daemons-tracer-kronos"
+  #selectorLabel: "auto-restart=true"
+  #Restart everything. Need to add deployment labels to get auto-restart working for not all pods
 
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
