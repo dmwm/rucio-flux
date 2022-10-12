@@ -31,7 +31,7 @@ spec:
     - kind: ConfigMap
       name: instance-rucio-release
     - kind: ConfigMap
-      name: loadtest-rucio-daemons
+      name: tier0-reaper-rucio-daemons
     - kind: Secret
       name: rucio-secrets
       valuesKey: db_string

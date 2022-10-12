@@ -11,6 +11,7 @@ resources:
   - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
+  - ../options/tier0-reaper
   - ../options/loadtest-daemons
   - ../options/loadtest
   - ../options/webdav-loadtest
@@ -25,6 +26,9 @@ configMapGenerator:
   - name: loadtest-rucio-daemons
     files:
       - values.yaml=loadtest-rucio-daemons.yaml
+  - name: tier0-reaper-rucio-daemons
+    files:
+      - values.yaml=tier0-reaper-rucio-daemons.yaml
   - name: instance-traces
     files:
       - values.yaml=prod-traces.yaml
