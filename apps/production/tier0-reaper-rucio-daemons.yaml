@@ -33,3 +33,5 @@ reaper:
   chunkSize: 4000
   sleepTime: 120
 
+automaticRestart:
+  enabled: 0
