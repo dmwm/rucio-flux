@@ -165,6 +165,9 @@ config:
     brokers: "cms-mb.cern.ch"
     destination: "/topic/cms.rucio.events"
     voname: "cms"
+  monitor:
+    enable_metrics: "True"
+    metrics_port: "8080"
   tracer_kronos:
     username: "cmsrucio"
     port: "61313"
