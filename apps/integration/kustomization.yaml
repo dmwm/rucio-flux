@@ -10,7 +10,7 @@ resources:
 #  - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
-#  - ../options/loadtest-daemons
+  - ../options/globus-daemons
 #  - ../options/loadtest
 #  - ../options/webdav-loadtest
 
@@ -39,5 +39,8 @@ configMapGenerator:
   - name: instance-rucio-cron
     files:
       - values.yaml=int-cms-cron.yaml
+  - name: globus-rucio-daemons
+    files:
+      - values.yaml=int-globus-daemons.yaml
 configurations:
   - kustomizeconfig.yaml

@@ -9,7 +9,7 @@
 export DAEMON_NAME=daemons
 export SERVER_NAME=server
 export UI_NAME=webui
-export GLOBUS_NAME=cms-globus
+export GLOBUS_NAME=globus-daemons
 export LOADTEST_NAME=loadtest-daemons
 
 # Maintanance options. Allowing certificate renewal
@@ -43,6 +43,8 @@ elif [ $UPDATE_FTS_CERTS -eq 1 ]; then
     kubectl -n rucio create secret generic ${SERVER_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
     kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
     kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${GLOBUS_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
+    kubectl -n rucio create secret generic ${GLOBUS_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
     kubectl -n rucio create secret generic ${DAEMON_NAME}-hermes-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
     kubectl -n rucio create secret generic ${DAEMON_NAME}-hermes-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
     exit 0
