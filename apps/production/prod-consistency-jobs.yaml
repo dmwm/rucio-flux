@@ -6,6 +6,7 @@ consistency:
      - /store/temp
      - /store/mc/SAM
      - /store/mc/HC
+     - /store/accounting
   sites:
     T1_DE_KIT_Disk:
       interval: 7
