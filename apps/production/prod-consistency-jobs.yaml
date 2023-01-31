@@ -14,7 +14,7 @@ consistency:
     #  server: cmsxrootd-redirectors.gridka.de:1094
     T2_US_Purdue:      
       interval: 7
-      server: cms-m001.rcac.purdue.edu:1094 
+      server: af-a00.cms.rcac.purdue.edu
     T2_BR_UERJ:      
       interval: 7
       server: xrootd.hepgrid.uerj.br
