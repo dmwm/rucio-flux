@@ -2,11 +2,10 @@
 reaperCount: 4
 judgeInjectorCount: 2
 judgeRepairerCount: 2
-#conveyorTransferSubmitterCount: 3
+conveyorTransferSubmitterCount: 3
 conveyorPollerCount: 4
 conveyorReceiverCount: 1
-conveyorFinisherCount: 10
-conveyorTransferSubmitterCount: 0
+conveyorFinisherCount: 4
 
 judgeEvaluatorCount: 2
 tracerKronosCount: 3
@@ -47,20 +46,13 @@ judgeRepairer:
 judgeInjector:
   threads: 3
 
-#conveyorFinisher: 
-#  threads: 5
-#  resources:
-#    limits:
-#      memory: 1000Mi
-#    requests:
-#      memory: 400Mi
 conveyorFinisher: 
-  threads: 25
+  threads: 5
   resources:
     limits:
-      memory: 4000Mi
-    requests:
       memory: 1000Mi
+    requests:
+      memory: 400Mi
 
 podLabels:
   rucioInstance: "prod"
