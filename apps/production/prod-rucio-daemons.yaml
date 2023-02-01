@@ -3,12 +3,10 @@ reaperCount: 4
 judgeInjectorCount: 2
 judgeRepairerCount: 2
 #conveyorTransferSubmitterCount: 3
-#conveyorPollerCount: 4
-#conveyorReceiverCount: 1
+conveyorPollerCount: 4
+conveyorReceiverCount: 1
 conveyorFinisherCount: 10
 conveyorTransferSubmitterCount: 0
-conveyorPollerCount: 0
-conveyorReceiverCount: 0
 
 judgeEvaluatorCount: 2
 tracerKronosCount: 3
