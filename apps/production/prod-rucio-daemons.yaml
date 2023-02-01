@@ -6,10 +6,10 @@ judgeRepairerCount: 2
 #conveyorPollerCount: 4
 #conveyorReceiverCount: 1
 #conveyorFinisherCount: 4
-conveyorTransferSubmitterCount: 0
-conveyorPollerCount: 0
-conveyorReceiverCount: 0
-conveyorFinisherCount: 0
+conveyorTransferSubmitterCount: 1
+conveyorPollerCount: 1
+conveyorReceiverCount: 1
+conveyorFinisherCount: 1
 judgeEvaluatorCount: 2
 tracerKronosCount: 3
 judgeCleanerCount: 2
