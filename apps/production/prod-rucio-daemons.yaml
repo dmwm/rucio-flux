@@ -5,11 +5,11 @@ judgeRepairerCount: 2
 #conveyorTransferSubmitterCount: 3
 #conveyorPollerCount: 4
 #conveyorReceiverCount: 1
-#conveyorFinisherCount: 4
+conveyorFinisherCount: 4
 conveyorTransferSubmitterCount: 0
 conveyorPollerCount: 0
 conveyorReceiverCount: 0
-conveyorFinisherCount: 0
+
 judgeEvaluatorCount: 2
 tracerKronosCount: 3
 judgeCleanerCount: 2
