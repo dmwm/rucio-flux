@@ -5,7 +5,7 @@ judgeRepairerCount: 2
 #conveyorTransferSubmitterCount: 3
 #conveyorPollerCount: 4
 #conveyorReceiverCount: 1
-conveyorFinisherCount: 4
+conveyorFinisherCount: 10
 conveyorTransferSubmitterCount: 0
 conveyorPollerCount: 0
 conveyorReceiverCount: 0
@@ -49,13 +49,20 @@ judgeRepairer:
 judgeInjector:
   threads: 3
 
+#conveyorFinisher: 
+#  threads: 5
+#  resources:
+#    limits:
+#      memory: 1000Mi
+#    requests:
+#      memory: 400Mi
 conveyorFinisher: 
-  threads: 5
+  threads: 25
   resources:
     limits:
-      memory: 1000Mi
+      memory: 4000Mi
     requests:
-      memory: 400Mi
+      memory: 1000Mi
 
 podLabels:
   rucioInstance: "prod"
