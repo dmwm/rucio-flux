@@ -7,6 +7,7 @@ consistency:
      - /store/mc/SAM
      - /store/mc/HC
      - /store/accounting
+     - /store/express/tier0_harvest
   sites:
     T1_DE_KIT_Disk:
       interval: 7
@@ -27,8 +28,7 @@ consistency:
     T1_US_FNAL_Disk:
       interval: 7
       server: cmsdcadisk.fnal.gov
-      server_root: /dcache/uscmsdisk/store/
-      remove_prefix: /dcache/uscmsdisk/
+      server_root: /dcache/uscmsdisk
       maxdarkfraction: 0.05
       maxmissfraction: 0.02
     T2_TW_NCHC:
@@ -45,16 +45,14 @@ consistency:
     #  interval: 1
     T2_UK_SGrid_Bristol:
       server: xrootd.phy.bris.ac.uk:1094
-      server_root: /xrootd/cms/store/
-      remove_prefix: /xrootd/cms/
+      server_root: /xrootd/cms
       interval: 7
     T2_DE_RWTH:
       server: grid-cms-xrootd.physik.rwth-aachen.de:1094
       interval: 7
     T2_FR_GRIF_IRFU:
       server: node12.datagrid.cea.fr
-      server_root: /cms/trivcat/store/
-      remove_prefix: /cms/trivcat/
+      server_root: /cms/trivcat
       interval: 7
     #T2_HU_Budapest_Test:
     #  server: grid143.kfki.hu:11000
@@ -157,8 +155,7 @@ consistency:
       interval: 7
     T2_FR_IPHC:
       server: sbgse1.in2p3.fr:1094
-      server_root: /cms/phedex/store
-      remove_prefix: /cms/phedex/
+      server_root: /cms/phedex
       interval: 7
     T2_AT_Vienna:
       server: eos.grid.vbc.ac.at:1094
@@ -215,8 +212,7 @@ consistency:
       interval: 7
     T2_CN_Beijing:
       server: ccsrm.ihep.ac.cn:1094
-      server_root: /cms/store/
-      remove_prefix: /cms/
+      server_root: /cms
       interval: 7
     T2_DE_DESY:
       server: t2-cms-xrootd01.desy.de:1094
@@ -236,22 +232,20 @@ consistency:
       interval: 7
     T2_TR_METU:
       server: eymir.grid.metu.edu.tr
-      server_root: /cms/store/
-      remove_prefix: /cms/
+      server_root: /cms
       interval: 7
     T2_UA_KIPT:
       server: cms-se0.kipt.kharkov.ua:11001
       interval: 7
     T2_UK_London_Brunel:
       server: dc2-grid-64.brunel.ac.uk:1094
-      server_root: /dpm/brunel.ac.uk/home/cms/store/
-      remove_prefix: /dpm/brunel.ac.uk/home/cms/
+      server_root: /dpm/brunel.ac.uk/home/cms
       interval: 7
     T2_US_Caltech:
       server: transfer-1.ultralight.org
       interval: 7
     T2_US_Florida:
-      server: cmsio7.rc.ufl.edu
+      server: cmsio2.rc.ufl.edu
       interval: 7
     T2_US_MIT:
       server: xrootd15.cmsaf.mit.edu:1094
@@ -267,28 +261,23 @@ consistency:
       interval: 7
     T2_CH_CERN:
       server: eoscms.cern.ch
-      server_root: /eos/cms/store/
-      remove_prefix: /eos/cms/
+      server_root: /eos/cms
       interval: 7
     T0_CH_CERN_Disk:
       server: eoscms.cern.ch
-      server_root: /eos/cms/tier0/store/
-      remove_prefix: /eos/cms/tier0/
+      server_root: /eos/cms/tier0
       interval: 7
     T1_FR_CCIN2P3_Tape:
       server: ccxrootdcms.in2p3.fr:1094
-      server_root: /pnfs/in2p3.fr/data/cms/data/store/
-      remove_prefix: /pnfs/in2p3.fr/data/cms/data/
+      server_root: /pnfs/in2p3.fr/data/cms/data
       interval: 7
     T1_FR_CCIN2P3_Disk:
       server: ccxrootdcms.in2p3.fr:1094
-      server_root: /pnfs/in2p3.fr/data/cms/disk/data/store/
-      remove_prefix: /pnfs/in2p3.fr/data/cms/disk/data/
+      server_root: /pnfs/in2p3.fr/data/cms/disk/data
       interval: 7
     T1_RU_JINR_Disk:
       server: xrootd01.jinr-t1.ru:1094
-      server_root: /pnfs/jinr-t1.ru/data/cms/store/
-      remove_prefix: /pnfs/jinr-t1.ru/data/cms
+      server_root: /pnfs/jinr-t1.ru/data/cms
       interval: 7
     T2_BE_UCL:
       server: ingrid-se08.cism.ucl.ac.be:1094
@@ -301,6 +290,5 @@ consistency:
       interval: 7
     T2_UK_London_IC:
       server: gfe02.grid.hep.ph.ic.ac.uk:1094
-      server_root: /pnfs/hep.ph.ic.ac.uk/data/cms/store/
-      remove_prefix: /pnfs/hep.ph.ic.ac.uk/data/cms/
+      server_root: /pnfs/hep.ph.ic.ac.uk/data/cms
       interval: 7
