@@ -7,4 +7,5 @@ reportStorageClass:
   osShareAccessID: 38a148e3-5377-4878-9ac0-e3a95c816684
 image:
   repository: registry.cern.ch/cmsrucio/rucio-consistency
-  tag: release-4.0.0
+  tag: release-4.0.1
+
