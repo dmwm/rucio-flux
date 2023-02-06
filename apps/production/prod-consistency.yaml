@@ -7,4 +7,8 @@ reportStorageClass:
   osShareAccessID: 38a148e3-5377-4878-9ac0-e3a95c816684
 image:
   repository: registry.cern.ch/cmsrucio/rucio-consistency
+<<<<<<< HEAD
   tag: release-4.0.2
+=======
+  tag: release-4.0.3
+>>>>>>> 9df7f07 (Version bump for CE config fix)
