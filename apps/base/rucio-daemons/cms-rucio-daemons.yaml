@@ -204,10 +204,10 @@ tracerKronos:
   resources:
     limits:
       cpu: 3000m 
-      memory: 1Gi
+      memory: 4Gi
     requests:
       cpu: 1000m 
-      memory: 800Mi
+      memory: 2Gi
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
