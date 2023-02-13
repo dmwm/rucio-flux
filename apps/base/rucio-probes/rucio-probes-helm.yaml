@@ -20,11 +20,11 @@ spec:
     - kind: ConfigMap
       name: cms-rucio-common
     - kind: ConfigMap
+      name: instance-rucio-release
+    - kind: ConfigMap
       name: cms-rucio-probes
     - kind: ConfigMap
       name: instance-rucio-probes
-    - kind: ConfigMap
-      name: instance-rucio-release
     - kind: Secret
       name: rucio-secrets
       valuesKey: db_string
