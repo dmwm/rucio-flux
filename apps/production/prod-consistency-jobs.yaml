@@ -16,6 +16,7 @@ consistency:
     T2_US_Purdue:      
       interval: 7
       server: af-a00.cms.rcac.purdue.edu
+      server_root: /eos/R2
     T2_BR_UERJ:      
       interval: 7
       server: xrootd.hepgrid.uerj.br
