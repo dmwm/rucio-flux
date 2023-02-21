@@ -37,7 +37,7 @@ judgeEvaluator:
   didLimit: 1000
   resources:
     limits:
-      memory: 1000Mi
+      memory: 4Gi
     requests:
       memory: 200Mi
 
