@@ -37,6 +37,9 @@ config:
     common:
         loglevel: "DEBUG"
         #loglevel: "INFO"
+    tracer_kronos:
+      brokers: "cms-test-mb.cern.ch"
+      queue: "/topic/cms.rucio.tracer"
     conveyor:
       use_preparer: "True"
       transfertool: "fts3,globus"
