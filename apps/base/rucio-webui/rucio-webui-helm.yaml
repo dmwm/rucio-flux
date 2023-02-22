@@ -27,9 +27,9 @@ spec:
     - kind: ConfigMap
       name: cms-rucio-webui
     - kind: ConfigMap
-      name: instance-rucio-webui
-    - kind: ConfigMap
       name: instance-rucio-release
+    - kind: ConfigMap
+      name: instance-rucio-webui
     - kind: Secret
       name: rucio-secrets
       valuesKey: db_string
