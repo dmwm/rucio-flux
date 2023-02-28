@@ -4,7 +4,6 @@ namespace: rucio
 resources:
   - ../base
   - ../base/cms-rucio-cvmfs
-  - ../base/rucio-server
   - ../base/rucio-daemons
   - ../base/rucio-webui
   - ../base/rucio-probes
@@ -15,6 +14,7 @@ resources:
   - ../options/loadtest-daemons
   - ../options/loadtest
   - ../options/webdav-loadtest
+#  - ../base/rucio-server
 #  - ../options/globus-daemons
 
 configMapGenerator:
