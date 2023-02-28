@@ -14,7 +14,7 @@ resources:
   - ../options/loadtest-daemons
   - ../options/loadtest
   - ../options/webdav-loadtest
-#  - ../base/rucio-server
+  - ../base/rucio-server
 #  - ../options/globus-daemons
 
 configMapGenerator:
