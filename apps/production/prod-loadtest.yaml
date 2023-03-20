@@ -3,3 +3,8 @@ loadtest:
   proxySecret: "daemons-rucio-x509up"
   sourceExpression:   "loadtest=True"
   destinationExpression:   "loadtest=True"
+
+image:
+  repository: registry.cern.ch/rchauhan/loadtest
+  pullPolicy: Always
+  tag: "v1"
