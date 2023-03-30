@@ -200,6 +200,9 @@ transmogrifier:
 
 tracerKronos:
   # FIXME: Was 5 before 1.24 problems with Kronos
+  config:
+    database:
+      pool_size: "10"
   threads: 1
   resources:
     limits:
