@@ -10,6 +10,10 @@ optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
   policy_pkg_path: /opt/rucio/policy
 
+optional_config:
+  rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
+  policy_pkg_path: /opt/rucio/policy
+
 ingress:
   enabled: true
   annotations:

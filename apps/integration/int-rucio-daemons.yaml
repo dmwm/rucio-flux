@@ -15,6 +15,9 @@ darkReaper:
 #  rses: "T2_US_Purdue_Test"
   includeRses: "T2_US_Purdue"
 
+tracerKronos:
+  threads: 4
+
 ftsRenewal:
   schedule: "35 */12 * * *"
 
@@ -53,6 +56,11 @@ config:
       reconnect_attempts: "100"
       use_ssl: "False"
       username: "cmsrucio"
+    #
+    messaging_hermes:
+      brokers: "cms-test-mb.cern.ch"
+
+
 
 conveyorPoller:
       config:

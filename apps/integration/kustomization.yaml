@@ -9,9 +9,8 @@ resources:
   - ../base/rucio-traceserver
   - ../base/rucio-webui
   - ../base/rucio-probes
-#  - ../base/cms-rucio-traces
-  - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
+  - ../base/cms-rucio-cvmfs
   - ../options/globus-daemons
 #  - ../options/loadtest
 #  - ../options/webdav-loadtest

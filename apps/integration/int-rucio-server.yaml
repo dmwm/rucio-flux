@@ -6,17 +6,17 @@ ingress:
 config:
   conveyor:
     use_preparer: "True"
-  oidc:
-    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
-    admin_issuer: "cms"
-    expected_audience: "rucio"
+#  oidc:
+#    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
+#    admin_issuer: "cms"
+#    expected_audience: "rucio"
 
-additionalSecrets:
-  idpsecrets:
-    secretName: idpsecrets
-    mountPath: /opt/rucio/etc/
-    subPaths:
-      - idpsecrets.json
+#additionalSecrets:
+#  idpsecrets:
+#    secretName: idpsecrets
+#    mountPath: /opt/rucio/etc/
+#    subPaths:
+#      - idpsecrets.json
 
 optional_config:
   SQLALCHEMY_WARN_20: 1

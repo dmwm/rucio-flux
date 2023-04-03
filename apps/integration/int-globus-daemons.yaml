@@ -33,7 +33,6 @@ ftsRenewal:
 
 config:
     common:
-#        loglevel: "DEBUG"
         loglevel: "INFO"
     conveyor:
       use_preparer: "True"
@@ -43,6 +42,7 @@ config:
 
 conveyorTransferSubmitter:
   activities: "'User Subscriptions'"
+    # Same size or smaller than bulk which is 100
   threads: 1
   bulk: 50
   groupBulk: 50

@@ -12,11 +12,6 @@ spec:
         kind: HelmRepository
         name: rucio
         namespace: flux-system
-#      chart: ./charts/rucio-daemons
-#      sourceRef:
-#        kind: GitRepository
-#        name: rucio-git
-#        namespace: flux-system
   interval: 5m
   install:
     remediation:
@@ -36,12 +31,12 @@ spec:
       targetPath: config.database.default
     - kind: Secret
       name: rucio-secrets
-      valuesKey: kronos_password
-      targetPath: config.tracer_kronos.password
-    - kind: Secret
-      name: rucio-secrets
       valuesKey: hermes_password
       targetPath: config.messaging_hermes.password
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: kronos_password
+      targetPath: config.tracer_kronos.password
     - kind: Secret
       name: rucio-secrets
       valuesKey: kronos_password
