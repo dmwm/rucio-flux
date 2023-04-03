@@ -9,9 +9,8 @@ resources:
   - ../base/rucio-traceserver
   - ../base/rucio-webui
   - ../base/rucio-probes
-#  - ../base/cms-rucio-traces
-  - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
+  - ../base/cms-rucio-cvmfs
   - ../options/globus-daemons
 #  - ../options/loadtest
 #  - ../options/webdav-loadtest
@@ -29,9 +28,9 @@ configMapGenerator:
   - name: instance-rucio-daemons
     files:
       - values.yaml=int-rucio-daemons.yaml
-  #- name: instance-rucio-webui
-  #  files:
-  #    - values.yaml=int-rucio-webui.yaml
+  - name: instance-rucio-webui
+    files:
+      - values.yaml=int-rucio-webui.yaml
   - name: instance-rucio-probes
     files:
       - values.yaml=int-rucio-probes.yaml

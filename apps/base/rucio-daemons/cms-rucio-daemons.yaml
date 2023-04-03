@@ -49,6 +49,7 @@ reaper:
   greedy: 0
   threads: 4
   sleepTime: 120
+  skipCAVolume: true
   resources:
     requests:
       memory: 750Mi
@@ -220,7 +221,7 @@ tracerKronos:
       cpu: 3000m 
       memory: 4Gi
     requests:
-      cpu: 1000m 
+      cpu: 1000m
       memory: 2Gi
   podAnnotations:
     prometheus.io/scrape: "true"
@@ -267,3 +268,6 @@ persistentVolumes:
   grid-cern-ch:
     name: csi-cvmfs-grid-pvc
     mountPath: /cvmfs/grid.cern.ch
+
+optional_config:
+  policy_pkg_path: /opt/rucio/policy

@@ -6,10 +6,6 @@ ingress:
 config:
   conveyor:
     use_preparer: "True"
-  oidc:
-    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
-    admin_issuer: "cms"
-    expected_audience: "rucio"
 
 # FIXME: Defined here and in prod because int does not have IDP secrets
 secretMounts:
