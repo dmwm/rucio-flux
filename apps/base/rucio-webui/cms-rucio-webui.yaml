@@ -10,10 +10,6 @@ resources:
 
 ingress:
   enabled: true
-  ingressClassName: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 
 proxy:
   rucioProxyScheme: "http"
