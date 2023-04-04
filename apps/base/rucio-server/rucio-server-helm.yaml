@@ -7,11 +7,17 @@ spec:
   chart:
     spec:
       chart: rucio-server
-      version: ">=1.30.0 <1.31.0"
+ #     version: ">=1.30.0 <1.31.0"
+      version: "1.30.9"
       sourceRef:
         kind: HelmRepository
         name: rucio
         namespace: flux-system
+#      chart: ./charts/rucio-server
+#      sourceRef:
+#        kind: GitRepository
+#        name: rucio-git
+#        namespace: flux-system
   interval: 5m
   install:
     remediation:
