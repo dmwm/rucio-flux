@@ -6,4 +6,4 @@ proxy:
   rucioAuthProxy: "cms-rucio-auth.cern.ch:443"
 
 image:
-  tag: release-1.30.8.cms1
+  tag: release-1.29.6.cms2
