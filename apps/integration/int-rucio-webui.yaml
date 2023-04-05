@@ -4,3 +4,6 @@ ingress:
 proxy:
   rucioProxy: "cms-rucio-int.cern.ch"
   rucioAuthProxy: "cms-rucio-auth-int.cern.ch:443"
+
+image:
+  tag: release-1.29.6.cms2
