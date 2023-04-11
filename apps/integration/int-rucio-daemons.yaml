@@ -4,7 +4,7 @@ conveyorFinisherCount: 1
 conveyorPreparerCount: 1
 darkReaperCount: 1
 cacheConsumerCount: 1
-tracerKronosCount: 0
+tracerKronosCount: 1
 
 reaper:
   includeRses: "cms_type=int"
