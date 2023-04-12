@@ -63,7 +63,7 @@ transmogrifier:
 
 tracerKronos:
   threads: 2
-  sleepTimeFiles: 10
+  sleepTimeFiles: 120
   sleepTimeDatasets: 30
 
 config:
@@ -72,7 +72,9 @@ config:
     messaging_hermes:
         port: "61313"
         nonssl_port: "61313"
-    
+    tracer_kronos:
+      chunksize: "5"
+      prefetch_size: "5"
 
 # FIXME: Need to back this out and the equivalent ones in integrtion when Rucio updates to 2048 bits
 ftsRenewal:
