@@ -65,6 +65,9 @@ tracerKronos:
   threads: 2
   sleepTimeFiles: 120
   sleepTimeDatasets: 30
+  config:
+    common:
+      loglevel: "DEBUG"
 
 config:
     common:
