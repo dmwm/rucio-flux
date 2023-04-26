@@ -79,8 +79,3 @@ config:
       chunksize: "5"
       prefetch_size: "5"
 
-# FIXME: Need to back this out and the equivalent ones in integrtion when Rucio updates to 2048 bits
-ftsRenewal:
-  image:
-    repository: registry.cern.ch/cmsrucio/fts-cron
-    tag: latest

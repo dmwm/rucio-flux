@@ -18,9 +18,6 @@ darkReaper:
 ftsRenewal:
   # Non-flux based is 19h
   schedule: "42 17 * * *"
-  image:
-    repository: registry.cern.ch/cmsrucio/fts-cron
-    tag: latest
 
 conveyorTransferSubmitter:
   threads: 1

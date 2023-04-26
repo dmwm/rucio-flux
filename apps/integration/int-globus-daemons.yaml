@@ -30,9 +30,6 @@ cacheConsumerCount: 0
 ftsRenewal:
   enabled: 1
   schedule: "42 13 * * *"
-  image:
-    repository: registry.cern.ch/cmsrucio/fts-cron
-    tag: latest
 
 config:
     common:
