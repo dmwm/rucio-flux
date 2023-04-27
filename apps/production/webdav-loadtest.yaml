@@ -1,8 +1,3 @@
 loadtest:
   sourceExpression:   "webdav_loadtest=True"
   destinationExpression:   "webdav_loadtest=True"
-
-persistentVolumes:
-  grid-cern-ch:
-    name: csi-cvmfs-grid-pvc
-    mountPath: /cvmfs/grid.cern.ch

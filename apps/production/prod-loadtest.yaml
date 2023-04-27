@@ -5,9 +5,9 @@ loadtest:
   destinationExpression:   "loadtest=True"
 
 image:
-  repository: registry.cern.ch/rchauhan/loadtest
+  repository: registry.cern.ch/cmsrucio/rucio-loadtest-client
   pullPolicy: Always
-  tag: "v1"
+  tag: "1.0.0"
 
 persistentVolumes:
   grid-cern-ch:
