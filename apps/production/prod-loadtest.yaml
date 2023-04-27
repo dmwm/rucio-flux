@@ -8,3 +8,8 @@ image:
   repository: registry.cern.ch/rchauhan/loadtest
   pullPolicy: Always
   tag: "v1"
+
+persistentVolumes:
+  grid-cern-ch:
+    name: csi-cvmfs-grid-pvc
+    mountPath: /cvmfs/grid.cern.ch
