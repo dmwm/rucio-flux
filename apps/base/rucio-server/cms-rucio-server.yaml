@@ -39,6 +39,11 @@ useSSL:
   authServer: true
 ftsRenewal:
   enabled: true
+  additionalEnvs:
+    - name: USERCERT_NAME
+      value: "usercert.pem"
+    - name: USERKEY_NAME
+      value: "new_userkey.pem"
 
 authService:
   type: ClusterIP

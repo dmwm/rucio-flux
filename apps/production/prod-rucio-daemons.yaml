@@ -37,7 +37,7 @@ judgeEvaluator:
   didLimit: 1000
   resources:
     limits:
-      memory: 1000Mi
+      memory: 4Gi
     requests:
       memory: 200Mi
 
@@ -62,9 +62,12 @@ transmogrifier:
   sleepTime: 30
 
 tracerKronos:
-  threads: 4
-  sleepTimeFiles: 10
+  threads: 2
+  sleepTimeFiles: 120
   sleepTimeDatasets: 30
+  config:
+    common:
+      loglevel: "DEBUG"
 
 config:
     common:
@@ -72,10 +75,7 @@ config:
     messaging_hermes:
         port: "61313"
         nonssl_port: "61313"
-    
+    tracer_kronos:
+      chunksize: "5"
+      prefetch_size: "5"
 
-# FIXME: Need to back this out and the equivalent ones in integrtion when Rucio updates to 2048 bits
-ftsRenewal:
-  image:
-    repository: registry.cern.ch/cmsrucio/fts-cron
-    tag: latest

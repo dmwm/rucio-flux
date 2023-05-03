@@ -4,6 +4,7 @@ conveyorFinisherCount: 1
 conveyorPreparerCount: 1
 darkReaperCount: 1
 cacheConsumerCount: 1
+tracerKronosCount: 0
 
 reaper:
   includeRses: "cms_type=int"
@@ -17,9 +18,6 @@ darkReaper:
 ftsRenewal:
   # Non-flux based is 19h
   schedule: "42 17 * * *"
-  image:
-    repository: registry.cern.ch/cmsrucio/fts-cron
-    tag: latest
 
 conveyorTransferSubmitter:
   threads: 1
@@ -37,6 +35,9 @@ config:
     common:
         loglevel: "DEBUG"
         #loglevel: "INFO"
+    tracer_kronos:
+      brokers: "cms-test-mb.cern.ch"
+      queue: "/topic/cms.rucio.tracer"
     conveyor:
       use_preparer: "True"
       transfertool: "fts3,globus"

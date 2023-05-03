@@ -90,6 +90,11 @@ ftsRenewal:
     tag: latest
   voms: "cms:/cms/Role=production"
   servers: "https://fts3-devel.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446"
+  additionalEnvs:
+    - name: USERCERT_NAME
+      value: "usercert.pem"
+    - name: USERKEY_NAME
+      value: "new_userkey.pem"
 
 hermes:
   threads: 3
@@ -200,14 +205,17 @@ transmogrifier:
 
 tracerKronos:
   # FIXME: Was 5 before 1.24 problems with Kronos
+  config:
+    database:
+      pool_size: "10"
   threads: 1
   resources:
     limits:
       cpu: 3000m 
-      memory: 1Gi
+      memory: 4Gi
     requests:
       cpu: 1000m 
-      memory: 800Mi
+      memory: 2Gi
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"

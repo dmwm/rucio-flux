@@ -3,3 +3,13 @@ loadtest:
   proxySecret: "daemons-rucio-x509up"
   sourceExpression:   "loadtest=True"
   destinationExpression:   "loadtest=True"
+
+image:
+  repository: registry.cern.ch/cmsrucio/rucio-loadtest-client
+  pullPolicy: Always
+  tag: "1.0.0"
+
+persistentVolumes:
+  grid-cern-ch:
+    name: csi-cvmfs-grid-pvc
+    mountPath: /cvmfs/grid.cern.ch
