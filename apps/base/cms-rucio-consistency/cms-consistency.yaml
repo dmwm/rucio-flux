@@ -2,3 +2,7 @@ scratchStorageClass:
   create: true
 consistency:
   rucioCfgSecret: "server-rucio-server.cfg"
+persistentVolumes:
+  grid-cern-ch:
+    name: csi-cvmfs-grid-pvc
+    mountPath: /cvmfs/grid.cern.ch
