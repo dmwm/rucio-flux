@@ -76,6 +76,9 @@ conveyorPoller:
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
+  config:
+    database:
+      pool_size: "10"
 
 conveyorReceiver:
   podAnnotations:

@@ -38,5 +38,5 @@ config:
       pool_timeout: "30"
       echo: "0"
       max_overflow: "10"
-      pool_size: "2"
+      pool_size: "5"
       pool_recycle: "600"
