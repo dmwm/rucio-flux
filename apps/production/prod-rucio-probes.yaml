@@ -3,4 +3,4 @@ config:
     prometheus_labels: '{"rucioInstance": "prod"}'
 
 image:
-  tag: release-1.29.6.cms2
+  tag: release-1.29.8.cms2
