@@ -10,39 +10,39 @@ optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
   policy_pkg_path: /opt/rucio/policy
 
+# Auth server runs on 443 and needs the connection forwarded straight through
 ingress:
   enabled: true
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/frontend-entry-points: http, https
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
-    - cms-rucio.cern.ch
+    - cms-rucio-auth.cern.ch
   tls: 
     - secretName: rucio-server.tls-secret
 
-useSSL: false
-
-# check for 1.31
+useSSL: true
 ftsRenewal:
   enabled: true
-  additionalEnvs:
-    - name: USERCERT_NAME
-      value: "usercert.pem"
-    - name: USERKEY_NAME
-      value: "new_userkey.pem"
+
+service:
+  type: ClusterIP
+  port: 443
+  targetPort: https
+  protocol: TCP
+  name: https
+  annotations: {}
 
 serverResources:
   requests:
     memory: 500Mi
   limits:
-    memory: 1500Mi
+    memory: 800Mi
 
 config:
   common:
       loglevel: "INFO"
-  database:
-      pool_size: 10
 
 persistentVolumes:
   grid-cern-ch:

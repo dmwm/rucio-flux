@@ -6,8 +6,8 @@ spec:
   releaseName: webui  
   chart:
     spec:
-      chart: rucio-ui
-      version: ">=1.29.0 <1.30.0"
+      chart: rucio-webui
+      version: "<1.32.0"
       sourceRef:
         kind: HelmRepository
         name: rucio
