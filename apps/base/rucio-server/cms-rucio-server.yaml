@@ -23,7 +23,6 @@ ingress:
 
 useSSL: false
 
-# check for 1.31
 ftsRenewal:
   enabled: true
   additionalEnvs:

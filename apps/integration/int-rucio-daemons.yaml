@@ -16,8 +16,7 @@ darkReaper:
   includeRses: "T2_US_Purdue"
 
 ftsRenewal:
-  # Non-flux based is 19h
-  schedule: "42 17 * * *"
+  schedule: "35 */12 * * *"
 
 conveyorTransferSubmitter:
   threads: 1

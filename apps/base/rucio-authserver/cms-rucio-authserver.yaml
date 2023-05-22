@@ -24,7 +24,7 @@ ingress:
 
 useSSL: true
 ftsRenewal:
-  enabled: true
+  enabled: false
 
 service:
   type: ClusterIP

@@ -29,7 +29,7 @@ cacheConsumerCount: 0
 
 ftsRenewal:
   enabled: 1
-  schedule: "42 13 * * *"
+  schedule: "40 */12 * * *"
 
 config:
     common:
