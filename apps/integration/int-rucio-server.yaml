@@ -1,14 +1,7 @@
 replicaCount: 1
-authReplicaCount: 1
 ingress:
   hosts: 
     - cms-rucio-int.cern.ch
-authIngress:
-  hosts: 
-    - cms-rucio-auth-int.cern.ch
-traceIngress:
-  hosts: 
-    - cms-rucio-trace-int.cern.ch
 
 config:
   conveyor:
@@ -28,3 +21,6 @@ additionalSecrets:
 optional_config:
   SQLALCHEMY_WARN_20: 1
   PYTHONWARNINGS: "always::DeprecationWarning"
+
+ftsRenewal:
+  schedule: "30 */12 * * *"

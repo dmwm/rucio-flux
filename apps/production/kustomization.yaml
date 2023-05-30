@@ -15,12 +15,21 @@ resources:
   - ../options/loadtest
   - ../options/webdav-loadtest
   - ../base/rucio-server
+  - ../base/rucio-authserver
+  - ../base/rucio-traceserver
+
 #  - ../options/globus-daemons
 
 configMapGenerator:
   - name: instance-rucio-server
     files:
       - values.yaml=prod-rucio-server.yaml
+  - name: instance-rucio-authserver
+    files:
+      - values.yaml=int-rucio-authserver.yaml
+  - name: instance-rucio-traceserver
+    files:
+      - values.yaml=int-rucio-traceserver.yaml
   - name: instance-rucio-daemons
     files:
       - values.yaml=prod-rucio-daemons.yaml

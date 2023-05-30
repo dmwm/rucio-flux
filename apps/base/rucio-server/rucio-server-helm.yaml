@@ -7,8 +7,7 @@ spec:
   chart:
     spec:
       chart: rucio-server
- #     version: ">=1.30.0 <1.31.0"
-      version: "1.30.9"
+      version: ">=1.31.0 <1.32.0"
       sourceRef:
         kind: HelmRepository
         name: rucio
@@ -39,3 +38,4 @@ spec:
       name: rucio-secrets
       valuesKey: trace_password
       targetPath: config.trace.password
+# ^^^ 1.31

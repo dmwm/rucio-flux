@@ -1,17 +1,22 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: globus-daemons
+  name: rucio-authserver
 spec:
-  releaseName: globus-daemons
+  releaseName: authserver
   chart:
     spec:
-      chart: rucio-daemons
-      version: "<1.32.0"
+      chart: rucio-server
+      version: ">=1.31.0 <1.32.0"
       sourceRef:
         kind: HelmRepository
         name: rucio
         namespace: flux-system
+#      chart: ./charts/rucio-server
+#      sourceRef:
+#        kind: GitRepository
+#        name: rucio-git
+#        namespace: flux-system
   interval: 5m
   install:
     remediation:
@@ -20,22 +25,12 @@ spec:
     - kind: ConfigMap
       name: cms-rucio-common
     - kind: ConfigMap
-      name: cms-rucio-daemons
+      name: cms-rucio-authserver
     - kind: ConfigMap
-      name: instance-rucio-daemons
+      name: instance-rucio-authserver
     - kind: ConfigMap
       name: instance-rucio-release
-    - kind: ConfigMap
-      name: globus-rucio-daemons
     - kind: Secret
       name: rucio-secrets
       valuesKey: db_string
       targetPath: config.database.default
-    - kind: Secret
-      name: rucio-secrets
-      valuesKey: globus_client
-      targetPath: optional_config.rucio_cfg_cms_globus_client
-    - kind: Secret
-      name: rucio-secrets
-      valuesKey: globus_refresh
-      targetPath: optional_config.rucio_cfg_cms_globus_refresh

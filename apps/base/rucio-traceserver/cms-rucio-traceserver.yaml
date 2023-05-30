@@ -1,10 +1,16 @@
-replicaCount: 1
 image:
   repository: registry.cern.ch/cmsrucio/rucio-server
 
+# For NGINX ingress. Eventually becomes plain server
+
+replicaCount: 1
+
+# Use http worker mode and elsewhere configure database connections for Oracle Database Resident Connection Pool (DRCP)
+
 httpd_config:
   encoded_slashes: "True"
-  legacy_dn: "True"
+
+# The server runs on port 80 and there is no need for SSL passthrough
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
@@ -17,31 +23,45 @@ ingress:
     nginx.ingress.kubernetes.io/frontend-entry-points: http, https
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
-    - cms-rucio.cern.ch
+    - cms-rucio-trace.cern.ch
   tls: 
     - secretName: rucio-server.tls-secret
 
 useSSL: false
-
 ftsRenewal:
-  enabled: true
-  additionalEnvs:
-    - name: USERCERT_NAME
-      value: "usercert.pem"
-    - name: USERKEY_NAME
-      value: "new_userkey.pem"
+  enabled: false
+
+
+#service:
+#  type: ClusterIP
+#  port: 443
+#  targetPort: https
+#  protocol: TCP
+#  name: https
+#  annotations: {}
+
+
+# remove for 1.31
+
+
+
+
 
 serverResources:
   requests:
-    memory: 500Mi
+    memory: 400Mi
   limits:
-    memory: 1500Mi
+    memory: 600Mi
 
 config:
   common:
       loglevel: "INFO"
-  database:
-      pool_size: 10
+  trace:
+      port: "61313"
+      brokers: "cms-mb.cern.ch"
+      topic: "/topic/cms.rucio.tracer"
+      username: "cmsrucio"
+      tracedir: "/var/log/rucio/trace"
 
 persistentVolumes:
   grid-cern-ch:

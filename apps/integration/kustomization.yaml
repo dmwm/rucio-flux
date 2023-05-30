@@ -5,7 +5,9 @@ resources:
   - ../base
   - ../base/rucio-daemons
   - ../base/rucio-server
-#  - ../base/rucio-webui
+  - ../base/rucio-authserver
+  - ../base/rucio-traceserver
+  - ../base/rucio-webui
   - ../base/rucio-probes
 #  - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
@@ -18,6 +20,12 @@ configMapGenerator:
   - name: instance-rucio-server
     files:
       - values.yaml=int-rucio-server.yaml
+  - name: instance-rucio-authserver
+    files:
+      - values.yaml=int-rucio-authserver.yaml
+  - name: instance-rucio-traceserver
+    files:
+      - values.yaml=int-rucio-traceserver.yaml
   - name: instance-rucio-daemons
     files:
       - values.yaml=int-rucio-daemons.yaml
