@@ -26,10 +26,10 @@ configMapGenerator:
       - values.yaml=prod-rucio-server.yaml
   - name: instance-rucio-authserver
     files:
-      - values.yaml=int-rucio-authserver.yaml
+      - values.yaml=prod-rucio-authserver.yaml
   - name: instance-rucio-traceserver
     files:
-      - values.yaml=int-rucio-traceserver.yaml
+      - values.yaml=prod-rucio-traceserver.yaml
   - name: instance-rucio-daemons
     files:
       - values.yaml=prod-rucio-daemons.yaml
