@@ -14,10 +14,6 @@ secretMounts:
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
 
-optional_config:
-  rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
-  policy_pkg_path: /opt/rucio/policy
-
 # The server runs on port 80 and there is no need for SSL passthrough
 ingress:
   enabled: true
@@ -27,7 +23,7 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
     - cms-rucio.cern.ch
-  tls: 
+  tls:
     - secretName: rucio-server.tls-secret
 
 useSSL: false
@@ -56,9 +52,9 @@ serverResources:
 
 config:
   common:
-      loglevel: "INFO"
+    loglevel: "INFO"
   database:
-      pool_size: 10
+    pool_size: 10
 
 persistentVolumes:
   grid-cern-ch:
