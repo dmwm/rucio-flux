@@ -5,10 +5,11 @@ config:
     accounts:
         special_accounts: "tier0"
     policy:
-        package: "CMSRucioPolicy"
+        permission: "cms"
+        schema: "cms"
         lfn2pfn_algorithm_default: "identity"
         lfn2pfn_module: "cmstfc"
-        support: https://github.com/dmwm/CMSRucio/issues
+        support: "https://its.cern.ch/jira/projects/CMSRUCIO/summary"
     messaging_hermes:
         brokers: "localhost"
         voname: "cms"    
@@ -31,6 +32,7 @@ config:
         user_scope: rucio
 
 # Configure database connections for Oracle Database Resident Connection Pool (DRCP)
+
     database:
       pool_reset_on_return: "rollback"
       pool_timeout: "30"
@@ -38,9 +40,6 @@ config:
       max_overflow: "10"
       pool_size: "5"
       pool_recycle: "600"
-
-optional_config:
-    policy_pkg_path: /opt/rucio/policy
 
 # For whatever needs it
 ftsRenewal:
