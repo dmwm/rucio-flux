@@ -18,7 +18,7 @@ conveyorPreparerCount: 0
 conveyorPollerCount: 0
 conveyorFinisherCount: 0
 conveyorReceiverCount: 0
-reaperCount: 1
+reaperCount: 2
 
 ftsRenewal:
   schedule: "42 9 * * *"
