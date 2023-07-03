@@ -9,10 +9,11 @@ consistency:
      - /store/accounting
      - /store/express/tier0_harvest
   sites:
-    #T1_DE_KIT_Disk:
-    #  interval: 7
-    #  server: cmsxrootd-kit.gridka.de:1094
-    #  server: cmsxrootd-redirectors.gridka.de:1094
+    T1_DE_KIT_Disk:
+      interval: 7
+      server: cmsxrootd-kit.gridka.de:1094
+      server_root: /
+      timeout: 3600
     T2_US_Purdue:      
       interval: 7
       server: af-a00.cms.rcac.purdue.edu
@@ -25,12 +26,12 @@ consistency:
     T1_UK_RAL_Tape:
       interval: 0
       maxdarkfraction: "0.0000001"
-    #T1_US_FNAL_Disk:
-    #  interval: 7
-    #  server: cmsdcadisk.fnal.gov
-    #  server_root: /dcache/uscmsdisk
-    #  maxdarkfraction: 0.05
-    #  maxmissfraction: 0.02
+    T1_US_FNAL_Disk:
+      interval: 7
+      server: cmsdcadisk.fnal.gov
+      server_root: /dcache/uscmsdisk
+      maxdarkfraction: 0.05
+      maxmissfraction: 0.02
     T2_TW_NCHC:
       server: se01.grid.nchc.org.tw:11001
       interval: 7
@@ -271,10 +272,10 @@ consistency:
       server: ccxrootdcms.in2p3.fr:1094
       server_root: /pnfs/in2p3.fr/data/cms/data
       interval: 7
-    #T1_FR_CCIN2P3_Disk:
-    #  server: ccxrootdcms.in2p3.fr:1094
-    #  server_root: /pnfs/in2p3.fr/data/cms/disk/data
-    #  interval: 7
+    T1_FR_CCIN2P3_Disk:
+      server: ccxrootdcms.in2p3.fr:1094
+      server_root: /pnfs/in2p3.fr/data/cms/disk/data
+      interval: 7
     T1_RU_JINR_Disk:
       server: xrootd01.jinr-t1.ru:1094
       server_root: /pnfs/jinr-t1.ru/data/cms
