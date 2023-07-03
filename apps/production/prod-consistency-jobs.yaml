@@ -12,7 +12,8 @@ consistency:
     T1_DE_KIT_Disk:
       interval: 7
       server: cmsxrootd-kit.gridka.de:1094
-    #  server: cmsxrootd-redirectors.gridka.de:1094
+      server_root: /
+      timeout: 3600
     T2_US_Purdue:      
       interval: 7
       server: af-a00.cms.rcac.purdue.edu
