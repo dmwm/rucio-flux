@@ -9,9 +9,9 @@ consistency:
      - /store/accounting
      - /store/express/tier0_harvest
   sites:
-    #T1_DE_KIT_Disk:
-    #  interval: 7
-    #  server: cmsxrootd-kit.gridka.de:1094
+    T1_DE_KIT_Disk:
+      interval: 7
+      server: cmsxrootd-kit.gridka.de:1094
     #  server: cmsxrootd-redirectors.gridka.de:1094
     T2_US_Purdue:      
       interval: 7
