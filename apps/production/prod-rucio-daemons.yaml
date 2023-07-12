@@ -1,7 +1,7 @@
 # More reapers (or threads) than this cause issues for CERN Oracle, so use only temporarily. Reducing the sleep time is similar
 reaperCount: 4
 judgeInjectorCount: 2
-judgeRepairerCount: 5
+judgeRepairerCount: 2
 conveyorTransferSubmitterCount: 3
 conveyorPollerCount: 4
 conveyorReceiverCount: 1
@@ -42,7 +42,7 @@ judgeEvaluator:
       memory: 200Mi
 
 judgeRepairer:
-  threads: 4
+  threads: 2
 judgeInjector:
   threads: 3
 
