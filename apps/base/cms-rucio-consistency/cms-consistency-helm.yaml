@@ -6,11 +6,11 @@ spec:
   releaseName: consistency
   chart:
     spec:
-      chart: helm/rucio-consistency
+      chart: rucio-consistency
       version: 3.2.0
       sourceRef:
         kind: HelmRepository
-        name: cms-rucio-oci
+        name: cms-rucio
         namespace: flux-system
   interval: 5m
   install:

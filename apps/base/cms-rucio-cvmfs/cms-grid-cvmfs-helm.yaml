@@ -6,11 +6,11 @@ spec:
   releaseName: grid-cvmfs
   chart:
     spec:
-      chart: helm/rucio-cvmfs
+      chart: rucio-cvmfs
       version: 1.0.2
       sourceRef:
         kind: HelmRepository
-        name: cms-rucio-oci
+        name: cms-rucio
         namespace: flux-system
   interval: 5m
   install:

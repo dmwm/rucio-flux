@@ -6,10 +6,10 @@ spec:
   releaseName: traces
   chart:
     spec:
-      chart: helm/rucio-traces
+      chart: rucio-traces
       sourceRef:
         kind: HelmRepository
-        name: cms-rucio-oci
+        name: cms-rucio
         namespace: flux-system
   interval: 5m
   install:

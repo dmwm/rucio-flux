@@ -8,13 +8,3 @@ metadata:
 spec:
   interval: 5m
   url: https://registry.cern.ch/chartrepo/cmsrucio
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: cms-rucio-oci
-  namespace: flux-system
-spec:
-  interval: 5m
-  type: oci
-  url: oci://registry.cern.ch/cmsrucio

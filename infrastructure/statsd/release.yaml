@@ -6,11 +6,11 @@ spec:
   releaseName: statsd-exporter
   chart:
     spec:
-      chart: helm/rucio-statsd-exporter
+      chart: rucio-statsd-exporter
       version: "1.1.1"
       sourceRef:
         kind: HelmRepository
-        name: cms-rucio-oci
+        name: cms-rucio
         namespace: flux-system
   interval: 5m
   install:
