@@ -10,5 +10,5 @@ image:
   tag: release-4.2.0
 resources:
   requests:
-    memory: 10000Mi
-    cpu: 7000m
+    memory: 6000Mi
+    cpu: 4000m
