@@ -8,3 +8,7 @@ reportStorageClass:
 image:
   repository: registry.cern.ch/cmsrucio/rucio-consistency
   tag: release-4.2.0
+resources:
+  requests:
+    memory: 10000Mi
+    cpu: 7000m
