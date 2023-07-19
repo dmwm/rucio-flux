@@ -6,7 +6,7 @@ resources:
   - ../base/cms-rucio-cvmfs
 #  - ../base/rucio-daemons
 #  - ../base/rucio-webui
-#  - ../base/rucio-probes
+  - ../base/rucio-probes
 #  - ../base/cms-rucio-traces
 #  - ../base/cms-rucio-consistency
 #  - ../base/cms-rucio-cron
