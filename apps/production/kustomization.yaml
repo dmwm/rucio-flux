@@ -6,6 +6,7 @@ resources:
   - ../base/cms-rucio-cvmfs
 #  - ../base/rucio-daemons
 #  - ../base/rucio-webui
+  - ../base/rucio-newui
   - ../base/rucio-probes
 #  - ../base/cms-rucio-traces
 #  - ../base/cms-rucio-consistency
@@ -45,6 +46,9 @@ configMapGenerator:
   - name: instance-rucio-webui
     files:
       - values.yaml=prod-rucio-webui.yaml
+  - name: instance-rucio-newui
+    files:
+      - values.yaml=prod-rucio-newui.yaml
   - name: instance-rucio-probes
     files:
       - values.yaml=prod-rucio-probes.yaml
