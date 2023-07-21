@@ -1,8 +1,11 @@
 replicaCount: 1
 
+image:
+  repository: registry.cern.ch/cmsrucio/rucio-webui
+
 resources:
   limits:
-    memory: 1450Mi
+    memory: 4450Mi
 
 ingress:
   enabled: true
@@ -27,3 +30,5 @@ service:
   port: 443
   targetPort: https
   portName: https
+
+exposeErrorLogs: False
