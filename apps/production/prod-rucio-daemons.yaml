@@ -13,6 +13,10 @@ judgeCleanerCount: 2
 
 darkReaper:
   includeRses: "reaper=True"
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1000Mi
 
 reaper:
   includeRses: "reaper=True"
