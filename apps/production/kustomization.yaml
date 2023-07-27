@@ -15,9 +15,9 @@ resources:
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
   - ../options/tier0-reaper
-#  - ../options/loadtest-daemons
-#  - ../options/loadtest
-#  - ../options/webdav-loadtest
+  - ../options/loadtest-daemons
+  - ../options/loadtest
+  - ../options/webdav-loadtest
 # Not ready yet
 #  - ../options/globus-daemons
 
