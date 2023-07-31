@@ -1,17 +1,17 @@
-image:
-  repository: registry.cern.ch/cmsrucio/rucio-ui
-  tag: release-1.19.8
-
 replicaCount: 1
+
+image:
+  repository: registry.cern.ch/cmsrucio/rucio-webui
 
 resources:
   limits:
-    memory: 1450Mi
+    memory: 4450Mi
 
 ingress:
   enabled: true
   ingressClassName: nginx
   annotations:
+#    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 
@@ -25,3 +25,10 @@ persistentVolumes:
   grid-cern-ch:
     name: csi-cvmfs-grid-pvc
     mountPath: /cvmfs/grid.cern.ch
+
+service:
+  port: 443
+  targetPort: https
+  portName: https
+
+exposeErrorLogs: False

@@ -6,11 +6,11 @@ spec:
   releaseName: rucio-cron
   chart:
     spec:
-      chart: rucio-cron-jobs
+      chart: helm/rucio-cron-jobs
       version: 2.1.0
       sourceRef:
         kind: HelmRepository
-        name: cms-rucio
+        name: cms-rucio-oci
         namespace: flux-system
   interval: 5m
   install:
