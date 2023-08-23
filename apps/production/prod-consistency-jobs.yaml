@@ -152,7 +152,8 @@ consistency:
       server: se01.indiacms.res.in:11001
       interval: 7
     T2_CH_CSCS:
-      server: cms03.lcg.cscs.ch:1094
+      server: storage01.lcg.cscs.ch:1096
+      server_root: /pnfs/lcg.cscs.ch/cms/trivcat
       interval: 7
     T2_FR_IPHC:
       server: sbgse1.in2p3.fr:1094
