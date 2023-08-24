@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: rucio
 resources:
   - cms-consistency-helm.yaml
-  - cms-consistency-tier2-helm.yaml
 configMapGenerator:
   - name: cms-consistency
     files:

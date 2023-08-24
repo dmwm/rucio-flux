@@ -67,9 +67,6 @@ configMapGenerator:
   - name: instance-consistency-jobs
     files:
       - values.yaml=prod-consistency-jobs.yaml
-  - name: instance-consistency-tier2-jobs
-    files:
-      - values.yaml=prod-consistency-tier2-jobs.yaml
   - name: instance-rucio-cron
     files:
       - values.yaml=prod-cms-cron.yaml
