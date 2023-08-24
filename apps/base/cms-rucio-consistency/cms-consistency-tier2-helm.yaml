@@ -3,7 +3,7 @@ kind: HelmRelease
 metadata:
   name: cms-tier2-consistency
 spec:
-  releaseName: tier2-consistency
+  releaseName: consistency
   chart:
     spec:
       chart: helm/rucio-consistency
