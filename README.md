@@ -81,7 +81,7 @@ The Rucio setup relies on a number of secrets being created before flux is boots
 This relies on three pieces of information not supplied by any repository:
 - `$HOSTP12`: The certificate for a node in the Rucio cluster which also has entries for the node aliases like `cms-rucio.cern.ch`
 - `$ROBOTP12`: The Robot certificate used for all FTS/gfal operations. This also gets used to authenticate as `root` to Rucio. 
-- `INSTANCE-secrets.yaml` (not a YAML file): A file providing the true secrets of the Rucio install (database connection strings, passwords and tokens for various services)
+- `${INSTANCE}-secrets.yaml` (not a YAML file): A file providing the true secrets of the Rucio install (database connection strings, passwords and tokens for various services)
 
 The format of this file is
 
