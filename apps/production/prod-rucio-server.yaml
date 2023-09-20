@@ -14,10 +14,3 @@ secretMounts:
     mountPath: /opt/rucio/etc/
     subPaths:
       - idpsecrets.json
-# Check the above in 1.31. Should be same as below. Probably goes into auth file
-#additionalSecrets:
-#  idpsecrets:
-#    secretName: idpsecrets
-#    mountPath: /opt/rucio/etc/
-#    subPaths:
-#      - idpsecrets.json
