@@ -7,7 +7,7 @@ loadtest:
 image:
   repository: registry.cern.ch/cmsrucio/rucio-loadtest-client
   pullPolicy: Always
-  tag: "1.0.4"
+  tag: "1.0.5"
 
 persistentVolumes:
   grid-cern-ch:
