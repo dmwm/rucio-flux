@@ -42,7 +42,7 @@ serverResources:
 
 config:
   common:
-      loglevel: "INFO"
+      loglevel: "DEBUG"
 
 persistentVolumes:
   grid-cern-ch:
