@@ -5,7 +5,6 @@ image:
 httpd_config:
   encoded_slashes: "True"
   legacy_dn: "True"
-  grid_site_enabled: "True"
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
