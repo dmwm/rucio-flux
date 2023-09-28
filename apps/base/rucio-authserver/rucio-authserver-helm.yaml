@@ -27,9 +27,9 @@ spec:
     - kind: ConfigMap
       name: cms-rucio-authserver
     - kind: ConfigMap
-      name: instance-rucio-authserver
-    - kind: ConfigMap
       name: instance-rucio-release
+    - kind: ConfigMap
+      name: instance-rucio-authserver
     - kind: Secret
       name: rucio-secrets
       valuesKey: db_string
