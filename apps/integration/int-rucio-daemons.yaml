@@ -53,6 +53,9 @@ config:
       reconnect_attempts: "100"
       use_ssl: "False"
       username: "cmsrucio"
+    #
+    messaging_hermes:
+      brokers: "cms-test-mb.cern.ch"
 
 conveyorPoller:
       config:
