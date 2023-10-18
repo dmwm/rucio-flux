@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: fluentbit
+spec:
+  releaseName: fluentbit
+  chart:
+    spec:
+      chart: fluentbit
+      sourceRef:
+        kind: HelmRepository
+        name: fluentbit
+        namespace: fluentbit
+
+  interval: 1h0m0s
+  valuesFrom:
+    - kind: Secret
+      name: esUser
+      valuesKey: HTTP_User
+    - kind: Secret
+      name: esPass
+      valuesKey: HTTP_Passwd
+    - kind: ConfigMap
+      name: instance-fluentbit-values
+      valuesKey: values.yaml
+  install:
+    remediation:
+      retries: 3
