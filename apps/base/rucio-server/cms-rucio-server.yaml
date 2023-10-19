@@ -9,6 +9,7 @@ httpd_config:
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
 
+# The server runs on port 80 and there is no need for SSL passthrough
 ingress:
   enabled: true
   ingressClassName: nginx
@@ -24,11 +25,6 @@ useSSL: false
 
 ftsRenewal:
   enabled: true
-  additionalEnvs:
-    - name: USERCERT_NAME
-      value: "usercert.pem"
-    - name: USERKEY_NAME
-      value: "new_userkey.pem"
 
 serverResources:
   requests:
