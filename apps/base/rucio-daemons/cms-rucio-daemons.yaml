@@ -82,6 +82,7 @@ conveyorPoller:
       pool_size: "10"
 
 conveyorReceiver:
+  threads: 4
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
