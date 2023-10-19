@@ -33,6 +33,12 @@ useSSL: false
 
 ftsRenewal:
   enabled: true
+  # FIXME: Not clear we need the envs anymore, but putting them back
+  additionalEnvs:
+    - name: USERCERT_NAME
+      value: "usercert.pem"
+    - name: USERKEY_NAME
+      value: "new_userkey.pem"
   secretMounts:
     - secretFullName: server-fts-cert
       mountPath: /opt/rucio/certs/

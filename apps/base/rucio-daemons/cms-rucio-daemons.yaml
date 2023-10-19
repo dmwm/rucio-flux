@@ -29,7 +29,7 @@ automaticRestart:
   #Restart everything. Need to add deployment labels to get auto-restart working for not all pods
 
 secretMounts:
-  - secretFullName: daemons-rucio-x509up
+  - secretFullName: server-rucio-x509up
     mountPath: /opt/proxy
 
 darkReaper:
