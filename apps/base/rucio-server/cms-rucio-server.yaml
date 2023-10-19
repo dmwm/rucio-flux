@@ -33,6 +33,11 @@ useSSL: false
 
 ftsRenewal:
   enabled: true
+  secretMounts:
+    - secretFullName: server-fts-cert
+      mountPath: /opt/rucio/certs/
+    - secretFullName: server-fts-key
+      mountPath: /opt/rucio/keys/
 
 serverResources:
   requests:
