@@ -90,10 +90,6 @@ conveyorReceiver:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
 
-# Settings to renew FTS	proxy
-ftsRenewal:
-  enabled: 1
-
 hermes:
   threads: 3
   bulk: 1000

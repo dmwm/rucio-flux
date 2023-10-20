@@ -30,8 +30,6 @@ ingress:
     - secretName: rucio-server.tls-secret
 
 useSSL: true
-ftsRenewal:
-  enabled: false
 
 service:
   type: ClusterIP

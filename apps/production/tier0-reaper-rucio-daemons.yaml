@@ -20,9 +20,6 @@ conveyorFinisherCount: 0
 conveyorReceiverCount: 0
 reaperCount: 1
 
-ftsRenewal:
-  schedule: "42 9 * * *"
-
 reaper:
   includeRses: "T0_CH_CERN_Disk|T2_CH_CERN"
   chunkSize: 4000
