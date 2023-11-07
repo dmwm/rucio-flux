@@ -6,14 +6,6 @@ httpd_config:
   encoded_slashes: "True"
   legacy_dn: "True"
 
-secretMounts:
-  - secretFullName: server-server-hostcert
-    mountPath: /etc/grid-security/hostcert.pem
-    subPath: hostcert.pem
-  - secretFullName: server-server-hostkey
-    mountPath: /etc/grid-security/hostkey.pem
-    subPath: hostkey.pem
-
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
 
@@ -30,6 +22,8 @@ ingress:
     - secretName: rucio-server.tls-secret
 
 useSSL: true
+ftsRenewal:
+  enabled: false
 
 service:
   type: ClusterIP

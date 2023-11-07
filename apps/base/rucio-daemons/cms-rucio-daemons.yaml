@@ -28,10 +28,6 @@ automaticRestart:
   #selectorLabel: "auto-restart=true"
   #Restart everything. Need to add deployment labels to get auto-restart working for not all pods
 
-secretMounts:
-  - secretFullName: server-rucio-x509up
-    mountPath: /opt/proxy
-
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
 
@@ -90,6 +86,20 @@ conveyorReceiver:
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
+
+# Settings to renew FTS	proxy
+ftsRenewal:
+  enabled: 1
+  image:
+    repository: rucio/fts-cron
+    tag: latest
+  voms: "cms:/cms/Role=production"
+  servers: "https://fts3-devel.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446"
+  additionalEnvs:
+    - name: USERCERT_NAME
+      value: "usercert.pem"
+    - name: USERKEY_NAME
+      value: "new_userkey.pem"
 
 hermes:
   threads: 3
