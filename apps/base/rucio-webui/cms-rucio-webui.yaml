@@ -21,6 +21,14 @@ proxy:
 httpd_config:
   legacy_dn: "True"
 
+secretMounts:
+  - secretFullName: server-server-hostcert
+    mountPath: /etc/grid-security/hostcert.pem
+    subPath: hostcert.pem
+  - secretFullName: server-server-hostkey
+    mountPath: /etc/grid-security/hostkey.pem
+    subPath: hostkey.pem
+
 persistentVolumes:
   grid-cern-ch:
     name: csi-cvmfs-grid-pvc
