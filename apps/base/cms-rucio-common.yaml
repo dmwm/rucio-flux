@@ -8,6 +8,8 @@ config:
         package: CMSRucioPolicy
         lfn2pfn_algorithm_default: "identity"
         support: "https://its.cern.ch/jira/projects/CMSRUCIO/summary"
+        permission: "cms"
+        schema: "cms"
     messaging_hermes:
         brokers: "localhost"
         voname: "cms"    
