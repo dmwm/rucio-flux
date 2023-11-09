@@ -53,9 +53,6 @@ reaper:
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
-  config:
-    common:
-      loglevel: "DEBUG"
 
 conveyorTransferSubmitter:
   activities: "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions' 'User AutoApprove'"
