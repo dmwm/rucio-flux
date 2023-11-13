@@ -99,6 +99,10 @@ conveyorReceiver:
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
+  config:
+    policy:
+      schema: "cms"
+      permission: "cms"
 
 hermes:
   threads: 3
