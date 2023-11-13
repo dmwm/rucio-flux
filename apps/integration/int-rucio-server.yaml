@@ -11,11 +11,6 @@ config:
     admin_issuer: "cms"
     expected_audience: "rucio"
 
-# FIXME: Defined here and in prod because int does not have IDP secrets
-secretMounts:
-  - secretFullName: server-rucio-x509up
-    mountPath: /opt/proxy
-
 optional_config:
   SQLALCHEMY_WARN_20: 1
   PYTHONWARNINGS: "always::DeprecationWarning"

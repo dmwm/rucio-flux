@@ -27,6 +27,24 @@ ingress:
     - secretName: rucio-server.tls-secret
 
 useSSL: false
+ftsRenewal:
+  enabled: false
+
+
+#service:
+#  type: ClusterIP
+#  port: 443
+#  targetPort: https
+#  protocol: TCP
+#  name: https
+#  annotations: {}
+
+
+# remove for 1.31
+
+
+
+
 
 serverResources:
   requests:

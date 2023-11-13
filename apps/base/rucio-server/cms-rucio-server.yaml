@@ -6,18 +6,9 @@ httpd_config:
   encoded_slashes: "True"
   legacy_dn: "True"
 
-secretMounts:
-  - secretFullName: server-server-hostcert
-    mountPath: /etc/grid-security/hostcert.pem
-    subPath: hostcert.pem
-  - secretFullName: server-server-hostkey
-    mountPath: /etc/grid-security/hostkey.pem
-    subPath: hostkey.pem
-
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
 
-# The server runs on port 80 and there is no need for SSL passthrough
 ingress:
   enabled: true
   ingressClassName: nginx
@@ -33,19 +24,11 @@ useSSL: false
 
 ftsRenewal:
   enabled: true
-  # FIXME: Not clear we need the envs anymore, but putting them back
   additionalEnvs:
     - name: USERCERT_NAME
       value: "usercert.pem"
     - name: USERKEY_NAME
       value: "new_userkey.pem"
-    - name: RUCIO_FTS_SECRETS
-      value: "server-rucio-x509up"
-  secretMounts:
-    - secretFullName: server-fts-cert
-      mountPath: /opt/rucio/certs/
-    - secretFullName: server-fts-key
-      mountPath: /opt/rucio/keys/
 
 serverResources:
   requests:
@@ -63,7 +46,3 @@ persistentVolumes:
   grid-cern-ch:
     name: csi-cvmfs-grid-pvc
     mountPath: /cvmfs/grid.cern.ch
-    
-additionalEnvs:
-  - name: X509_USER_PROXY
-    value: "/opt/proxy/x509up"

@@ -27,6 +27,10 @@ necromancerCount: 0
 conveyorReceiverCount: 0
 cacheConsumerCount: 0
 
+ftsRenewal:
+  enabled: 1
+  schedule: "40 */12 * * *"
+
 config:
     common:
 #        loglevel: "DEBUG"
