@@ -40,18 +40,8 @@ elif [ $UPDATE_FTS_CERTS -eq 1 ]; then
 
     export ROBOTCERT=usercert.pem
     export ROBOTKEY=new_userkey.pem
-    kubectl -n rucio create secret generic ${DAEMON_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
-    kubectl -n rucio create secret generic ${DAEMON_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
     kubectl -n rucio create secret generic ${SERVER_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
     kubectl -n rucio create secret generic ${SERVER_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
-    kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
-    kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
-    kubectl -n rucio create secret generic ${TIER0_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
-    kubectl -n rucio create secret generic ${TIER0_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
-    kubectl -n rucio create secret generic ${GLOBUS_NAME}-fts-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
-    kubectl -n rucio create secret generic ${GLOBUS_NAME}-fts-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
-    kubectl -n rucio create secret generic ${DAEMON_NAME}-hermes-cert --from-file=$ROBOTCERT --dry-run=client --save-config -o yaml | kubectl apply -f -
-    kubectl -n rucio create secret generic ${DAEMON_NAME}-hermes-key --from-file=$ROBOTKEY --dry-run=client --save-config -o yaml | kubectl apply -f -
     exit 0
 fi
 
@@ -112,6 +102,8 @@ kubectl -n rucio create secret tls rucio-server.tls-secret --key=tls.key --cert=
 kubectl -n rucio create secret generic ${SERVER_NAME}-server-hostcert --from-file=hostcert.pem
 kubectl -n rucio create secret generic ${SERVER_NAME}-server-hostkey --from-file=hostkey.pem
 kubectl -n rucio create secret generic ${SERVER_NAME}-server-cafile  --from-file=ca.pem
+
+# FIXME: Not needed
 kubectl -n rucio create secret generic ${AUTHSERVER_NAME}-server-hostcert --from-file=hostcert.pem
 kubectl -n rucio create secret generic ${AUTHSERVER_NAME}-server-hostkey --from-file=hostkey.pem
 kubectl -n rucio create secret generic ${AUTHSERVER_NAME}-server-cafile  --from-file=ca.pem
@@ -128,48 +120,36 @@ kubectl create -n rucio secret generic ${UI_NAME}-hostkey --from-file=hostkey.pe
 
 # Secrets for FTS, hermes
 
-kubectl -n rucio create secret generic ${DAEMON_NAME}-fts-cert --from-file=$ROBOTCERT
-kubectl -n rucio create secret generic ${DAEMON_NAME}-fts-key --from-file=$ROBOTKEY
 kubectl -n rucio create secret generic ${SERVER_NAME}-fts-cert --from-file=$ROBOTCERT
 kubectl -n rucio create secret generic ${SERVER_NAME}-fts-key --from-file=$ROBOTKEY
-kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-cert --from-file=$ROBOTCERT
-kubectl -n rucio create secret generic ${LOADTEST_NAME}-fts-key --from-file=$ROBOTKEY
-kubectl -n rucio create secret generic ${TIER0_NAME}-fts-cert --from-file=$ROBOTCERT
-kubectl -n rucio create secret generic ${TIER0_NAME}-fts-key --from-file=$ROBOTKEY
 kubectl -n rucio create secret generic ${DAEMON_NAME}-hermes-cert --from-file=$ROBOTCERT
 kubectl -n rucio create secret generic ${DAEMON_NAME}-hermes-key --from-file=$ROBOTKEY
 kubectl -n rucio create secret generic ${DAEMON_NAME}-rucio-ca-bundle --from-file=/etc/pki/tls/certs/CERN-bundle.pem
 
 # Secrets for Globus
+# FIXME: None of these CERN-bundle secrets should be needed (they are never referenced)
 kubectl -n rucio create secret generic ${GLOBUS_NAME}-rucio-ca-bundle --from-file=/etc/pki/tls/certs/CERN-bundle.pem
 kubectl -n rucio delete secret ${GLOBUS_NAME}-rucio-x509up
-kubectl -n rucio create secret generic ${GLOBUS_NAME}-rucio-x509up  --from-file=/etc/pki/tls/certs/CERN-bundle.pem # This is a dummy, but needed for container to start
-kubectl -n rucio create secret generic ${GLOBUS_NAME}-fts-cert --from-file=$ROBOTCERT
-kubectl -n rucio create secret generic ${GLOBUS_NAME}-fts-key --from-file=$ROBOTKEY
 
 # Secrets for Load test
 kubectl create -n rucio secret generic ${LOADTEST_NAME}-rucio-ca-bundle --from-file=/etc/pki/tls/certs/CERN-bundle.pem
-kubectl create -n rucio secret generic ${LOADTEST_NAME}-rucio-x509up  --from-file=/etc/pki/tls/certs/CERN-bundle.pem # This is a dummy, but needed for container to start
 
 # Secrets for Tier0 Reaper
 kubectl create -n rucio secret generic ${TIER0_NAME}-rucio-ca-bundle --from-file=/etc/pki/tls/certs/CERN-bundle.pem
-kubectl create -n rucio secret generic ${TIER0_NAME}-rucio-x509up  --from-file=/etc/pki/tls/certs/CERN-bundle.pem # This is a dummy, but needed for container to start
 
 # More secrets for server
 kubectl create -n rucio secret generic ${SERVER_NAME}-rucio-ca-bundle --from-file=/etc/pki/tls/certs/CERN-bundle.pem
 kubectl create -n rucio secret generic ${AUTHSERVER_NAME}-rucio-ca-bundle --from-file=/etc/pki/tls/certs/CERN-bundle.pem
 kubectl create -n rucio secret generic ${TRACESERVER_NAME}-rucio-ca-bundle --from-file=/etc/pki/tls/certs/CERN-bundle.pem
 kubectl create -n rucio secret generic ${SERVER_NAME}-rucio-x509up  --from-file=/etc/pki/tls/certs/CERN-bundle.pem # This is a dummy, but needed for container to start
-kubectl create -n rucio secret generic ${AUTHSERVER_NAME}-rucio-x509up  --from-file=/etc/pki/tls/certs/CERN-bundle.pem # This is a dummy, but needed for container to start
-kubectl create -n rucio secret generic ${TRACESERVER_NAME}-rucio-x509up  --from-file=/etc/pki/tls/certs/CERN-bundle.pem # This is a dummy, but needed for container to start
-kubectl create -n rucio secret generic ${DAEMON_NAME}-rucio-x509up  --from-file=/etc/pki/tls/certs/CERN-bundle.pem # This is a dummy, but needed for container to start
 
 # WebUI needs whole bundle as ca.pem. Keep this at end since we just over-wrote ca.pem
 
-cp /etc/pki/tls/certs/CERN-bundle.pem ca.pem  
+cp /etc/pki/tls/certs/CERN-bundle.pem ca.pem
+# FIXME: Also does not appear to be used
 kubectl -n rucio create secret generic ${UI_NAME}-cafile  --from-file=ca.pem
 
-# Temp sp we can run old version too
+# FIXME: Deprecated by now it seems
 
 kubectl -n rucio create secret generic ${SERVER_NAME}-auth-hostcert --from-file=hostcert.pem
 kubectl -n rucio create secret generic ${SERVER_NAME}-auth-hostkey --from-file=hostkey.pem
@@ -180,6 +160,7 @@ kubectl -n rucio create secret generic ${SERVER_NAME}-auth-cafile  --from-file=c
 rm tls.key tls.crt hostkey.pem hostcert.pem ca.pem
 rm usercert.pem new_userkey.pem
 
+# FIXME: This doesn't seem needed either
 # Reapers needs the whole directory of certificates
 mkdir /tmp/reaper-certs
 cp /etc/grid-security/certificates/*.0 /tmp/reaper-certs/
