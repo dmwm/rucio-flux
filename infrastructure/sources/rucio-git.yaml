@@ -5,11 +5,11 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  url: https://github.com/ericvaandering/helm-charts.git
+  url: https://github.com/ericvaandering/helm-charts
   ref:
-    branch: master
-  ignore: |
-    # exclude all
-    /*
-    # include charts directory
-    !/helm/
+    branch: optional_gridsec
+#  ignore: |
+#    # exclude all
+#    /*
+#    # include charts directory
+#    !/charts/

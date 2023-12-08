@@ -38,4 +38,3 @@ spec:
       name: rucio-secrets
       valuesKey: trace_password
       targetPath: config.trace.password
-# ^^^ 1.31
