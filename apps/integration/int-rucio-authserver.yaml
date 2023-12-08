@@ -5,5 +5,3 @@ ingress:
 
 httpd_config:
   grid_site_enabled: "True"
-
-exposeErrorLogs: False

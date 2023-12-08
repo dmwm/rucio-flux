@@ -18,5 +18,3 @@ optional_config:
 
 ftsRenewal:
   schedule: "30 */12 * * *"
-
-exposeErrorLogs: False
