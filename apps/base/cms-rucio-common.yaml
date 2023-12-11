@@ -4,6 +4,8 @@ image:
 config:
     accounts:
         special_accounts: "tier0"
+    common:
+        logjson: True
     policy:
         package: CMSRucioPolicy
         lfn2pfn_algorithm_default: "identity"
