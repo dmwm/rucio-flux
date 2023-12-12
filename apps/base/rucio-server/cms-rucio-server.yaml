@@ -55,7 +55,7 @@ serverResources:
 
 config:
   common:
-    loglevel: "DEBUG"
+    loglevel: "INFO"
   database:
     pool_size: 10
 
