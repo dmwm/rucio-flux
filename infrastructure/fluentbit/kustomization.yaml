@@ -4,4 +4,8 @@ namespace: fluentbit
 resources:
   - namespace.yaml
   - release.yaml
-  - cm-cms-fluentbit.yaml
+
+configMapGenerator:
+  - name: instance-fluentbit-values
+    files:
+      - values.yaml=cm-cms-fluentbit.yaml
