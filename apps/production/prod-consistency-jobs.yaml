@@ -88,7 +88,7 @@ consistency:
       server: stormgf2.pi.infn.it:1094
       interval: 7
     T2_FI_HIP:
-      server: nute.csc.fi:1094
+      server: hip-cms-se.csc.fi:1094
       interval: 7
     T2_IT_Legnaro:
       server: t2-xrdcms.lnl.infn.it:7070
@@ -218,8 +218,8 @@ consistency:
       server: osg-se.sprace.org.br
       interval: 7
     T2_CN_Beijing:
-      server: ccsrm.ihep.ac.cn:1094
-      server_root: /cms
+      server: cceos.ihep.ac.cn:1094
+      server_root: /eos/ihep/cms
       interval: 7
     T2_DE_DESY:
       server: t2-cms-xrootd01.desy.de:1094
