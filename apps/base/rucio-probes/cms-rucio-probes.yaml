@@ -80,3 +80,6 @@ voProbes:
   check_unlocked_replicas_per_rse:
     interval: 1
     voName: cms
+  check_rse_files_rules:
+    interval: 1
+    voName: cms
