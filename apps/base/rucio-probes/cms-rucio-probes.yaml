@@ -59,20 +59,11 @@ voProbes:
   check_report_used_space:
     interval: 30
     voName: cms
-  check_number_of_missing_files_per_rse:
-    interval: 1
-    voName: cms
-  check_missing_data_at_rse:
-    interval: 1
-    voName: cms
   check_expiring_rules_per_rse:
     interval: 1
     voName: cms
   check_expected_total_number_of_files_per_rse:
     interval: 60
-    voName: cms
-  check_not_OK_rules_per_rse:
-    interval: 1
     voName: cms
   check_report_free_space:
     interval: 120
