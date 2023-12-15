@@ -29,20 +29,20 @@ config:
     [INPUT]
         Name tail
         Path /var/log/containers/*.log
-        multiline.parser docker, cri
+        multiline.parser cri
         Tag kube.*
         Mem_Buf_Limit 5MB
         Skip_Long_Lines On
         Exclude_Path /var/log/containers/*_kube-system_*.log
 
   ## https://docs.fluentbit.io/manual/pipeline/filters
-  filters: |
-    [FILTER]
-        Name kubernetes
-        Merge_Log On
-        Keep_Log Off
-        K8S-Logging.Parser On
-        K8S-Logging.Exclude On
+  # filters: |
+  #   [FILTER]
+  #       Name kubernetes
+  #       Merge_Log On
+  #       Keep_Log Off
+  #       K8S-Logging.Parser On
+  #       K8S-Logging.Exclude On
 
   ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
@@ -73,6 +73,6 @@ config:
         Time_Format %d/%b/%Y:%H:%M:%S %z
 
     [PARSER]
-        Name   apache_error
+        Name   rucio_httpd_error
         Format regex
-        Regex  ^\[[^ ]* (?<time>[^\]]*)\] \[(?<level>[^\]]*)\](?: \[pid (?<pid>[^\]]*)\])?( \[client (?<client>[^\]]*)\])? (?<message>.*)$
+        Regex  ^\[[^ ]* (?<timestamp>[^\]]*)\] \[(?<module>[^\]]*):(?<level>[^\]]*)\](?: \[pid (?<pid>[^\]]*):tid (?<tid>[^\]]*)\])?( \[(?<client>[^\]]*) (?<ip>[^\]]*)\])? (?<message>.*)$
