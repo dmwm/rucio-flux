@@ -5,3 +5,15 @@ ingress:
 
 httpd_config:
   grid_site_enabled: "True"
+
+config:
+  oidc:
+    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
+    admin_issuer: "cms"
+    expected_audience: "rucio"
+
+secretMounts:
+  - secretName: server-idpsecrets
+    mountPath: /opt/rucio/etc/
+    subPaths:
+      - idpsecrets.json
