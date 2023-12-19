@@ -7,13 +7,21 @@ httpd_config:
   grid_site_enabled: "True"
 
 config:
+  common:
+      loglevel: "DEBUG"
   oidc:
     idpsecrets: "/opt/rucio/etc/idpsecrets.json"
     admin_issuer: "cms"
     expected_audience: "rucio"
 
 secretMounts:
-  - secretName: server-idpsecrets
+  - secretFullName: server-idpsecrets
     mountPath: /opt/rucio/etc/
     subPaths:
       - idpsecrets.json
+  - secretFullName: server-server-hostcert
+    mountPath: /etc/grid-security/hostcert.pem
+    subPath: hostcert.pem
+  - secretFullName: server-server-hostkey
+    mountPath: /etc/grid-security/hostkey.pem
+    subPath: hostkey.pem
