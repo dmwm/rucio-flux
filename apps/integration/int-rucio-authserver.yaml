@@ -8,17 +8,11 @@ httpd_config:
 
 config:
   common:
-      loglevel: "DEBUG"
+    loglevel: "DEBUG"
   oidc:
-    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
-    admin_issuer: "cms"
     expected_audience: "rucio"
 
 secretMounts:
-  - secretFullName: server-idpsecrets
-    mountPath: /opt/rucio/etc/
-    subPaths:
-      - idpsecrets.json
   - secretFullName: server-server-hostcert
     mountPath: /etc/grid-security/hostcert.pem
     subPath: hostcert.pem
