@@ -1,7 +1,10 @@
 conveyorTransferSubmitterCount: 1
 conveyorPollerCount: 1
 conveyorFinisherCount: 1
+conveyorPreparerCount: 1
 darkReaperCount: 1
+cacheConsumerCount: 1
+tracerKronosCount: 0
 
 reaper:
   includeRses: "cms_type=int"
@@ -12,21 +15,43 @@ darkReaper:
 #  rses: "T2_US_Purdue_Test"
   includeRses: "T2_US_Purdue"
 
-ftsRenewal:
-  # Non-flux based is 19h
-  schedule: "42 17 * * *"
-
 conveyorTransferSubmitter:
   threads: 1
 
 podLabels:
   rucioInstance: "int"
 
+# Move to central
+cacheConsumer:
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+
 config:
     common:
         loglevel: "DEBUG"
         #loglevel: "INFO"
+    tracer_kronos:
+      brokers: "cms-test-mb.cern.ch"
+      queue: "/topic/cms.rucio.tracer"
     conveyor:
       use_preparer: "True"
-      filter_transfertool: "fts3"
+      transfertool: "fts3,globus"
+      transfertype: "bulk"
+      scheme: "srm,gsiftp,root,http,https,globus"
+      globus_auth_app: "CMSRucioProduction"
+    # Move to central
+    messaging_cache:
+      destination: "/topic/cms.rucio.cache"
+      port: "61313"
+      brokers: "cms-test-mb.cern.ch"
+      ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
+      ssl_cert_file: "/opt/rucio/certs/usercert.pem"
+      reconnect_attempts: "100"
+      use_ssl: "False"
+      username: "cmsrucio"
 
+conveyorPoller:
+      config:
+        conveyor:
+          transfertool: "fts3"

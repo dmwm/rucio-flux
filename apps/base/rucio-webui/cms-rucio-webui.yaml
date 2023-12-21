@@ -1,5 +1,5 @@
 image:
-  repository: cmssw/rucio-ui
+  repository: registry.cern.ch/cmsrucio/rucio-ui
   tag: release-1.19.8
 
 replicaCount: 1
@@ -10,6 +10,26 @@ resources:
 
 ingress:
   enabled: true
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 
 proxy:
   rucioProxyScheme: "http"
+
+httpd_config:
+  legacy_dn: "True"
+
+secretMounts:
+  - secretFullName: server-server-hostcert
+    mountPath: /etc/grid-security/hostcert.pem
+    subPath: hostcert.pem
+  - secretFullName: server-server-hostkey
+    mountPath: /etc/grid-security/hostkey.pem
+    subPath: hostkey.pem
+
+persistentVolumes:
+  grid-cern-ch:
+    name: csi-cvmfs-grid-pvc
+    mountPath: /cvmfs/grid.cern.ch

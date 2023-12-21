@@ -1,16 +1,24 @@
 replicaCount: 1
-authReplicaCount: 1
 ingress:
   hosts: 
     - cms-rucio-int.cern.ch
-authIngress:
-  hosts: 
-    - cms-rucio-auth-int.cern.ch
-traceIngress:
-  hosts: 
-    - cms-rucio-trace-int.cern.ch
 
 config:
-    conveyor:
-        use_preparer: "True"
+  conveyor:
+    use_preparer: "True"
+  oidc:
+    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
+    admin_issuer: "cms"
+    expected_audience: "rucio"
 
+# FIXME: Defined here and in prod because int does not have IDP secrets
+secretMounts:
+  - secretFullName: server-rucio-x509up
+    mountPath: /opt/proxy
+
+optional_config:
+  SQLALCHEMY_WARN_20: 1
+  PYTHONWARNINGS: "always::DeprecationWarning"
+
+ftsRenewal:
+  schedule: "30 */12 * * *"

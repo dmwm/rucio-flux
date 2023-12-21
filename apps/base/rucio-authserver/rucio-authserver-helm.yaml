@@ -1,0 +1,36 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rucio-authserver
+spec:
+  releaseName: authserver
+  chart:
+    spec:
+      chart: rucio-server
+      version: ">=32.0 <33.0"
+      sourceRef:
+        kind: HelmRepository
+        name: rucio
+        namespace: flux-system
+#      chart: ./charts/rucio-server
+#      sourceRef:
+#        kind: GitRepository
+#        name: rucio-git
+#        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cms-rucio-common
+    - kind: ConfigMap
+      name: cms-rucio-authserver
+    - kind: ConfigMap
+      name: instance-rucio-release
+    - kind: ConfigMap
+      name: instance-rucio-authserver
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: db_string
+      targetPath: config.database.default

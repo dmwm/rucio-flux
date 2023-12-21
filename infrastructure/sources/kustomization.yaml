@@ -6,5 +6,4 @@ resources:
   - kube-eagle.yaml
   - rucio.yaml
   - rucio-git.yaml
-  - cms-kubernetes.yaml
-  - cms-kubernetes-git.yaml
+  - cms-rucio.yaml

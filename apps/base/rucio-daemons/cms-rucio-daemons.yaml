@@ -1,5 +1,5 @@
 image:
-  repository: cmssw/rucio-daemons
+  repository: registry.cern.ch/cmsrucio/rucio-daemons
 
 abacusAccountCount: 1
 abacusRseCount: 1
@@ -9,6 +9,7 @@ conveyorPollerCount: 2
 conveyorFinisherCount: 2
 conveyorStagerCount: 0
 hermesCount: 1
+hermesLegacyCount: 0
 judgeCleanerCount: 1
 judgeEvaluatorCount: 1
 judgeInjectorCount: 1
@@ -20,6 +21,16 @@ reaperCount: 1
 minosCount: 1
 necromancerCount: 1
 darkReaperCount: 1
+conveyorReceiverCount: 0
+
+automaticRestart:
+  enabled: 1
+  #selectorLabel: "auto-restart=true"
+  #Restart everything. Need to add deployment labels to get auto-restart working for not all pods
+
+secretMounts:
+  - secretFullName: server-rucio-x509up
+    mountPath: /opt/proxy
 
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
@@ -46,14 +57,26 @@ reaper:
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
+  additionalEnvs:
+    - name: X509_USER_PROXY
+      value: "/opt/proxy/x509up"
 
 conveyorTransferSubmitter:
-  activities: "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions'"
+  activities: "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions' 'User AutoApprove'"
     # Same size or smaller than bulk which is 100
   groupBulk: 50
+  sleepTime: 60
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
+  resources:
+    limits:
+      memory: 2000Mi
+    requests:
+      memory: 400Mi
+  additionalEnvs:
+    - name: X509_USER_PROXY
+      value: "/opt/proxy/x509up"
 
 conveyorFinisher:
   podAnnotations:
@@ -64,29 +87,34 @@ conveyorPoller:
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
+  config:
+    database:
+      pool_size: "10"
+  additionalEnvs:
+    - name: X509_USER_PROXY
+      value: "/opt/proxy/x509up"
 
-# Settings to renew FTS	proxy
-ftsRenewal:
-  enabled: 1
-  image:
-    repository: rucio/fts-cron
-    tag: latest
-  voms: "cms:/cms/Role=production"
-  servers: "https://fts3-devel.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446"
+conveyorReceiver:
+  threads: 4
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+  config:
+    policy:
+      schema: "cms"
+      permission: "cms"
 
 hermes:
-  useSSL: 1
-  threads: 5
-  bulk: 500
-  brokerTimeout: 300
+  threads: 3
+  bulk: 1000
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
   resources:
     requests:
-      memory: 400Mi
+      memory: 900Mi
     limits:
-      memory: 600Mi
+      memory: 9000Mi
 
 judgeEvaluator: 
   resources:
@@ -140,26 +168,38 @@ monitoring:
   serviceMonitorEnabled: false
 
 config:
-    common:
-        loglevel: "INFO"
-    messaging_hermes:
-        port: "61323"
-        brokers: "cms-mb.cern.ch"
-        ssl_key_file: "/opt/rucio/keys/new_userkey.pem"
-        ssl_cert_file: "/opt/rucio/certs/usercert.pem"
-        destination: "/topic/cms.rucio.events"
-        voname: "cms"
-    monitor:
-      enable_metrics: "True"
-      metrics_port: "8080"
-    tracer_kronos:
-        username: "cmsrucio"
-        port: "61313"
-        brokers: "cms-mb.cern.ch"
-        queue: "/queue/Consumer.kronos.cms.rucio.tracer"
-        # FIXME: Both used to be 50 before 1.24 problems with Kronos
-        chunksize: "1"
-        prefetch_size: "10"
+  common:
+    loglevel: "INFO"
+  hermes:
+    services_list: "activemq"
+  messaging_hermes:
+    username: "cmsrucio"
+    port: "61313"
+    nonssl_port: "61313"
+    use_ssl: "False"
+    brokers: "cms-mb.cern.ch"
+    destination: "/topic/cms.rucio.events"
+    voname: "cms"
+  monitor:
+    enable_metrics: "True"
+    metrics_port: "8080"
+  tracer_kronos:
+    username: "cmsrucio"
+    port: "61313"
+    brokers: "cms-mb.cern.ch"
+    queue: "/queue/Consumer.kronos.cms.rucio.tracer"
+    # FIXME: Both used to be 50 before 1.24 problems with Kronos
+    # FIXME: 1 and 10 until 1.28 problems
+    chunksize: "50"
+    prefetch_size: "50"
+  messaging_fts3:
+    username: "cmsrucio"
+    port: "61123"
+    destination: "/queue/Consumer.cmsrucio.transfer.fts_monitoring_complete"
+    brokers: "dashb-mb.cern.ch"
+    voname: "cms"
+    nonssl_port: "61113"
+    use_ssl: "False"
 
 transmogrifier:
   threads: 4
@@ -175,17 +215,22 @@ transmogrifier:
 
 tracerKronos:
   # FIXME: Was 5 before 1.24 problems with Kronos
+  config:
+    database:
+      pool_size: "10"
   threads: 1
   resources:
     limits:
       cpu: 3000m 
-      memory: 1Gi
+      memory: 4Gi
     requests:
       cpu: 1000m 
-      memory: 800Mi
+      memory: 2Gi
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
+  podLabels:
+    auto-restart: "true"
 
 abacusAccount:
     resources:
@@ -198,11 +243,6 @@ abacusAccount:
 
 # Unused daemons which supply prometheus
 automatix:
-  podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-
-conveyorReceiver:
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
@@ -227,3 +267,7 @@ undertaker:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
 
+persistentVolumes:
+  grid-cern-ch:
+    name: csi-cvmfs-grid-pvc
+    mountPath: /cvmfs/grid.cern.ch

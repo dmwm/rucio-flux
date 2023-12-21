@@ -1,74 +1,51 @@
-image:
-  repository: cmssw/rucio-server
-
-# For NGINX ingress. Eventually becomes plain server
-
 replicaCount: 1
-authReplicaCount: 1
-traceReplicaCount: 1
-
-# Use http worker mode and elsewhere configure database connections for Oracle Database Resident Connection Pool (DRCP)
+image:
+  repository: registry.cern.ch/cmsrucio/rucio-server
 
 httpd_config:
   encoded_slashes: "True"
-#  mpm_mode: "worker"
-#  start_servers: "1"
-#  min_spare_threads: "1"
-#  max_spare_threads: "20"
-#  threads_per_child: "5"
-#  max_clients: "20"
-#  max_requests_per_child: "8192"
+  legacy_dn: "True"
+
+secretMounts:
+  - secretFullName: server-server-hostcert
+    mountPath: /etc/grid-security/hostcert.pem
+    subPath: hostcert.pem
+  - secretFullName: server-server-hostkey
+    mountPath: /etc/grid-security/hostkey.pem
+    subPath: hostkey.pem
+
+optional_config:
+  rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
 
 # The server runs on port 80 and there is no need for SSL passthrough
-
 ingress:
   enabled: true
+  ingressClassName: nginx
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/frontend-entry-points: http, https
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
-    - cms-rucio-dev.cern.ch
+    - cms-rucio.cern.ch
   tls: 
     - secretName: rucio-server.tls-secret
 
-# Auth server runs on 443 and needs the connection forwarded straight through
+useSSL: false
 
-useSSL:
-  authServer: true
-
-authService:
-  type: ClusterIP
-  port: 443
-  targetPort: https
-  protocol: TCP
-  name: https
-  annotations: {}
-
-authServer:
-  useSSL: true
-  servicePort: 443
-  targetPort: https
-  portName: https
-
-authIngress:
+ftsRenewal:
   enabled: true
-  annotations: 
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  path: /
-  hosts: 
-    - cms-rucio-auth-dev.cern.ch
-
-traceIngress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/frontend-entry-points: http, https
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-  path: /
-
+  # FIXME: Not clear we need the envs anymore, but putting them back
+  additionalEnvs:
+    - name: USERCERT_NAME
+      value: "usercert.pem"
+    - name: USERKEY_NAME
+      value: "new_userkey.pem"
+    - name: RUCIO_FTS_SECRETS
+      value: "server-rucio-x509up"
+  secretMounts:
+    - secretFullName: server-fts-cert
+      mountPath: /opt/rucio/certs/
+    - secretFullName: server-fts-key
+      mountPath: /opt/rucio/keys/
 
 serverResources:
   requests:
@@ -76,26 +53,17 @@ serverResources:
   limits:
     memory: 1500Mi
 
-authServerResources:
-  requests:
-    memory: 500Mi
-  limits:
-    memory: 800Mi
-
-traceServerResources:
-  requests:
-    memory: 400Mi
-  limits:
-    memory: 600Mi
-
 config:
   common:
       loglevel: "INFO"
-  trace:
-      port: "61313"
-      brokers: "cms-mb.cern.ch"
-      topic: "/topic/cms.rucio.tracer"
-      username: "cmsrucio"
-      #config.trace.tracedir: directory where traces are written to (default "/var/log/rucio/trace")
-      tracedir: "/var/log/rucio/trace"
+  database:
+      pool_size: 10
 
+persistentVolumes:
+  grid-cern-ch:
+    name: csi-cvmfs-grid-pvc
+    mountPath: /cvmfs/grid.cern.ch
+    
+additionalEnvs:
+  - name: X509_USER_PROXY
+    value: "/opt/proxy/x509up"

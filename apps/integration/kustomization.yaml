@@ -5,12 +5,14 @@ resources:
   - ../base
   - ../base/rucio-daemons
   - ../base/rucio-server
+  - ../base/rucio-authserver
+  - ../base/rucio-traceserver
   - ../base/rucio-webui
   - ../base/rucio-probes
 #  - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
-#  - ../options/loadtest-daemons
+  - ../options/globus-daemons
 #  - ../options/loadtest
 #  - ../options/webdav-loadtest
 
@@ -18,12 +20,18 @@ configMapGenerator:
   - name: instance-rucio-server
     files:
       - values.yaml=int-rucio-server.yaml
+  - name: instance-rucio-authserver
+    files:
+      - values.yaml=int-rucio-authserver.yaml
+  - name: instance-rucio-traceserver
+    files:
+      - values.yaml=int-rucio-traceserver.yaml
   - name: instance-rucio-daemons
     files:
       - values.yaml=int-rucio-daemons.yaml
-  - name: instance-rucio-webui
-    files:
-      - values.yaml=int-rucio-webui.yaml
+  #- name: instance-rucio-webui
+  #  files:
+  #    - values.yaml=int-rucio-webui.yaml
   - name: instance-rucio-probes
     files:
       - values.yaml=int-rucio-probes.yaml
@@ -39,5 +47,8 @@ configMapGenerator:
   - name: instance-rucio-cron
     files:
       - values.yaml=int-cms-cron.yaml
+  - name: globus-rucio-daemons
+    files:
+      - values.yaml=int-globus-daemons.yaml
 configurations:
   - kustomizeconfig.yaml

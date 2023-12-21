@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cms-grid-cvmfs
+spec:
+  releaseName: grid-cvmfs
+  chart:
+    spec:
+      chart: helm/rucio-cvmfs
+      version: 1.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: cms-rucio-oci
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cms-grid-cvmfs

@@ -1,0 +1,31 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rucio-newui
+spec:
+  releaseName: newui
+  chart:
+    spec:
+      chart: rucio-webui
+      version: "<1.32.0"
+      sourceRef:
+        kind: HelmRepository
+        name: rucio
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cms-rucio-common
+    - kind: ConfigMap
+      name: cms-rucio-newui
+    - kind: ConfigMap
+      name: instance-rucio-release
+    - kind: ConfigMap
+      name: instance-rucio-newui
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: db_string
+      targetPath: config.database.default

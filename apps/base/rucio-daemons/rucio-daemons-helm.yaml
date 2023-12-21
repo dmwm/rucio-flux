@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: rucio-daemons
-      version: "1.27.1"
+      version: ">=32.0 <33.0"
       sourceRef:
         kind: HelmRepository
         name: rucio
@@ -40,8 +40,20 @@ spec:
       targetPath: config.tracer_kronos.password
     - kind: Secret
       name: rucio-secrets
+      valuesKey: hermes_password
+      targetPath: config.messaging_hermes.password
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: kronos_password
+      targetPath: config.messaging_cache.password
+    - kind: Secret
+      name: rucio-secrets
       valuesKey: kronos_password
       targetPath: config.trace.password
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: kronos_password
+      targetPath: config.messaging_fts3.password
     - kind: Secret
       name: rucio-secrets
       valuesKey: gitlab_token
@@ -50,3 +62,11 @@ spec:
       name: rucio-secrets
       valuesKey: monit_token
       targetPath: config.cms.monit
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: globus_client
+      targetPath: optional_config.rucio_cfg_cms_globus_client
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: globus_refresh
+      targetPath: optional_config.rucio_cfg_cms_globus_refresh

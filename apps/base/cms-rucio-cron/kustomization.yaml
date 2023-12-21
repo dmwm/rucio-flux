@@ -3,3 +3,9 @@ kind: Kustomization
 namespace: rucio
 resources:
   - cms-rucio-cron-helm.yaml
+configMapGenerator:
+  - name: cms-cron
+    files:
+      - values.yaml=cms-cron.yaml
+configurations:
+  - kustomizeconfig.yaml

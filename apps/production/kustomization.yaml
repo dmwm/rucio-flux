@@ -3,33 +3,52 @@ kind: Kustomization
 namespace: rucio
 resources:
   - ../base
-  - ../base/rucio-daemons
+  - ../base/cms-rucio-cvmfs
   - ../base/rucio-server
+  - ../base/rucio-authserver
+  - ../base/rucio-traceserver
+  - ../base/rucio-daemons
   - ../base/rucio-webui
+#  - ../base/rucio-newui
   - ../base/rucio-probes
   - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
+  - ../options/tier0-reaper
   - ../options/loadtest-daemons
   - ../options/loadtest
   - ../options/webdav-loadtest
+# Not ready yet
+#  - ../options/globus-daemons
 
 configMapGenerator:
   - name: instance-rucio-server
     files:
       - values.yaml=prod-rucio-server.yaml
+  - name: instance-rucio-authserver
+    files:
+      - values.yaml=prod-rucio-authserver.yaml
+  - name: instance-rucio-traceserver
+    files:
+      - values.yaml=prod-rucio-traceserver.yaml
   - name: instance-rucio-daemons
     files:
       - values.yaml=prod-rucio-daemons.yaml
   - name: loadtest-rucio-daemons
     files:
       - values.yaml=loadtest-rucio-daemons.yaml
+  - name: tier0-reaper-rucio-daemons
+    files:
+      - values.yaml=tier0-reaper-rucio-daemons.yaml
   - name: instance-traces
     files:
       - values.yaml=prod-traces.yaml
   - name: instance-rucio-webui
     files:
       - values.yaml=prod-rucio-webui.yaml
+  - name: instance-rucio-newui
+    files:
+      - values.yaml=prod-rucio-newui.yaml
   - name: instance-rucio-probes
     files:
       - values.yaml=prod-rucio-probes.yaml

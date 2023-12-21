@@ -1,0 +1,4 @@
+replicaCount: 1
+ingress:
+  hosts:
+    - cms-rucio-auth-int.cern.ch

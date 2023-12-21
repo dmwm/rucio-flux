@@ -5,10 +5,8 @@ config:
     accounts:
         special_accounts: "tier0"
     policy:
-        permission: "cms"
-        schema: "cms"
+        package: CMSRucioPolicy
         lfn2pfn_algorithm_default: "identity"
-        lfn2pfn_module: "cmstfc"
         support: "https://its.cern.ch/jira/projects/CMSRUCIO/summary"
     messaging_hermes:
         brokers: "localhost"
@@ -26,17 +24,41 @@ config:
     conveyor:
         ftshosts: "https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446"
         ftsmonhosts: "https://cmsfts3.fnal.gov:8449,https://fts3-cms.cern.ch:8449,https://lcgfts3.gridpp.rl.ac.uk:8449"
-        bring_online: "576000"
+        bring_online: "2678400"
     monitor:
         carbon_server: statsd-exporter-rucio-statsd-exporter.prometheus
         user_scope: rucio
 
 # Configure database connections for Oracle Database Resident Connection Pool (DRCP)
-
     database:
       pool_reset_on_return: "rollback"
       pool_timeout: "30"
       echo: "0"
       max_overflow: "10"
-      pool_size: "2"
+      pool_size: "5"
       pool_recycle: "600"
+
+useDeprecatedImplicitSecrets: false
+
+optional_config:
+  policy_pkg_path: /opt/rucio/policy
+
+# For whatever needs it
+ftsRenewal:
+  enabled: 0
+  image:
+    repository: rucio/fts-cron
+    tag: latest
+    pullPolicy: Always
+  script: default
+  servers: "https://fts3-devel.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446,https://fts00.grid.hep.ph.ic.ac.uk:8446"
+  vos:
+    - vo: "cms"
+      voms: "cms:/cms/Role=production"
+  additionalEnvs:
+    # - name: RUCIO_FTS_SECRETS
+    #   value: release-rucio-x509up
+    - name: USERCERT_NAME
+      value: "usercert.pem"
+    - name: USERKEY_NAME
+      value: "new_userkey.pem"

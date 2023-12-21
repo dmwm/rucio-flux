@@ -1,9 +1,10 @@
 probes:
-  check_not_OK_rules:
-    interval: 1
   check_expired_rules:
     interval: 1
 
 config:
   monitor:
     prometheus_labels: '{"rucioInstance": "int"}'
+
+image:
+  tag: release-1.29.8.cms2

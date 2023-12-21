@@ -1,0 +1,7 @@
+replicaCount: 2
+ingress:
+  hosts:
+    - cms-rucio-auth.cern.ch
+
+httpd_config:
+  grid_site_enabled: "True"

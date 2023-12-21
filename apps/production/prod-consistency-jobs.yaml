@@ -4,25 +4,39 @@ consistency:
      - /store/test
      - /store/unmerged
      - /store/temp
+     - /store/mc/SAM
+     - /store/mc/HC
+     - /store/accounting
+     - /store/express/tier0_harvest
   sites:
     T1_DE_KIT_Disk:
       interval: 7
-      server: cmsxrootd-kit.gridka.de:1094 
-    #  server: cmsxrootd-redirectors.gridka.de:1094
+      server: cmsxrootd-kit-disk.gridka.de:1094
+      server_root: /
+      timeout: 3600
+    T1_DE_KIT_Tape:
+      interval: 7
+      server: cmsxrootd-kit-tape.gridka.de:1094
+      server_root: /
+      timeout: 3600
     T2_US_Purdue:      
       interval: 7
-      server: cms-m001.rcac.purdue.edu:1094 
+      server: af-a00.cms.rcac.purdue.edu
     T2_BR_UERJ:      
       interval: 7
       server: xrootd.hepgrid.uerj.br
     T1_ES_PIC_Disk:
       interval: 7
       server: xrootd-cmst1-door.pic.es
+    T1_UK_RAL_Tape:
+      interval: 0
+      maxdarkfraction: "0.0000001"
     T1_US_FNAL_Disk:
       interval: 7
       server: cmsdcadisk.fnal.gov
-      server_root: /dcache/uscmsdisk/store/
-      remove_prefix: /dcache/uscmsdisk/
+      server_root: /dcache/uscmsdisk
+      maxdarkfraction: 0.05
+      maxmissfraction: 0.02
     T2_TW_NCHC:
       server: se01.grid.nchc.org.tw:11001
       interval: 7
@@ -36,16 +50,15 @@ consistency:
     #  server: xroot-data02.ncg.ingrid.pt:1094
     #  interval: 1
     T2_UK_SGrid_Bristol:
-      server: lcgse01.phy.bris.ac.uk:11001
-      #server: heplnx228.pp.rl.ac.uk:1094
+      server: xrootd.phy.bris.ac.uk:1094
+      server_root: /xrootd/cms
       interval: 7
     T2_DE_RWTH:
       server: grid-cms-xrootd.physik.rwth-aachen.de:1094
       interval: 7
     T2_FR_GRIF_IRFU:
       server: node12.datagrid.cea.fr
-      server_root: /cms/trivcat/store/
-      remove_prefix: /cms/trivcat/
+      server_root: /cms/trivcat
       interval: 7
     #T2_HU_Budapest_Test:
     #  server: grid143.kfki.hu:11000
@@ -54,7 +67,7 @@ consistency:
     #  server: xrd-ds06.sprace.org.br:1094
     #  interval: 1
     T2_RU_IHEP:
-      server: vobox0002.m45.ihep.su:1095
+      server: dp0015.m45.ihep.su:1094
       interval: 7
     #T2_TR_METU_Test:
     #  server: eymir.grid.metu.edu.tr:11001
@@ -97,7 +110,7 @@ consistency:
       server: heplnx228.pp.rl.ac.uk:1094
       interval: 7
     T2_US_Wisconsin:
-      server: g22n07.hep.wisc.edu:1094
+      server: pubxrootd.hep.wisc.edu:1094
       interval: 7
     #T2_CN_Beijing_Test:
     #  server: seadmin.ihep.ac.cn:1094
@@ -144,12 +157,12 @@ consistency:
       server: se01.indiacms.res.in:11001
       interval: 7
     T2_CH_CSCS:
-      server: cms03.lcg.cscs.ch:1094
+      server: storage01.lcg.cscs.ch:1096
+      server_root: /pnfs/lcg.cscs.ch/cms/trivcat
       interval: 7
     T2_FR_IPHC:
       server: sbgse1.in2p3.fr:1094
-      server_root: /cms/phedex/store
-      remove_prefix: /cms/phedex/
+      server_root: /cms/phedex
       interval: 7
     T2_AT_Vienna:
       server: eos.grid.vbc.ac.at:1094
@@ -199,19 +212,19 @@ consistency:
       server: ruhex-osgce.rutgers.edu
       interval: 7
     T1_IT_CNAF_Disk:
-      server: xs-302.cr.cnaf.infn.it
+      server: xrootd-cms.cr.cnaf.infn.it
       interval: 7
     T2_BR_SPRACE:
       server: osg-se.sprace.org.br
       interval: 7
     T2_CN_Beijing:
       server: ccsrm.ihep.ac.cn:1094
-      server_root: /cms/store/
-      remove_prefix: /cms/
+      server_root: /cms
       interval: 7
     T2_DE_DESY:
       server: t2-cms-xrootd01.desy.de:1094
       interval: 7
+      maxmissfraction: 0.03
     T2_EE_Estonia:
       server: xrootd.hep.kbfi.ee:1094
       interval: 7
@@ -226,22 +239,20 @@ consistency:
       interval: 7
     T2_TR_METU:
       server: eymir.grid.metu.edu.tr
-      server_root: /cms/store/
-      remove_prefix: /cms/
+      server_root: /cms
       interval: 7
     T2_UA_KIPT:
       server: cms-se0.kipt.kharkov.ua:11001
       interval: 7
     T2_UK_London_Brunel:
-      server: dc2-grid-64.brunel.ac.uk
-      server_root: //dpm/brunel.ac.uk/home/cms/store/
-      remove_prefix: //dpm/brunel.ac.uk/home/cms/
+      server: dc2-grid-64.brunel.ac.uk:1094
+      server_root: /dpm/brunel.ac.uk/home/cms
       interval: 7
     T2_US_Caltech:
       server: transfer-1.ultralight.org
       interval: 7
     T2_US_Florida:
-      server: cmsio7.rc.ufl.edu 
+      server: cmsio2.rc.ufl.edu
       interval: 7
     T2_US_MIT:
       server: xrootd15.cmsaf.mit.edu:1094
@@ -250,35 +261,30 @@ consistency:
       server: xrootd-local.unl.edu:1094
       interval: 7
     T2_US_UCSD:
-      server: gftp-1.t2.ucsd.edu:1094
+      server: redirector.t2.ucsd.edu:1095
       interval: 7
     T2_US_Vanderbilt:
       server: xrootd-vanderbilt.sites.opensciencegrid.org
       interval: 7
     T2_CH_CERN:
       server: eoscms.cern.ch
-      server_root: /eos/cms/store/
-      remove_prefix: /eos/cms/
+      server_root: /eos/cms
       interval: 7
     T0_CH_CERN_Disk:
       server: eoscms.cern.ch
-      server_root: /eos/cms/tier0/store/
-      remove_prefix: /eos/cms/tier0/
+      server_root: /eos/cms/tier0
       interval: 7
-    T1_FR_CCIN2P3_Tape:
-      server: ccxrdcms.in2p3.fr:1094
-      server_root: /pnfs/in2p3.fr/data/cms/data/store/
-      remove_prefix: /pnfs/in2p3.fr/data/cms/data/
-      interval: 7
-    T1_FR_CCIN2P3_Disk:
-      server: ccxrdcms.in2p3.fr:1094
-      server_root: /pnfs/in2p3.fr/data/cms/disk/data/store/
-      remove_prefix: /pnfs/in2p3.fr/data/cms/disk/data/
-      interval: 7
+    # T1_FR_CCIN2P3_Tape:
+    #   server: ccxrootdcms.in2p3.fr:1094
+    #   server_root: /pnfs/in2p3.fr/data/cms/data
+    #   interval: 7
+    #T1_FR_CCIN2P3_Disk:
+    #  server: ccxrootdcms.in2p3.fr:1094
+    #  server_root: /pnfs/in2p3.fr/data/cms/disk/data
+    #  interval: 7
     T1_RU_JINR_Disk:
       server: xrootd01.jinr-t1.ru:1094
-      server_root: /pnfs/jinr-t1.ru/data/cms/store/
-      remove_prefix: /pnfs/jinr-t1.ru/data/cms
+      server_root: /pnfs/jinr-t1.ru/data/cms
       interval: 7
     T2_BE_UCL:
       server: ingrid-se08.cism.ucl.ac.be:1094
@@ -291,134 +297,5 @@ consistency:
       interval: 7
     T2_UK_London_IC:
       server: gfe02.grid.hep.ph.ic.ac.uk:1094
-      server_root: /pnfs/hep.ph.ic.ac.uk/data/cms/store/
-      remove_prefix: /pnfs/hep.ph.ic.ac.uk/data/cms/
+      server_root: /pnfs/hep.ph.ic.ac.uk/data/cms
       interval: 7
-
-deckard:
-  image:
-    repository: ericvaandering/deckard
-    tag: "1.1.1"
-  sites:
-    #T0_CH_CERN_Disk:
-    #  interval: 1
-    #  maxdarkfraction: "0.0000001"
-    T1_DE_KIT_Disk:
-      interval: 1
-    T1_ES_PIC_Disk:
-      interval: 1
-    T1_FR_CCIN2P3_Disk:
-      maxdarkfraction: 0.03
-      interval: 1
-    T1_FR_CCIN2P3_Tape:
-      interval: 1
-      minagedark: 4  
-    T1_IT_CNAF_Disk:
-      interval: 1
-    T1_RU_JINR_Disk:
-      interval: 1
-    T1_US_FNAL_Disk:
-      maxdarkfraction: 0.05
-      interval: 1
-    T2_AT_Vienna:
-      interval: 1
-    T2_BE_IIHE:
-      interval: 1
-    T2_BE_UCL:
-      interval: 1
-    T2_BR_SPRACE:
-      maxdarkfraction: 0.03
-      interval: 1
-    T2_BR_UERJ:
-      interval: 1
-    T2_CH_CERN:
-      interval: 1
-    T2_CH_CSCS:
-      interval: 1
-    T2_CN_Beijing:
-      interval: 1
-    T2_DE_DESY:
-      interval: 1
-    T2_DE_RWTH:
-      interval: 1
-    T2_EE_Estonia:
-      interval: 1
-    T2_ES_CIEMAT:
-      interval: 1
-    T2_ES_IFCA:
-      interval: 1
-    T2_FI_HIP:
-      interval: 1
-    T2_FR_GRIF_IRFU:
-      interval: 1
-    T2_FR_GRIF_LLR:
-      maxdarkfraction: 0.03
-      interval: 1
-    T2_FR_IPHC:
-      interval: 1
-    T2_GR_Ioannina:
-      interval: 1
-    T2_HU_Budapest:
-      interval: 1
-    T2_IN_TIFR:
-      interval: 1
-    T2_IT_Bari:
-      interval: 1
-    T2_IT_Legnaro:
-      interval: 1
-    T2_IT_Pisa:
-      interval: 1
-    T2_IT_Rome:
-      interval: 1
-    T2_KR_KISTI:
-      interval: 1
-    T2_PK_NCP:
-      interval: 1
-    T2_PL_Swierk:
-      interval: 1
-    T2_PT_NCG_Lisbon:
-      maxdarkfraction: 0.04
-      interval: 1
-    T2_RU_IHEP:
-      interval: 1
-    T2_RU_INR:
-      interval: 1
-    T2_RU_ITEP:
-      interval: 1
-    T2_RU_JINR:
-      interval: 1
-    T2_TR_METU:
-      maxdarkfraction: 0.15
-      interval: 1
-    T2_TW_NCHC:
-      interval: 1
-    T2_UA_KIPT:
-      interval: 1
-    T2_UK_London_Brunel:
-      interval: 1
-    T2_UK_London_IC:
-      interval: 1
-    T2_UK_SGrid_Bristol:
-      interval: 1
-    T2_UK_SGrid_RALPP:
-      interval: 1
-    T2_US_Caltech:
-      interval: 1
-    T2_US_Florida:
-      interval: 1
-      maxdarkfraction: 0.04
-    T2_US_MIT:
-      interval: 1
-    T2_US_Nebraska:
-      maxdarkfraction: 0.03
-      interval: 1
-    T2_US_Purdue:
-      interval: 1
-    T2_US_UCSD:
-      interval: 1
-    T2_US_Vanderbilt:
-      interval: 1
-    T2_US_Wisconsin:
-      interval: 1
-    T3_US_Rutgers:
-      interval: 1

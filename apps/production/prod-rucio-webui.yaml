@@ -1,8 +1,13 @@
-image:
-  repository: cmssw/rucio-ui
 ingress:
   hosts: 
     - "cms-rucio-webui.cern.ch"
+
+# Is this still needed?
 proxy:
   rucioProxy: "cms-rucio.cern.ch"
   rucioAuthProxy: "cms-rucio-auth.cern.ch:443"
+
+config:
+  react:
+    rucioHost: "cms-rucio.cern.ch"
+    rucioAuthHost: "cms-rucio-auth.cern.ch:443"

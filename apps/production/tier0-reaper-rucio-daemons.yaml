@@ -1,0 +1,29 @@
+abacusAccountCount: 0
+abacusRseCount: 0
+conveyorStagerCount: 0
+hermesCount: 0
+judgeCleanerCount: 0
+judgeEvaluatorCount: 0
+judgeInjectorCount: 0
+judgeRepairerCount: 0
+tracerKronosCount: 0
+transmogrifierCount: 0
+undertakerCount: 0
+darkReaperCount: 0
+reaper2Count: 0
+minosCount: 0
+necromancerCount: 0
+conveyorTransferSubmitterCount: 0
+conveyorPreparerCount: 0
+conveyorPollerCount: 0
+conveyorFinisherCount: 0
+conveyorReceiverCount: 0
+reaperCount: 1
+
+reaper:
+  includeRses: "T0_CH_CERN_Disk|T2_CH_CERN"
+  chunkSize: 4000
+  sleepTime: 120
+
+automaticRestart:
+  enabled: 0

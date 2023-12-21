@@ -1,0 +1,33 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: tier0-reaper-daemons
+spec:
+  releaseName: tier0-reaper-daemons
+  chart:
+    spec:
+      chart: rucio-daemons
+      version: "<33.0"
+      sourceRef:
+        kind: HelmRepository
+        name: rucio
+        namespace: flux-system
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cms-rucio-common
+    - kind: ConfigMap
+      name: cms-rucio-daemons
+    - kind: ConfigMap
+      name: instance-rucio-daemons
+    - kind: ConfigMap
+      name: instance-rucio-release
+    - kind: ConfigMap
+      name: tier0-reaper-rucio-daemons
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: db_string
+      targetPath: config.database.default
