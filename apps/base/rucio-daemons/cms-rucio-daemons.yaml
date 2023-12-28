@@ -31,6 +31,10 @@ automaticRestart:
 secretMounts:
   - secretFullName: server-rucio-x509up
     mountPath: /opt/proxy
+  - secretFullName: server-idpsecrets
+    mountPath: /opt/rucio/etc/idp
+    subPaths:
+      - idpsecrets.json
 
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
@@ -200,6 +204,9 @@ config:
     voname: "cms"
     nonssl_port: "61113"
     use_ssl: "False"
+  oidc:
+    idpsecrets: "/opt/rucio/etc/idp/idpsecrets.json"
+    admin_issuer: "def"
 
 transmogrifier:
   threads: 4
