@@ -1,6 +1,8 @@
 probes:
   check_expired_rules:
     interval: 1
+  check_used_space:
+    interval: 1
 
 config:
   monitor:
