@@ -67,7 +67,8 @@ reaper:
       value: "/opt/proxy/x509up"
 
 conveyorTransferSubmitter:
-  activities: "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions' 'User AutoApprove'"
+  activities:
+    "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions' 'User AutoApprove'"
     # Same size or smaller than bulk which is 100
   groupBulk: 50
   sleepTime: 60
@@ -117,12 +118,12 @@ hermes:
     limits:
       memory: 9000Mi
 
-judgeEvaluator: 
+judgeEvaluator:
   resources:
     limits:
-      cpu: 3750m 
+      cpu: 3750m
     requests:
-      cpu: 750m 
+      cpu: 750m
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
@@ -131,10 +132,10 @@ judgeCleaner:
   threads: 2
   resources:
     limits:
-      cpu: 3750m 
+      cpu: 3750m
       memory: 4000Mi
     requests:
-      cpu: 750m 
+      cpu: 750m
       memory: 400Mi
   podAnnotations:
     prometheus.io/scrape: "true"
@@ -144,10 +145,10 @@ judgeInjector:
   threads: 2
   resources:
     limits:
-      cpu: 3750m 
+      cpu: 3750m
       memory: 8000Mi
     requests:
-      cpu: 750m 
+      cpu: 750m
       memory: 400Mi
   podAnnotations:
     prometheus.io/scrape: "true"
@@ -156,10 +157,10 @@ judgeInjector:
 judgeRepairer:
   resources:
     limits:
-      cpu: 3750m 
+      cpu: 3750m
       memory: 4000Mi
     requests:
-      cpu: 750m 
+      cpu: 750m
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
@@ -225,7 +226,7 @@ tracerKronos:
   threads: 1
   resources:
     limits:
-      cpu: 3000m 
+      cpu: 3000m
       memory: 4Gi
     requests:
       cpu: 1000m
@@ -237,13 +238,13 @@ tracerKronos:
     auto-restart: "true"
 
 abacusAccount:
-    resources:
-      limits:
-        cpu: 700m
-        memory: 2000Mi
-      requests:
-        cpu: 700m
-        memory: 250Mi
+  resources:
+    limits:
+      cpu: 700m
+      memory: 2000Mi
+    requests:
+      cpu: 700m
+      memory: 250Mi
 
 # Unused daemons which supply prometheus
 automatix:
@@ -278,3 +279,6 @@ persistentVolumes:
 
 optional_config:
   policy_pkg_path: /opt/rucio/policy
+
+oidc:
+  admin_issuer: "def"

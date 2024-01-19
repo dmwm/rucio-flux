@@ -6,6 +6,9 @@ config:
         special_accounts: "tier0"
     common:
         logjson: true
+    oidc:
+        idpsecrets: "/opt/rucio/etc/idpsecrets.json"
+
     policy:
         package: CMSRucioPolicy
         lfn2pfn_algorithm_default: "identity"
@@ -66,3 +69,10 @@ ftsRenewal:
       value: "usercert.pem"
     - name: USERKEY_NAME
       value: "new_userkey.pem"
+
+
+secretMounts:
+  - secretFullName: server-idpsecrets
+    mountPath: /opt/rucio/etc/
+    subPaths:
+      - idpsecrets.json
