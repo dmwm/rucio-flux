@@ -30,6 +30,8 @@ cacheConsumerCount: 0
 config:
     common:
         loglevel: "INFO"
+    oidc:
+        admin_issuer: "def"
     conveyor:
       use_preparer: "True"
       scheme: "srm,gsiftp,root,http,https"
