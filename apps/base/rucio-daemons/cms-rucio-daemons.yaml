@@ -172,6 +172,8 @@ monitoring:
 config:
   common:
     loglevel: "INFO"
+  oidc:
+    admin_issuer: "def"
   hermes:
     services_list: "activemq"
   messaging_hermes:
@@ -279,6 +281,3 @@ persistentVolumes:
 
 optional_config:
   policy_pkg_path: /opt/rucio/policy
-
-oidc:
-  admin_issuer: "def"
