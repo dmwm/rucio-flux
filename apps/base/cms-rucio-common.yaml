@@ -8,8 +8,7 @@ config:
         logjson: true
     oidc:
         idpsecrets: "/opt/rucio/etc/idpsecrets.json"
-        admin_issuer: "cms"
-        expected_audience: "rucio"
+
     policy:
         package: CMSRucioPolicy
         lfn2pfn_algorithm_default: "identity"

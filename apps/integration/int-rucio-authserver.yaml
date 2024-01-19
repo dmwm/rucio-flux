@@ -11,6 +11,7 @@ config:
     loglevel: "DEBUG"
   oidc:
     expected_audience: "rucio"
+    admin_issuer: "cms"
 
 secretMounts:
   - secretFullName: server-server-hostcert
