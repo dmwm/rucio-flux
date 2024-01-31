@@ -200,6 +200,8 @@ config:
     voname: "cms"
     nonssl_port: "61113"
     use_ssl: "False"
+  oidc:
+    admin_issuer: "def"
 
 transmogrifier:
   threads: 4
