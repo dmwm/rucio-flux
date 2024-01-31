@@ -4,12 +4,11 @@ image:
 
 config:
   common:
-      loglevel: "INFO"
+    loglevel: "INFO"
   oidc:
     expected_audience: "rucio"
     admin_issuer: "cms"
     idpsecrets: "/opt/rucio/etc/idpsecrets.json"
-
 
 httpd_config:
   encoded_slashes: "True"
@@ -24,8 +23,6 @@ secretMounts:
     subPath: hostkey.pem
   - secretFullName: idpsecrets
     mountPath: /opt/rucio/etc/idpsecrets.json
-    subPaths:
-      - idpsecrets.json
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
