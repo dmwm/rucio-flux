@@ -1,18 +1,4 @@
 replicaCount: 3
 ingress:
-  hosts: 
+  hosts:
     - cms-rucio.cern.ch
-
-config:
-  oidc:
-    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
-    admin_issuer: "cms"
-    expected_audience: "rucio"
-
-secretMounts:
-  - secretName: idpsecrets
-    mountPath: /opt/rucio/etc/
-    subPaths:
-      - idpsecrets.json
-  - secretFullName: server-rucio-x509up
-    mountPath: /opt/proxy
