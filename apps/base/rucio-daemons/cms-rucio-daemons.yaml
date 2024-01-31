@@ -31,8 +31,8 @@ automaticRestart:
 secretMounts:
   - secretFullName: server-rucio-x509up
     mountPath: /opt/proxy
-  - secretFullName: idpsecrets
-    mountPath: /opt/rucio/etc/idpsecrets.json
+  - secretName: idpsecrets
+    mountPath: /opt/rucio/etc/
     subPaths:
       - idpsecrets.json
 
