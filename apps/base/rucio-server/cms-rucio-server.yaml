@@ -13,6 +13,10 @@ secretMounts:
   - secretFullName: server-server-hostkey
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
+  - secretFullName: idpsecrets
+    mountPath: /opt/rucio/etc
+    subPaths:
+      - idpsecrets.json
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
@@ -58,12 +62,16 @@ config:
     loglevel: "INFO"
   database:
     pool_size: 10
+  oidc:
+    admin_issuer: "cms"
+    expected_audience: "rucio"
+    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
 
 persistentVolumes:
   grid-cern-ch:
     name: csi-cvmfs-grid-pvc
     mountPath: /cvmfs/grid.cern.ch
-    
+
 additionalEnvs:
   - name: X509_USER_PROXY
     value: "/opt/proxy/x509up"

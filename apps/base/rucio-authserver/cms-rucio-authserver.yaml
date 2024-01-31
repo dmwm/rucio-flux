@@ -2,6 +2,15 @@ replicaCount: 1
 image:
   repository: registry.cern.ch/cmsrucio/rucio-server
 
+config:
+  common:
+      loglevel: "INFO"
+  oidc:
+    expected_audience: "rucio"
+    admin_issuer: "cms"
+    idpsecrets: "/opt/rucio/etc/idpsecrets.json"
+
+
 httpd_config:
   encoded_slashes: "True"
   legacy_dn: "True"
@@ -13,6 +22,10 @@ secretMounts:
   - secretFullName: server-server-hostkey
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
+  - secretFullName: idpsecrets
+    mountPath: /opt/rucio/etc
+    subPaths:
+      - idpsecrets.json
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
@@ -26,7 +39,7 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
     - cms-rucio-auth.cern.ch
-  tls: 
+  tls:
     - secretName: rucio-server.tls-secret
 
 useSSL: true
@@ -44,10 +57,6 @@ serverResources:
     memory: 500Mi
   limits:
     memory: 800Mi
-
-config:
-  common:
-      loglevel: "DEBUG"
 
 persistentVolumes:
   grid-cern-ch:
