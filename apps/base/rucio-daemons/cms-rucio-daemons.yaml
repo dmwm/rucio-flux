@@ -33,8 +33,7 @@ secretMounts:
     mountPath: /opt/proxy
   - secretFullName: idpsecrets
     mountPath: /opt/rucio/etc/idpsecrets.json
-    subPaths:
-      - idpsecrets.json
+
 
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
