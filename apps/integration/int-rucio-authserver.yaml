@@ -2,3 +2,10 @@ replicaCount: 1
 ingress:
   hosts:
     - cms-rucio-auth-int.cern.ch
+
+httpd_config:
+  grid_site_enabled: "True"
+
+config:
+  common:
+    loglevel: "DEBUG"
