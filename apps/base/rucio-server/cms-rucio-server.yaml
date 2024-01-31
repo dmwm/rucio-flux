@@ -7,14 +7,11 @@ httpd_config:
   legacy_dn: "True"
 
 secretMounts:
-  - secretFullName: server-server-hostcert
-    mountPath: /etc/grid-security/hostcert.pem
-    subPath: hostcert.pem
-  - secretFullName: server-server-hostkey
-    mountPath: /etc/grid-security/hostkey.pem
-    subPath: hostkey.pem
   - secretFullName: idpsecrets
     mountPath: /opt/rucio/etc/idpsecrets.json
+    subPath: idpsecrets.json
+  - secretFullName: server-rucio-x509up
+    mountPath: /opt/proxy
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"

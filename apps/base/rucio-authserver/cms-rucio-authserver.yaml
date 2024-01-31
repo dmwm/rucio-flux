@@ -23,6 +23,7 @@ secretMounts:
     subPath: hostkey.pem
   - secretFullName: idpsecrets
     mountPath: /opt/rucio/etc/idpsecrets.json
+    subPath: idpsecrets.json
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
