@@ -13,6 +13,10 @@ secretMounts:
   - secretFullName: server-server-hostkey
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
+  - secretName: idpsecrets
+    mountPath: /opt/rucio/etc/
+    subPaths:
+      - idpsecrets.json
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
@@ -26,7 +30,7 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
     - cms-rucio-auth.cern.ch
-  tls: 
+  tls:
     - secretName: rucio-server.tls-secret
 
 useSSL: true
@@ -47,7 +51,7 @@ serverResources:
 
 config:
   common:
-      loglevel: "DEBUG"
+    loglevel: "DEBUG"
 
 persistentVolumes:
   grid-cern-ch:

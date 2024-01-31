@@ -31,6 +31,10 @@ automaticRestart:
 secretMounts:
   - secretFullName: server-rucio-x509up
     mountPath: /opt/proxy
+  - secretName: idpsecrets
+    mountPath: /opt/rucio/etc/
+    subPaths:
+      - idpsecrets.json
 
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
