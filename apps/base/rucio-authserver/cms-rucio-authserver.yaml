@@ -13,8 +13,8 @@ secretMounts:
   - secretFullName: server-server-hostkey
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
-  - secretName: idpsecrets
-    mountPath: /opt/rucio/etc/
+  - secretFullName: idpsecrets
+    mountPath: /opt/rucio/etc/idpsecrets.json
     subPaths:
       - idpsecrets.json
 
