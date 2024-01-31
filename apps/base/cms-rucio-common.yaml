@@ -67,7 +67,7 @@ ftsRenewal:
       value: "new_userkey.pem"
 
 secretMounts:
-  - secretFullName: idpsecrets
-    mountPath: /opt/rucio/etc/idpsecrets.json
+  - secretFullName: server-idpsecrets
+    mountPath: /opt/rucio/etc/
     subPaths:
       - idpsecrets.json
