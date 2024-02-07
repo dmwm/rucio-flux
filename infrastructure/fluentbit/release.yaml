@@ -7,17 +7,14 @@ spec:
   chart:
     spec:
       chart: fluent-bit
-      version: ">=0.40.0 <0.41.0"
+      version: ">=0.41.0 <0.42.0"
       sourceRef:
         kind: HelmRepository
         name: fluent-bit
         namespace: flux-system
 
-  interval: 1m
+  interval: 5m
   valuesFrom:
     - kind: ConfigMap
       name: instance-fluentbit-values
-      valuesKey: values.yaml
-  install:
-    remediation:
-      retries: 3
+
