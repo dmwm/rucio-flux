@@ -8,6 +8,7 @@ resources:
   - ../base/rucio-authserver
   - ../base/rucio-traceserver
   - ../base/rucio-webui
+  - ../base/rucio-newui
   - ../base/rucio-probes
   - ../base/cms-rucio-cron
   - ../base/cms-rucio-cvmfs
@@ -31,6 +32,9 @@ configMapGenerator:
   - name: instance-rucio-webui
     files:
       - values.yaml=int-rucio-webui.yaml
+  - name: instance-rucio-newui
+    files:
+      - values.yaml=int-rucio-newui.yaml
   - name: instance-rucio-probes
     files:
       - values.yaml=int-rucio-probes.yaml
