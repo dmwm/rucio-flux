@@ -159,7 +159,7 @@ Of course, this is only appropriate on a development server, not in production:
 - At the shell with KUBECONFIG set to your cluster: `flux suspend source git flux-system`
 - `kubectl edit GitRepository  flux-system  -n flux-system` and change the value of `branch` to `MY_TEST_BRANCH`. Exit the editor.
 - `flux resume source git flux-system`
-- 
+  
 Once testing is complete, repeat the above process but setting the branch back to its original value.
 
 ## Mantainance
