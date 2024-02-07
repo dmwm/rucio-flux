@@ -11,3 +11,7 @@ config:
   react:
     rucioHost: "cms-rucio-int.cern.ch"
     rucioAuthHost: "cms-rucio-auth-int.cern.ch:443"
+
+image:
+  repository: rucio/rucio-webui
+  tag: release-33.4.0
