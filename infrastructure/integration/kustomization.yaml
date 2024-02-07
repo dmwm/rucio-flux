@@ -8,11 +8,5 @@ resources:
   - ../statsd
   - cm-int-eagle.yaml
   - ../kube-eagle
-  # - cm-int-fluentbit.yaml #integration specific configurations
-  - ../fluentbit #base fluent bit config
-#configMapGenerator:
-#  - name: flux-rucio-server
-#    files:
-#      - values.yaml=flux-rucio-server.yaml
-#configurations:
-#  - kustomizeconfig.yaml
+  - ../fluentbit 
+
