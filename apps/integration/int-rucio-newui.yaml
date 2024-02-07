@@ -1,6 +1,13 @@
 ingress:
   hosts:
     - "cms-rucio-newui-int.cern.ch"
+
+# I think this is no longer needed
 proxy:
   rucioProxy: "cms-rucio-int.cern.ch"
   rucioAuthProxy: "cms-rucio-auth-int.cern.ch:443"
+
+config:
+  react:
+    rucioHost: "cms-rucio-int.cern.ch"
+    rucioAuthHost: "cms-rucio-auth-int.cern.ch:443"
