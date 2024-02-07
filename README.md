@@ -149,6 +149,19 @@ $ flux get all -A
 
 Once you have verified changes working in your own cluster, make a PR against `dmwm/rucio-flux` to have the changes deployed in production (or the integration server).
 
+## Switching branches
+
+If you want to test out a new development without accepting a PR (maybe you aren't sure it will work). 
+Of course, this is only appropriate on a development server, not in production:
+
+- Checkout your branch in git
+- Update clusters/CLUSTERNAME/flux-system/gotk-sync.yaml to set the value of `branch` to `MY_TEST_BRANCH` and commit and push it upstream
+- At the shell with KUBECONFIG set to your cluster: `flux suspend source git flux-system`
+- `kubectl edit GitRepository  flux-system  -n flux-system` and change the value of `branch` to `MY_TEST_BRANCH`. Exit the editor.
+- `flux resume source git flux-system`
+- 
+Once testing is complete, repeat the above process but setting the branch back to its original value.
+
 ## Mantainance
 
 ### Renew FTS Robot certificates
