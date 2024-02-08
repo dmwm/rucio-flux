@@ -99,7 +99,6 @@ conveyorPoller:
       value: "/opt/proxy/x509up"
 
 conveyorReceiver:
-  threads: 4
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
@@ -107,6 +106,12 @@ conveyorReceiver:
     policy:
       schema: "cms"
       permission: "cms"
+  threads: 4
+  resources:
+    requests:
+      memory: 256Mi
+    limits:
+      memory: 512Mi
 
 hermes:
   threads: 3
