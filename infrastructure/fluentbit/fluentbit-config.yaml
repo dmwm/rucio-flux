@@ -2,21 +2,21 @@ envFrom:
   - secretRef:
       name: opensearch-creds
 
-logLevel: debug
+logLevel: info
 
 ## Mounting /etc/machine-id with FileOrCreate
 daemonSetVolumes:
-- name: varlog
-  hostPath:
-    path: /var/log
-- name: etcmachineid
-  hostPath:
-    path: /etc/machine-id
-    type: FileOrCreate
-- name: varlibdockercontainers
-  hostPath:
-    path: /var/lib/docker/containers
-    type: DirectoryOrCreate
+  - name: varlog
+    hostPath:
+      path: /var/log
+  - name: etcmachineid
+    hostPath:
+      path: /etc/machine-id
+      type: FileOrCreate
+  - name: varlibdockercontainers
+    hostPath:
+      path: /var/lib/docker/containers
+      type: DirectoryOrCreate
 
 config:
   service: |
@@ -30,49 +30,101 @@ config:
         HTTP_Listen 0.0.0.0
         HTTP_Port {{ .Values.metricsPort }}
         Health_Check On
+        Hot_Reload On
 
-  ## https://docs.fluentbit.io/manual/pipeline/inputs
+  ## TODO: Remove in production: Hot_Reload
+  ## TODO: Review if annotations should be kept
+
   inputs: |
     [INPUT]
         Name tail
         Path /var/log/containers/*_rucio_*.log
         Tag kube.*
+        Parser logcri
         Mem_Buf_Limit 5MB
         Skip_Long_Lines On
 
-        
-  ## https://docs.fluentbit.io/manual/pipeline/filters
   filters: |
     [FILTER]
         Name kubernetes
         Match kube.*
         Merge_Log On
-        Keep_Log Off
-        K8S-Logging.Parser On
+        Annotations Off
+        Keep_Log On
         K8S-Logging.Exclude On
 
-  ## https://docs.fluentbit.io/manual/pipeline/outputs
-  outputs: |
-    # [OUTPUT]
-    #     Name stdout
-    #     Match kube.*
-    #     Format json_lines
+    [FILTER]
+        Name record_modifier
+        Match kube.*
+        Record producer rucio
+        Record type logs
+        Remove_key annotations
 
+    [FILTER]
+        Name rewrite_tag
+        Match kube.*
+        Rule $kubernetes['container_name'] rucio-server logs.access false
+        Rule $kubernetes['container_name'] rucio-daemons logs.event false
+        Rule $kubernetes['container_name'] httpd-error-log logs.error false
+
+  customParsers: |
+    [PARSER]
+        Name logcri
+        Format regex
+        Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<log>.*)$
+        Time_Key    time
+        Time_Format %Y-%m-%dT%H:%M:%S.%L%z
+        Time_Keep   On
+
+  # [OUTPUT]
+  #     Name stdout
+  #     Match kube.*
+  #     Format json_lines
+  outputs: |
     [OUTPUT]
         Name opensearch
-        Match kube.*
+        Match logs.access
         Host ${opensearchHost}
         Port ${opensearchPort}
         Path ${opensearchPath}
         HTTP_Passwd ${opensearchPassword}
         HTTP_User ${opensearchUser}
         Logstash_Format On
-        Logstash_Prefix test-rucio-int
+        Logstash_Prefix test-rucio-int-access
         Logstash_DateFormat %Y-%m-%d
-        Retry_Limit False
-        Trace_Output On
-        Trace_Error On
-        tls On
-        tls.debug 4
-        tls.verify Off
         Suppress_Type_Name On
+        Retry_Limit False
+        tls On
+        tls.verify Off
+
+    [OUTPUT]
+        Name opensearch
+        Match logs.event
+        Host ${opensearchHost}
+        Port ${opensearchPort}
+        Path ${opensearchPath}
+        HTTP_Passwd ${opensearchPassword}
+        HTTP_User ${opensearchUser}
+        Logstash_Format On
+        Logstash_Prefix test-rucio-int-event
+        Logstash_DateFormat %Y-%m-%d
+        Suppress_Type_Name On
+        Retry_Limit False
+        tls On
+        tls.verify Off
+
+    [OUTPUT]
+        Name opensearch
+        Match logs.error
+        Host ${opensearchHost}
+        Port ${opensearchPort}
+        Path ${opensearchPath}
+        HTTP_Passwd ${opensearchPassword}
+        HTTP_User ${opensearchUser}
+        Logstash_Format On
+        Logstash_Prefix test-rucio-int-error
+        Logstash_DateFormat %Y-%m-%d
+        Suppress_Type_Name On
+        Retry_Limit False
+        tls On
+        tls.verify Off
