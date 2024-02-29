@@ -1,0 +1,122 @@
+envFrom:
+  - secretRef:
+      name: opensearch-creds
+
+logLevel: info
+
+## Mounting /etc/machine-id with FileOrCreate
+daemonSetVolumes:
+  - name: varlog
+    hostPath:
+      path: /var/log
+  - name: etcmachineid
+    hostPath:
+      path: /etc/machine-id
+      type: FileOrCreate
+  - name: varlibdockercontainers
+    hostPath:
+      path: /var/lib/docker/containers
+      type: DirectoryOrCreate
+
+config:
+  service: |
+    [SERVICE]
+        Daemon Off
+        Flush {{ .Values.flush }}
+        Log_Level {{ .Values.logLevel }}
+        Parsers_File /fluent-bit/etc/parsers.conf
+        Parsers_File /fluent-bit/etc/conf/custom_parsers.conf
+        HTTP_Server On
+        HTTP_Listen 0.0.0.0
+        HTTP_Port {{ .Values.metricsPort }}
+        Health_Check On
+
+  inputs: |
+    [INPUT]
+        Name tail
+        Path /var/log/containers/*_rucio_*.log
+        Tag kube.*
+        Parser logcri
+        Mem_Buf_Limit 5MB
+        Skip_Long_Lines On
+
+  filters: |
+    [FILTER]
+        Name kubernetes
+        Match kube.*
+        Merge_Log On
+        Annotations Off
+        Keep_Log On
+        K8S-Logging.Exclude On
+
+    [FILTER]
+        Name record_modifier
+        Match kube.*
+        Record producer cmsrucio
+        Record type logs
+        Remove_key annotations
+
+    [FILTER]
+        Name rewrite_tag
+        Match kube.*
+        Rule $kubernetes['container_name'] rucio-server logs.access false
+        Rule $kubernetes['container_name'] rucio-daemons logs.event false
+        Rule $kubernetes['container_name'] httpd-error-log logs.error false
+
+  customParsers: |
+    [PARSER]
+        Name logcri
+        Format regex
+        Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<log>.*)$
+        Time_Key    time
+        Time_Format %Y-%m-%dT%H:%M:%S.%L%z
+        Time_Keep   On
+
+  outputs: |
+    [OUTPUT]
+        Name opensearch
+        Match logs.access
+        Host ${opensearchHost}
+        Port ${opensearchPort}
+        Path ${opensearchPath}
+        HTTP_Passwd ${opensearchPassword}
+        HTTP_User ${opensearchUser}
+        Logstash_Format On
+        Logstash_Prefix test-cmsrucio-prod-logs-access
+        Logstash_DateFormat %Y-%m-%d
+        Suppress_Type_Name On
+        Retry_Limit False
+        tls On
+        tls.verify Off
+
+    [OUTPUT]
+        Name opensearch
+        Match logs.event
+        Host ${opensearchHost}
+        Port ${opensearchPort}
+        Path ${opensearchPath}
+        HTTP_Passwd ${opensearchPassword}
+        HTTP_User ${opensearchUser}
+        Logstash_Format On
+        Logstash_Prefix test-cmsrucio-prod-logs-event
+        Logstash_DateFormat %Y-%m-%d
+        Suppress_Type_Name On
+        Retry_Limit False
+        tls On
+        tls.verify Off
+
+    [OUTPUT]
+        Name opensearch
+        Match logs.error
+        Host ${opensearchHost}
+        Port ${opensearchPort}
+        Path ${opensearchPath}
+        HTTP_Passwd ${opensearchPassword}
+        HTTP_User ${opensearchUser}
+        Logstash_Format On
+        Logstash_Prefix test-cmsrucio-prod-logs-error
+        Logstash_DateFormat %Y-%m-%d
+        Suppress_Type_Name On
+        Retry_Limit False
+        tls On
+        tls.verify Off
