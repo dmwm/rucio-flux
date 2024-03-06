@@ -101,7 +101,7 @@ consistency:
       server: maite.iihe.ac.be:1095
       interval: 7
     T2_PL_Swierk:
-      server: se.cis.gov.pl:11000
+      server: se.cis.gov.pl:1094
       interval: 7
     #T2_EE_Estonia_Test:
       #server: [2001:bb8:4004:ff:d::3]:1094
