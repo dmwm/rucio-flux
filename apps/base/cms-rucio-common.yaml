@@ -32,8 +32,6 @@ config:
   monitor:
     carbon_server: statsd-exporter-rucio-statsd-exporter.prometheus
     user_scope: rucio
-    enable_metrics: "True"
-    metrics_port: "8888"
 
   # Configure database connections for Oracle Database Resident Connection Pool (DRCP)
   database:

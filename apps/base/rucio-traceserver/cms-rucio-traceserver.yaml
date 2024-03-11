@@ -43,6 +43,9 @@ config:
       topic: "/topic/cms.rucio.tracer"
       username: "cmsrucio"
       tracedir: "/var/log/rucio/trace"
+  monitor:
+    enable_metrics: "True"
+    metrics_port: "8088"
 
 persistentVolumes:
   grid-cern-ch:
