@@ -1,8 +1,7 @@
 image:
-  tag: release-33.5.0.cms1
+  tag: release-33.6.1.cms1
 
 # FIXME: Maybe not the best place for this but everything may need it
-
 config:
   database:
     schema: "CMS_RUCIO_PROD"
