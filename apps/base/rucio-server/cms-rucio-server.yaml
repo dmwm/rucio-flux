@@ -62,7 +62,7 @@ config:
     expected_audience: "rucio"
     idpsecrets: "/opt/rucio/etc/idpsecrets.json"
   monitor:
-    enable_metrics: "True"
+    enable_metrics: "False"
     metrics_port: "8088"
 
 persistentVolumes:

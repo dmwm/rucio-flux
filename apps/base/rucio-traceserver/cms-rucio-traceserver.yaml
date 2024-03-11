@@ -44,7 +44,7 @@ config:
       username: "cmsrucio"
       tracedir: "/var/log/rucio/trace"
   monitor:
-    enable_metrics: "True"
+    enable_metrics: "False"
     metrics_port: "8088"
 
 persistentVolumes:
