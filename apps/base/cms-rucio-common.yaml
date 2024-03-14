@@ -30,7 +30,6 @@ config:
     ftsmonhosts: "https://cmsfts3.fnal.gov:8449,https://fts3-cms.cern.ch:8449,https://lcgfts3.gridpp.rl.ac.uk:8449"
     bring_online: "2678400"
   monitor:
-    carbon_server: statsd-exporter-rucio-statsd-exporter.prometheus
     user_scope: rucio
 
   # Configure database connections for Oracle Database Resident Connection Pool (DRCP)
