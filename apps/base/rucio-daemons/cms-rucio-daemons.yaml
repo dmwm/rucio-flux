@@ -3,7 +3,7 @@ image:
 
 abacusAccountCount: 1
 abacusRseCount: 1
-#conveyorTransferSubmitterCount: 2
+abacusCollectionReplicaCount: 1
 conveyorTransferSubmitterCount: 3
 conveyorPollerCount: 2
 conveyorFinisherCount: 2
@@ -37,6 +37,16 @@ secretMounts:
 
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
+
+abacusCollectionReplica:
+  threads: 2
+  resources:
+    limits:
+      cpu: 700m
+      memory: 4000Mi
+    requests:
+      cpu: 700m
+      memory: 900Mi
 
 abacusRse:
   threads: 2
