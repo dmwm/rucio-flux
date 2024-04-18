@@ -1,12 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../sources
-#  - cm-int-prometheus.yaml
-  - ../prometheus
-#  - ./statsd
-#  - ../statsd
+  - ../base/sources
+  # - cm-int-prometheus.yaml
+  - ../base/prometheus
+  # - ./statsd
+  # - ../base/statsd
   - cm-int-eagle.yaml
-  - ../kube-eagle
-  - ../fluentbit 
-
+  - ../base/kube-eagle
+  - ../base/fluentbit

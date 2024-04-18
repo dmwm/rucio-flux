@@ -1,20 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../sources
+  - ../base/sources
   - cm-prod-prometheus.yaml
-  - ../prometheus
+  - ../base/prometheus
   - ./statsd
-  - ../statsd
+  - ../base/statsd
   - cm-prod-eagle.yaml
-  - ../kube-eagle
-
-#configMapGenerator:
-#  - name: flux-rucio-server
-#    files:
-#      - values.yaml=flux-rucio-server.yaml
-#configurations:
-#  - kustomizeconfig.yaml
-
-
-
+  - ../base/kube-eagle
+  - ../base/fluentbit
