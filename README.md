@@ -44,15 +44,19 @@ The Git repository contains the following top directories:
 ```
 ├── apps
 │   ├── base
+│   ├── integration
 │   ├── options
-│   ├── production 
-│   └── integration
+│   └── production
+├── clusters
+│   ├── integration
+│   └── production
 ├── infrastructure
-│   ├── prometheus
-│   ├── [etc]
-└── clusters
-    ├── production
-    └── integration
+│   ├── base
+│   │   ├── fluentbit
+│   │   ├── prometheus
+│   │   ├── etc..
+│   ├── integration
+│   └── production
 ```
 
 The apps configuration is structured as follows:
@@ -61,7 +65,7 @@ The apps configuration is structured as follows:
 - **apps/production/** dir contains the production Helm release values all grouped in a single directory. `kustomization.yaml` shows which components are running for the production server and generates ConfigMaps from the relevant YAML files.
 - **apps/integration/** dir contains the integration values similarly grouped
 - **apps/options/** dir contains namespaces and Helm release definitions for optional components which may not run in every server
-- **infrastructure/** contains the defintions of helm repositories and the releases for 3rd party products we install
+- **infrastructure/base/** contains the common defintions of helm repositories and the releases for 3rd party products we install
 - **infrastructure/production(integration)/** dir contains the configuration changes specific to a cluster for the products in integration
 
 Changes are applied in a cascading way which you can see from **apps/base/PRODUCT/PRODUCT-helm** where settings from later in the **valuesFrom** list take precedence over those from earlier in the list.
@@ -69,7 +73,7 @@ Changes are applied in a cascading way which you can see from **apps/base/PRODUC
 Note that with `path: ./apps/production` we configure Flux 
 with `dependsOn` to tell Flux to create the infrastructure items before deploying the apps.
 
-To instal this in a kubernetes cluster, fork this repository on your personal GitHub account and export your GitHub access token, username and repo name:
+To install this in a kubernetes cluster, fork this repository on your personal GitHub account and export your GitHub access token, username and repo name:
 
 ```sh
 export GITHUB_TOKEN=<your-token>
