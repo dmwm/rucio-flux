@@ -4,3 +4,5 @@ ingress:
 proxy:
   rucioProxy: "cms-rucio-int.cern.ch"
   rucioAuthProxy: "cms-rucio-auth-int.cern.ch:443"
+service:
+  useSSL: true
