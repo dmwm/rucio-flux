@@ -35,9 +35,6 @@ secretMounts:
     mountPath: /opt/rucio/etc/idpsecrets.json
     subPath: idpsecrets.json
 
-darkReaper:
-  includeRses: "T1_ES_PIC_Disk"
-
 abacusRse:
   threads: 2
   resources:
@@ -57,6 +54,20 @@ reaper:
       memory: 750Mi
     limits:
       memory: 2Gi
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+  additionalEnvs:
+    - name: X509_USER_PROXY
+      value: "/opt/proxy/x509up"
+
+darkReaper:
+  rses: "reaper=True"
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1000Mi
+  workers: 1
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"

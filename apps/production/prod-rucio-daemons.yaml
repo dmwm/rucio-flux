@@ -11,13 +11,6 @@ judgeEvaluatorCount: 2
 tracerKronosCount: 3
 judgeCleanerCount: 2
 
-darkReaper:
-  includeRses: "reaper=True"
-  resources:
-    limits:
-      cpu: 1000m
-      memory: 1000Mi
-
 reaper:
   includeRses: "reaper=True"
   chunkSize: 4000
@@ -28,7 +21,7 @@ conveyorTransferSubmitter:
 
 conveyorPoller:
   threads: 5
-  resources: 
+  resources:
     limits:
       cpu: 2000m
       memory: 1000Mi
@@ -50,7 +43,7 @@ judgeRepairer:
 judgeInjector:
   threads: 3
 
-conveyorFinisher: 
+conveyorFinisher:
   threads: 5
   resources:
     limits:
@@ -74,12 +67,11 @@ tracerKronos:
       loglevel: "DEBUG"
 
 config:
-    common:
-        loglevel: "INFO"
-    messaging_hermes:
-        port: "61313"
-        nonssl_port: "61313"
-    tracer_kronos:
-      chunksize: "5"
-      prefetch_size: "5"
-
+  common:
+    loglevel: "INFO"
+  messaging_hermes:
+    port: "61313"
+    nonssl_port: "61313"
+  tracer_kronos:
+    chunksize: "5"
+    prefetch_size: "5"
