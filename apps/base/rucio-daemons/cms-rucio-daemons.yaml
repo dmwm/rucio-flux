@@ -62,7 +62,7 @@ reaper:
       value: "/opt/proxy/x509up"
 
 darkReaper:
-  rses: "reaper=True"
+  includeRses: "reaper=True"
   resources:
     limits:
       cpu: 1000m
