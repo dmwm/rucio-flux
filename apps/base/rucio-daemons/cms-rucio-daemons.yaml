@@ -68,6 +68,7 @@ darkReaper:
       cpu: 1000m
       memory: 1000Mi
   workers: 1
+  chunkSize: 100
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
