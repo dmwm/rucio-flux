@@ -4,6 +4,7 @@ ingress:
 proxy:
   rucioProxy: "cms-rucio-int.cern.ch"
   rucioAuthProxy: "cms-rucio-auth-int.cern.ch:443"
+# FIXME: Moved to base config in recent versions
 service:
   useSSL: true
   port: 443
