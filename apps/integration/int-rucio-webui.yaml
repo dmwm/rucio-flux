@@ -6,5 +6,6 @@ proxy:
   rucioAuthProxy: "cms-rucio-auth-int.cern.ch:443"
 service:
   useSSL: true
+  port: 443
 httpd_config:
   rucio_hostname: "cms-rucio-webui-int.cern.ch"
