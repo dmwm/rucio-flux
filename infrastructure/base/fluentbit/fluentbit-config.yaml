@@ -4,6 +4,28 @@ envFrom:
 
 logLevel: info
 
+## Fluent Bit configuration
+service:
+  type: ClusterIP
+  port: 2020
+  internalTrafficPolicy:
+  loadBalancerClass:
+  loadBalancerSourceRanges: []
+  labels: {}
+  annotations:
+    prometheus.io/path: "/api/v1/metrics/prometheus"
+    prometheus.io/port: "2020"
+    prometheus.io/scrape: "true"
+  externalIPs: []
+
+flush: 1
+metricsPort: 2020
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+
 ## Mounting /etc/machine-id with FileOrCreate
 daemonSetVolumes:
   - name: varlog
