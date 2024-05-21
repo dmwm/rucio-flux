@@ -17,10 +17,6 @@ spec:
     - kind: ConfigMap
       name: cms-prometheus-values
       valuesKey: values.yaml
-    - kind: ConfigMap
-      name: instance-prometheus-values
-      valuesKey: values.yaml
   install:
     remediation:
       retries: 3
-  
