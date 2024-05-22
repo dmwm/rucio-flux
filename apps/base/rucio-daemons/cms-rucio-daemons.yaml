@@ -1,5 +1,5 @@
 image:
-  repository: registry.cern.ch/cmsrucio/rucio-daemons
+  repository: registry.cern.ch/haozturk/rucio-daemons
 
 abacusAccountCount: 1
 abacusRseCount: 1
