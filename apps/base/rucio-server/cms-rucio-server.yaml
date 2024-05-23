@@ -29,6 +29,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/frontend-entry-points: http, https
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: 8m
   hosts:
     - cms-rucio.cern.ch
   tls:
