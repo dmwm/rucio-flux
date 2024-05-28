@@ -1,6 +1,8 @@
 envFrom:
   - secretRef:
       name: opensearch-creds
+  - secretRef:
+      name: monittimber-creds
 
 logLevel: info
 
@@ -25,6 +27,14 @@ updateStrategy:
   type: RollingUpdate
   rollingUpdate:
     maxUnavailable: 1
+
+## Don't need this until further parsing is added
+# [FILTER]
+#     Name rewrite_tag
+#     Match kube.*
+#     Rule $kubernetes['container_name'] rucio-server logs.access false
+#     Rule $kubernetes['container_name'] rucio-daemons logs.event false
+#     Rule $kubernetes['container_name'] httpd-error-log logs.error false
 
 ## Mounting /etc/machine-id with FileOrCreate
 daemonSetVolumes:
@@ -78,13 +88,6 @@ config:
         Record type logs
         Remove_key annotations
 
-    [FILTER]
-        Name rewrite_tag
-        Match kube.*
-        Rule $kubernetes['container_name'] rucio-server logs.access false
-        Rule $kubernetes['container_name'] rucio-daemons logs.event false
-        Rule $kubernetes['container_name'] httpd-error-log logs.error false
-
   customParsers: |
     [PARSER]
         Name logcri
@@ -96,49 +99,13 @@ config:
 
   outputs: |
     [OUTPUT]
-        Name opensearch
-        Match logs.access
-        Host ${opensearchHost}
-        Port ${opensearchPort}
-        Path ${opensearchPath}
-        HTTP_Passwd ${opensearchPassword}
-        HTTP_User ${opensearchUser}
-        Logstash_Format On
-        Logstash_Prefix test-cmsrucio-prod-logs-access
-        Logstash_DateFormat %Y-%m-%d
-        Suppress_Type_Name On
-        Retry_Limit False
-        tls On
-        tls.verify Off
-
-    [OUTPUT]
-        Name opensearch
-        Match logs.event
-        Host ${opensearchHost}
-        Port ${opensearchPort}
-        Path ${opensearchPath}
-        HTTP_Passwd ${opensearchPassword}
-        HTTP_User ${opensearchUser}
-        Logstash_Format On
-        Logstash_Prefix test-cmsrucio-prod-logs-event
-        Logstash_DateFormat %Y-%m-%d
-        Suppress_Type_Name On
-        Retry_Limit False
-        tls On
-        tls.verify Off
-
-    [OUTPUT]
-        Name opensearch
-        Match logs.error
-        Host ${opensearchHost}
-        Port ${opensearchPort}
-        Path ${opensearchPath}
-        HTTP_Passwd ${opensearchPassword}
-        HTTP_User ${opensearchUser}
-        Logstash_Format On
-        Logstash_Prefix test-cmsrucio-prod-logs-error
-        Logstash_DateFormat %Y-%m-%d
-        Suppress_Type_Name On
-        Retry_Limit False
+        Name HTTP 
+        Match *
+        Host ${timberHost} 
+        Port ${timberPort} 
+        URI ${timberPath} 
+        HTTP_User ${timberUser}
+        HTTP_Passwd ${timberPassword}
+        Format json
         tls On
         tls.verify Off
