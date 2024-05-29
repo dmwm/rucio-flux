@@ -12,11 +12,11 @@ spec:
         kind: HelmRepository
         name: rucio
         namespace: flux-system
-#      chart: ./charts/rucio-server
-#      sourceRef:
-#        kind: GitRepository
-#        name: rucio-git
-#        namespace: flux-system
+  #      chart: ./charts/rucio-server
+  #      sourceRef:
+  #        kind: GitRepository
+  #        name: rucio-git
+  #        namespace: flux-system
   interval: 5m
   install:
     remediation:
@@ -38,4 +38,7 @@ spec:
       name: rucio-secrets
       valuesKey: trace_password
       targetPath: config.trace.password
-# ^^^ 1.31
+    - kind: Secret
+      name: rucio-secrets
+      valuesKey: geoip_licence_key
+      targetPath: config.core.geoip_licence_key
