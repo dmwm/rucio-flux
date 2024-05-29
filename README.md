@@ -99,6 +99,7 @@ monit_token="..." # Used to connect to FacOps MONIT pages for site status
 gitlab_token="..." # Token for SITECONF gitlab repositroy
 globus_client="..." # Not currently used
 globus_refresh="..." # Not currently used
+geoip_licence_key="..." # Used to connect to the MaxMind GeoIP database
 ```
 
 You will need to get these files or values from someone who has them for the server you are looking to setup.
