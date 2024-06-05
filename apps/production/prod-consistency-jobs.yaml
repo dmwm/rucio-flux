@@ -24,7 +24,7 @@ consistency:
       server: af-a00.cms.rcac.purdue.edu
     T2_BR_UERJ:      
       interval: 7
-      server: xrootd.hepgrid.uerj.br
+      server: xrootd2.hepgrid.uerj.br
     T1_ES_PIC_Disk:
       interval: 7
       server: xrootd-cmst1-door.pic.es
