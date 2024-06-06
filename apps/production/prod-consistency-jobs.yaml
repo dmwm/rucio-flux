@@ -24,7 +24,7 @@ consistency:
       server: af-a00.cms.rcac.purdue.edu
     T2_BR_UERJ:      
       interval: 7
-      server: xrootd.hepgrid.uerj.br
+      server: xrootd2.hepgrid.uerj.br
     T1_ES_PIC_Disk:
       interval: 7
       server: xrootd-cmst1-door.pic.es
@@ -56,10 +56,6 @@ consistency:
     T2_DE_RWTH:
       server: grid-cms-xrootd.physik.rwth-aachen.de:1094
       interval: 7
-    T2_FR_GRIF_IRFU:
-      server: node12.datagrid.cea.fr
-      server_root: /cms/trivcat
-      interval: 7
     #T2_HU_Budapest_Test:
     #  server: grid143.kfki.hu:11000
     #  interval: 1
@@ -77,9 +73,6 @@ consistency:
     #  interval: 1
     T2_IT_Bari:
       server: ss-01.recas.ba.infn.it:8080
-      interval: 7
-    T2_FR_GRIF_LLR:
-      server: polgrid4.in2p3.fr:11001
       interval: 7
     T2_RU_JINR:
       server: lcgsexrd.jinr.ru:1095
@@ -227,9 +220,6 @@ consistency:
       maxmissfraction: 0.03
     T2_EE_Estonia:
       server: xrootd.hep.kbfi.ee:1094
-      interval: 7
-    T2_GR_Ioannina:
-      server: grid02.physics.uoi.gr 
       interval: 7
     T2_HU_Budapest:
       server: grid143.kfki.hu:11000
