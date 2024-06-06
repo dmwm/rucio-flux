@@ -22,6 +22,7 @@ minosCount: 1
 necromancerCount: 1
 darkReaperCount: 1
 conveyorReceiverCount: 0
+replicaRecovererCount: 1
 
 automaticRestart:
   enabled: 1
