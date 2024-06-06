@@ -1,5 +1,5 @@
 image:
-  tag: release-34.2.0.cms2-test
+  tag: release-34.4.2.cms1
 
 # Sometimes we need to explicitly note the database schema name
 config:
