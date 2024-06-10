@@ -37,6 +37,7 @@ secretMounts:
     subPath: idpsecrets.json
   - secretFullName: replica-recoverer-config
     mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
+    subPath: suspicious_replica_recoverer.json
 
 darkReaper:
   includeRses: "T1_ES_PIC_Disk"
