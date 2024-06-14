@@ -3,9 +3,7 @@ kind: Kustomization
 resources:
   - ../base/sources
   # - cm-int-prometheus.yaml
-  # - ../base/prometheus
-  # - ./statsd
-  # - ../base/statsd
+  - ../base/prometheus
   - cm-int-eagle.yaml
   - ../base/kube-eagle
   - ../base/fluentbit
