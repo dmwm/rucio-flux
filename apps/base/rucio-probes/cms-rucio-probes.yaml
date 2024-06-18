@@ -14,7 +14,7 @@ config:
     fts_vo: "cms"
     update_distances: "False"
   monitor:
-    prometheus_servers: "prometheus-pushgateway.prometheus:9091"
+    prometheus_servers: "prometheus-prometheus-pushgateway.prometheus:9091"
     prometheus_prefix: "rucio_"
 
 probes:
