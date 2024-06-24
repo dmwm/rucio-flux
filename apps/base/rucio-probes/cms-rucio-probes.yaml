@@ -40,10 +40,6 @@ probes:
     interval: 1
   check_updated_dids:
     interval: 1
-  check_obsolete_replicas:
-    interval: 10
-  check_deletable_replicas:
-    interval: 10
   check_expired_locked_rules:
     interval: 1
 voProbes:
@@ -68,3 +64,7 @@ voProbes:
   check_rse_files_rules:
     interval: 5
     voName: cms
+  check_obsolete_replicas:
+    interval: 10
+  check_deletable_replicas:
+    interval: 10
