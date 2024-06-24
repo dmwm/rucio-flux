@@ -66,5 +66,7 @@ voProbes:
     voName: cms
   check_obsolete_replicas:
     interval: 10
+    voName: cms
   check_deletable_replicas:
     interval: 10
+    voName: cms
