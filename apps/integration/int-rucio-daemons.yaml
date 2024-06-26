@@ -41,7 +41,7 @@ config:
       use_preparer: "True"
       transfertool: "fts3,globus"
       transfertype: "bulk"
-      scheme: "srm,gsiftp,root,http,https,globus"
+      scheme: "davs,root,gsiftp,srm,globus"
       globus_auth_app: "CMSRucioProduction"
     # Move to central
     messaging_cache:
