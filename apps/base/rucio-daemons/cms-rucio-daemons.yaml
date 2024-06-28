@@ -224,6 +224,8 @@ config:
     voname: "cms"
     nonssl_port: "61113"
     use_ssl: "False"
+  bb8: 
+    tolerance: 0.01
 
 transmogrifier:
   threads: 4
