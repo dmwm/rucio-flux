@@ -226,6 +226,7 @@ config:
     use_ssl: "False"
   bb8: 
     tolerance: 0.01
+    allowed_accounts: transfer_ops,ewv
 
 transmogrifier:
   threads: 4
