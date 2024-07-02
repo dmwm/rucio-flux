@@ -227,6 +227,7 @@ config:
   bb8: 
     tolerance: 0.01
     allowed_accounts: transfer_ops,ewv
+    total_source: static
 
 transmogrifier:
   threads: 4
