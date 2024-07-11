@@ -4,7 +4,7 @@ consistency:
   schema: "CMS_RUCIO_INT"
 reportStorageClass:
   osShareID: 8fdf6903-e97d-4733-a377-b374205355bc
-  osShareAccessID: c5d8db3f-4465-4913-8c96-e1613307638d
+  osShareAccessID: 4eba641d-6a38-4e88-8e4b-b127e6c92867 
 image:
   repository: registry.cern.ch/cmsrucio/rucio-consistency
   tag: release-4.6.1
