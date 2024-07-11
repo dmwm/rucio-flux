@@ -1,5 +1,5 @@
 image:
-  tag: release-34.4.2.cms-test-haozturk-6817_v2
+  tag: release-34.4.2.cms-test-hugo-and-hassan-patches
 
 # Sometimes we need to explicitly note the database schema name
 config:
