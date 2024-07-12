@@ -276,6 +276,9 @@ undertaker:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
 
+replicaRecoverer:
+  active-mode: "true"
+
 persistentVolumes:
   grid-cern-ch:
     name: csi-cvmfs-grid-pvc
