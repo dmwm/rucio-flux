@@ -277,7 +277,7 @@ undertaker:
     prometheus.io/port: "8080"
 
 replicaRecoverer:
-  active-mode: "true"
+  activeMode: "true"
 
 persistentVolumes:
   grid-cern-ch:
