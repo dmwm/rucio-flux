@@ -11,10 +11,6 @@ spec:
         kind: HelmRepository
         name: cms-rucio
         namespace: flux-system
-  driftDetection:
-    mode: enabled
-    ignore:
-      - paths: ["/spec/replicas"]
   interval: 5m
   install:
     remediation:
