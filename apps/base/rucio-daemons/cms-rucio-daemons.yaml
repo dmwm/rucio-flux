@@ -226,8 +226,11 @@ config:
     use_ssl: "False"
   bb8: 
     tolerance: 0.01
-    allowed_accounts: transfer_ops,ewv
+    allowed_accounts: wmcore_output
     total_source: static
+    disallowed_names: RelVal
+    target_rse: T2_CH_CERN
+    target_rse_rebalance_volume: 0
 
 transmogrifier:
   threads: 4
