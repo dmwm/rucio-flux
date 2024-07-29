@@ -231,6 +231,7 @@ config:
     disallowed_names: RelVal
     target_rse: T2_CH_CERN
     target_rse_rebalance_volume: 0
+    min_expires_date_in_days: 15
 
 transmogrifier:
   threads: 4
