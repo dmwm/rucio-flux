@@ -26,7 +26,7 @@ ingress:
   hosts:
     - cms-rucio.cern.ch
   tls:
-    - secretName: rucio-server.tls-secret
+    - secretName: host-tls-secret
 
 useSSL: false
 
@@ -41,9 +41,9 @@ ftsRenewal:
     - name: RUCIO_FTS_SECRETS
       value: "server-rucio-x509up"
   secretMounts:
-    - secretFullName: server-fts-cert
+    - secretFullName: rootcert
       mountPath: /opt/rucio/certs/
-    - secretFullName: server-fts-key
+    - secretFullName: rootkey
       mountPath: /opt/rucio/keys/
 
 serverResources:

@@ -1,8 +1,8 @@
 loadtest:
   rucioHome: "/opt/rucio-prod/"
-  proxySecret: "daemons-rucio-x509up"
-  sourceExpression:   "loadtest=True"
-  destinationExpression:   "loadtest=True"
+  proxySecret: "server-rucio-x509up"
+  sourceExpression: "loadtest=True"
+  destinationExpression: "loadtest=True"
 
 image:
   repository: registry.cern.ch/cmsrucio/rucio-loadtest-client
@@ -15,6 +15,6 @@ persistentVolumes:
     mountPath: /cvmfs/grid.cern.ch
 
 resources:
-   limits:
-     cpu: 200m
-     memory: 1Gi
+  limits:
+    cpu: 200m
+    memory: 1Gi
