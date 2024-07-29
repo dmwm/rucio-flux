@@ -23,8 +23,8 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
     - cms-rucio-trace.cern.ch
-  tls: 
-    - secretName: rucio-server.tls-secret
+  tls:
+    - secretName: host-tls-secret
 
 useSSL: false
 
@@ -36,13 +36,13 @@ serverResources:
 
 config:
   common:
-      loglevel: "INFO"
+    loglevel: "INFO"
   trace:
-      port: "61313"
-      brokers: "cms-mb.cern.ch"
-      topic: "/topic/cms.rucio.tracer"
-      username: "cmsrucio"
-      tracedir: "/var/log/rucio/trace"
+    port: "61313"
+    brokers: "cms-mb.cern.ch"
+    topic: "/topic/cms.rucio.tracer"
+    username: "cmsrucio"
+    tracedir: "/var/log/rucio/trace"
   monitor:
     enable_metrics: "False"
     metrics_port: "8088"

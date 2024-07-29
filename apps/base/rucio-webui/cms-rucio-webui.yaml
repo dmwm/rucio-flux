@@ -22,10 +22,10 @@ httpd_config:
   legacy_dn: "True"
 
 secretMounts:
-  - secretFullName: server-server-hostcert
+  - secretFullName: hostcert
     mountPath: /etc/grid-security/hostcert.pem
     subPath: hostcert.pem
-  - secretFullName: server-server-hostkey
+  - secretFullName: hostkey
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
 
@@ -36,4 +36,3 @@ persistentVolumes:
 
 optional_config:
   policy_pkg_path: /opt/rucio/policy
-  

@@ -18,10 +18,10 @@ httpd_config:
   legacy_dn: "True"
 
 secretMounts:
-  - secretFullName: server-server-hostcert
+  - secretFullName: hostcert
     mountPath: /etc/grid-security/hostcert.pem
     subPath: hostcert.pem
-  - secretFullName: server-server-hostkey
+  - secretFullName: hostkey
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
   - secretFullName: idpsecrets
@@ -41,7 +41,7 @@ ingress:
   hosts:
     - cms-rucio-auth.cern.ch
   tls:
-    - secretName: rucio-server.tls-secret
+    - secretName: host-tls-secret
 
 useSSL: true
 
