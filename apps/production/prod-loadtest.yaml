@@ -1,6 +1,6 @@
 loadtest:
   rucioHome: "/opt/rucio-prod/"
-  proxySecret: "server-rucio-x509up"
+  proxySecret: "rucio-x509up"
   sourceExpression: "loadtest=True"
   destinationExpression: "loadtest=True"
 

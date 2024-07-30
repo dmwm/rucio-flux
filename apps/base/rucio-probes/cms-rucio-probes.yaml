@@ -2,12 +2,12 @@ image:
   repository: registry.cern.ch/cmsrucio/rucio-probes
 
 secretMounts:
-  - secretFullName: server-rucio-x509up
+  - secretFullName: rucio-x509up
     mountPath: /opt/proxy
 
 # Can we get rid of this?
 probeSettings:
-  ftsProxySecret: server-rucio-x509up
+  ftsProxySecret: rucio-x509up
 
 config:
   nagios:

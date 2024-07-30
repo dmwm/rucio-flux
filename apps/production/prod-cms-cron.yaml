@@ -1,6 +1,8 @@
 cronjobSettings:
   daemonName: "daemons"
   instance: "prod"
+  usercert: "rootcert"
+  userkey: "rootkey"
 
 image:
   repository: registry.cern.ch/cmsrucio/rucio_client

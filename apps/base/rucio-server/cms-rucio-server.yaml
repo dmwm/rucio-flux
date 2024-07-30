@@ -10,7 +10,7 @@ secretMounts:
   - secretFullName: idpsecrets
     mountPath: /opt/rucio/etc/idpsecrets.json
     subPath: idpsecrets.json
-  - secretFullName: server-rucio-x509up
+  - secretFullName: rucio-x509up
     mountPath: /opt/proxy
 
 optional_config:
