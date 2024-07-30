@@ -28,6 +28,7 @@ config:
     ftsmonhosts: "https://cmsfts3.fnal.gov:8449,https://fts3-cms.cern.ch:8449,https://lcgfts3.gridpp.rl.ac.uk:8449"
     bring_online: "2678400"
     scheme: "davs,root,gsiftp,srm"
+    use_preparer: "true"
   monitor:
     user_scope: rucio
 

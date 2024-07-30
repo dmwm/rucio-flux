@@ -3,7 +3,7 @@ image:
 
 abacusAccountCount: 1
 abacusRseCount: 1
-#conveyorTransferSubmitterCount: 2
+conveyorPreparerCount: 3
 conveyorTransferSubmitterCount: 3
 conveyorPollerCount: 2
 conveyorFinisherCount: 2
@@ -93,6 +93,13 @@ conveyorTransferSubmitter:
   additionalEnvs:
     - name: X509_USER_PROXY
       value: "/opt/proxy/x509up"
+  threads: 5
+
+conveyorPreparer:
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+  threads: 5
 
 conveyorFinisher:
   podAnnotations:
@@ -224,7 +231,7 @@ config:
     voname: "cms"
     nonssl_port: "61113"
     use_ssl: "False"
-  bb8: 
+  bb8:
     tolerance: 0.01
     allowed_accounts: wmcore_output
     total_source: static
