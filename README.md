@@ -85,7 +85,7 @@ The Rucio setup relies on a number of secrets being created before flux is boots
 This relies on three pieces of information not supplied by any repository:
 - `$HOSTP12`: The certificate for a node in the Rucio cluster which also has entries for the node aliases like `cms-rucio.cern.ch`
 - `$ROBOTP12`: The Robot certificate used for all FTS/gfal operations. This also gets used to authenticate as `root` to Rucio. 
-- `${INSTANCE}-secrets.yaml` (not a YAML file): A file providing the true secrets of the Rucio install (database connection strings, passwords and tokens for various services)
+- `${INSTANCE}-secrets.cfg`: A file providing the true secrets of the Rucio install (database connection strings, passwords and tokens for various services)
 
 The format of this file is
 
@@ -102,6 +102,16 @@ globus_refresh="..." # Not currently used
 ```
 
 You will need to get these files or values from someone who has them for the server you are looking to setup.
+
+**Run the [create_flux_secrets.sh](./scripts/create_flux_secrets.sh) script**
+
+**Inject the following additional secrets into the cluster**
+ - Token authentication: IDP Secrets
+     - [Instuctions for generation the IDP Json from scratch](./scripts/create_iam_clients/README.md)
+ - Logging: Fluent bit:
+     - `cms opensearch creds` for integration
+     - `monit timber creds` for production
+
 
 Verify that your staging cluster satisfies the flux prerequisites with:
 
@@ -152,6 +162,19 @@ $ flux get all -A
 ```
 
 Once you have verified changes working in your own cluster, make a PR against `dmwm/rucio-flux` to have the changes deployed in production (or the integration server).
+
+
+**Label nodes to be used as ingress by running the [taint_ingress_nodes.sh](./scripts/taint_ingress_nodes.sh) script**
+    - This take the number of nodes to be used for ingress as argument
+    - Can be run in `dry-run` mode by passing `--dry-run` as an argument
+    - example usage: `./scripts/taint_ingress_nodes.sh 2`
+
+
+**Configure landb loadbalancing by running the [configure_landb.sh](./scripts/configure_landb.sh) script**
+    - You need to authenticate with openstack before running this script
+    - This takes the cluster type and Starting number for the --load-${n}- suffix as arguments (to be used when an existing cluster already uses initial suffix numbers)
+    - Can be run in `dry-run` mode by passing `--dry-run` as an argument
+    - example usage: `./configure_landb.sh int 4`
 
 ## Mantainance
 
