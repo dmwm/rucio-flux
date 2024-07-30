@@ -35,7 +35,7 @@ fi
 
 # Update FTS certificates if required
 if [ "${UPDATE_FTS_CERTS:-0}" -eq 1 ]; then
-    create_secrets_from_p12 "$ROBOTP12" "robotcert.pem" "robotkey.pem" "rootcert" "rootkey"
+    create_secrets_from_p12 "$ROBOTP12" "rootcert.pem" "rootkey.pem" "rootcert" "rootkey"
     exit 0
 fi
 
@@ -51,20 +51,20 @@ cp tls.key hostkey.pem
 cp tls.crt hostcert.pem
 
 echo "When prompted, enter the password used to encrypt the ROBOT P12 file"
-openssl pkcs12 -in "$ROBOTP12" -clcerts -nokeys -out robotcert.pem
-openssl pkcs12 -in "$ROBOTP12" -nocerts -nodes -out robotkey.pem
+openssl pkcs12 -in "$ROBOTP12" -clcerts -nokeys -out rootcert.pem
+openssl pkcs12 -in "$ROBOTP12" -nocerts -nodes -out rootkey.pem
 
 # Create new secrets
 echo "Creating new secrets"
 
 kubectl -n rucio create secret tls host-tls-secret --key=tls.key --cert=tls.crt --dry-run=client --save-config -o yaml | kubectl apply -f -
-kubectl -n rucio create secret generic rootcert --from-file=robotcert.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
-kubectl -n rucio create secret generic rootkey --from-file=robotkey.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+kubectl -n rucio create secret generic rootcert --from-file=rootcert.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+kubectl -n rucio create secret generic rootkey --from-file=rootkey.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
 kubectl -n rucio create secret generic hostcert --from-file=hostcert.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
 kubectl -n rucio create secret generic hostkey --from-file=hostkey.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
 
 # Clean up temporary files
-rm tls.key tls.crt hostkey.pem hostcert.pem robotcert.pem robotkey.pem
+rm tls.key tls.crt hostkey.pem hostcert.pem rootcert.pem rootkey.pem
 
 # Create secrets from an environment file
 kubectl -n rucio create secret generic rucio-secrets --from-env-file="${INSTANCE}-secrets.cfg" --dry-run=client --save-config -o yaml | kubectl apply -f -

@@ -301,9 +301,9 @@ ftsRenewal:
       voms: "cms:/cms/Role=production"
   additionalEnvs:
     - name: USERCERT_NAME
-      value: "robotcert.pem"
+      value: "rootcert.pem"
     - name: USERKEY_NAME
-      value: "robotkey.pem"
+      value: "rootkey.pem"
     - name: RUCIO_FTS_SECRETS
       value: "rucio-x509up"
   secretMounts:
