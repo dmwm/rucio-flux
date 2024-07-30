@@ -49,9 +49,8 @@ useDeprecatedImplicitSecrets: false
 optional_config:
   policy_pkg_path: /opt/rucio/policy
 
-# For whatever needs it
 ftsRenewal:
-  enabled: 0
+  enabled: true
   image:
     repository: rucio/fts-cron
     tag: latest
@@ -62,9 +61,14 @@ ftsRenewal:
     - vo: "cms"
       voms: "cms:/cms/Role=production"
   additionalEnvs:
-    # - name: RUCIO_FTS_SECRETS
-    #   value: release-rucio-x509up
     - name: USERCERT_NAME
-      value: "usercert.pem"
+      value: "robotcert.pem"
     - name: USERKEY_NAME
-      value: "new_userkey.pem"
+      value: "robotkey.pem"
+    - name: RUCIO_FTS_SECRETS
+      value: "server-rucio-x509up"
+  secretMounts:
+    - secretFullName: rootcert
+      mountPath: /opt/rucio/certs/
+    - secretFullName: rootkey
+      mountPath: /opt/rucio/keys/

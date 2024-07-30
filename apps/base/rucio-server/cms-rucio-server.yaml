@@ -30,22 +30,6 @@ ingress:
 
 useSSL: false
 
-ftsRenewal:
-  enabled: true
-  # FIXME: Not clear we need the envs anymore, but putting them back
-  additionalEnvs:
-    - name: USERCERT_NAME
-      value: "usercert.pem"
-    - name: USERKEY_NAME
-      value: "new_userkey.pem"
-    - name: RUCIO_FTS_SECRETS
-      value: "server-rucio-x509up"
-  secretMounts:
-    - secretFullName: rootcert
-      mountPath: /opt/rucio/certs/
-    - secretFullName: rootkey
-      mountPath: /opt/rucio/keys/
-
 serverResources:
   requests:
     memory: 500Mi
