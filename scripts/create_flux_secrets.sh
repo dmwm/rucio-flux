@@ -8,8 +8,6 @@
 # UPDATE_HOST_CERTS - Set to 1 to update host certificates
 # UPDATE_FTS_CERTS  - Set to 1 to update FTS certificates
 
-set -euo pipefail
-
 # Function to create secrets from .p12 files
 create_secrets_from_p12() {
     local p12_file=$1
@@ -58,20 +56,18 @@ openssl pkcs12 -in "$ROBOTP12" -nocerts -nodes -out robotkey.pem
 
 # Create new secrets
 echo "Creating new secrets"
-kubectl -n rucio create secret tls host-tls-secret --key=tls.key --cert=tls.crt
-kubectl -n rucio create secret generic rootcert --from-file=robotcert.pem
-kubectl -n rucio create secret generic rootkey --from-file=robotkey.pem
-kubectl -n rucio create secret generic hostcert --from-file=hostcert.pem
-kubectl -n rucio create secret generic hostkey --from-file=hostkey.pem
 
-# Create a dummy secret - replace with the actual proxy as needed
-kubectl -n rucio create secret generic server-rucio-x509up --from-file=/etc/pki/tls/certs/CERN-bundle.pem 
+kubectl -n rucio create secret tls host-tls-secret --key=tls.key --cert=tls.crt --dry-run=client --save-config -o yaml | kubectl apply -f -
+kubectl -n rucio create secret generic rootcert --from-file=robotcert.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+kubectl -n rucio create secret generic rootkey --from-file=robotkey.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+kubectl -n rucio create secret generic hostcert --from-file=hostcert.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
+kubectl -n rucio create secret generic hostkey --from-file=hostkey.pem --dry-run=client --save-config -o yaml | kubectl apply -f -
 
 # Clean up temporary files
 rm tls.key tls.crt hostkey.pem hostcert.pem robotcert.pem robotkey.pem
 
 # Create secrets from an environment file
-kubectl -n rucio create secret generic rucio-secrets --from-env-file="${INSTANCE}-secrets.yaml"
+kubectl -n rucio create secret generic rucio-secrets --from-env-file="${INSTANCE}-secrets.cfg" --dry-run=client --save-config -o yaml | kubectl apply -f -
 
 # Display the created secrets
 kubectl -n rucio get secrets
