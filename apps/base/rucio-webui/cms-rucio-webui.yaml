@@ -8,6 +8,9 @@ resources:
   limits:
     memory: 1450Mi
 
+service:
+  allocateLoadBalancerNodePorts: false
+
 ingress:
   enabled: true
   ingressClassName: nginx
