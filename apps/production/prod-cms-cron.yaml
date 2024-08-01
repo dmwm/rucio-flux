@@ -3,6 +3,11 @@ cronjobSettings:
   instance: "prod"
   usercert: "rootcert"
   userkey: "rootkey"
+  additionalEnvs:
+    - name: USERCERT_NAME
+      value: "rootcert.pem"
+    - name: USERKEY_NAME
+      value: "rootkey.pem"
 
 image:
   repository: registry.cern.ch/cmsrucio/rucio_client
