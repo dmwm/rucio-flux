@@ -141,13 +141,13 @@ consistency:
     #  #server: xrootd-srv.accre.vanderbilt.edu:1094
     #  interval: 1
     T2_RU_INR:
-      server: grse001.inr.troitsk.ru:11000
+      server: grse001.inr.troitsk.ru:1094
       interval: 7
     #T2_RU_ITEP_Test:
     #  server: se3.itep.ru:1095
     #  interval: 1
     T2_IN_TIFR:
-      server: se01.indiacms.res.in:11001
+      server: se01.indiacms.res.in:1094
       interval: 7
     T2_CH_CSCS:
       server: storage01.lcg.cscs.ch:1096
