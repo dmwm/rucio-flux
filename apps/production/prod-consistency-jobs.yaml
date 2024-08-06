@@ -229,7 +229,7 @@ consistency:
       interval: 7
     T2_TR_METU:
       server: eymir.grid.metu.edu.tr
-      server_root: /cms
+      server_root: /
       interval: 7
     T2_UA_KIPT:
       server: cms-se0.kipt.kharkov.ua:11001
