@@ -25,6 +25,11 @@ conveyorTransferSubmitter:
   groupBulk: 10
   archiveTimeout: 0
   ignoreAvailability: true
+  threads: 1
 
 automaticRestart:
   enabled: 0
+
+# Ignore availability option is missing in conveyor helm charts for preparer
+config:
+  use_preparer: "false"

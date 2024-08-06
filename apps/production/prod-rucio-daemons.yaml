@@ -16,9 +16,6 @@ reaper:
   chunkSize: 4000
   sleepTime: 120
 
-conveyorTransferSubmitter:
-  threads: 5
-
 conveyorPoller:
   threads: 5
   resources:
