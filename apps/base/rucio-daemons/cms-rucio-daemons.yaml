@@ -4,6 +4,7 @@ image:
 abacusAccountCount: 1
 abacusRseCount: 1
 conveyorPreparerCount: 3
+conveyorThrottlerCount: 2
 conveyorTransferSubmitterCount: 3
 conveyorPollerCount: 2
 conveyorFinisherCount: 2
