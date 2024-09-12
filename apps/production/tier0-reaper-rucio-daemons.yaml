@@ -18,6 +18,7 @@ conveyorPreparerCount: 0
 conveyorPollerCount: 0
 conveyorFinisherCount: 0
 conveyorReceiverCount: 0
+conveyorThrottlerCount: 0
 reaperCount: 1
 
 reaper:
