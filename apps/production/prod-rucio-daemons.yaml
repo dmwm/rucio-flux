@@ -11,6 +11,15 @@ conveyorThrottlerCount: 2
 judgeEvaluatorCount: 2
 tracerKronosCount: 3
 judgeCleanerCount: 2
+replicaRecovererCount: 1
+minosTemporaryExpirationCount: 1
+
+replicaRecoverer:
+  activeMode: false
+  secretMounts:
+    - secretFullName: replica-recoverer-config
+      mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
+      subPath: suspicious_replica_recoverer.json
 
 reaper:
   includeRses: "reaper=True"
