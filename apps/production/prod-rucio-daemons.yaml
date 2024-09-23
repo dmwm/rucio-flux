@@ -15,7 +15,7 @@ replicaRecovererCount: 1
 minosTemporaryExpirationCount: 1
 
 replicaRecoverer:
-  activeMode: false
+  activeMode: true
   secretMounts:
     - secretFullName: replica-recoverer-config
       mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
