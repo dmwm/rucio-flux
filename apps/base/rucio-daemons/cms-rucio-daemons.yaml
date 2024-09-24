@@ -100,6 +100,7 @@ conveyorPreparer:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
   threads: 5
+  ignoreAvailability: true
 
 conveyorFinisher:
   podAnnotations:
