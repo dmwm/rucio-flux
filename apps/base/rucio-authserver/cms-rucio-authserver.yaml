@@ -9,6 +9,8 @@ config:
     expected_audience: "rucio"
     admin_issuer: "cms"
     idpsecrets: "/opt/rucio/etc/idpsecrets.json"
+  webui:
+    urls: "https://cms-rucio-newui.cern.ch"
 
 httpd_config:
   encoded_slashes: "True"

@@ -67,6 +67,8 @@ config:
     admin_issuer: "cms"
     expected_audience: "rucio"
     idpsecrets: "/opt/rucio/etc/idpsecrets.json"
+  webui:
+    urls: "https://cms-rucio-newui.cern.ch"
 
 persistentVolumes:
   grid-cern-ch:
