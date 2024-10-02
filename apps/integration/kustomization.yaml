@@ -33,7 +33,7 @@ configMapGenerator:
   - name: instance-rucio-webui
     files:
       - values.yaml=int-rucio-webui.yaml
-  - name: instance-rucio-webui
+  - name: instance-rucio-newui
     files:
       - values.yaml=int-rucio-newui.yaml
   - name: instance-rucio-probes
