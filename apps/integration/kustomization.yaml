@@ -15,6 +15,7 @@ resources:
 #  - ../options/loadtest
 #  - ../options/webdav-loadtest
   - ../base/cms-rucio-consistency
+  - ../base/rucio-newui
 
 configMapGenerator:
   - name: instance-rucio-server

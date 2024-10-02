@@ -1,7 +1,8 @@
 replicaCount: 1
 
 image:
-  repository: registry.cern.ch/cmsrucio/rucio-webui
+  tag: release-35.3.0
+#  repository: registry.cern.ch/cmsrucio/rucio-webui
 
 resources:
   limits:
@@ -14,6 +15,23 @@ ingress:
 #    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+config:
+  webui:
+    # hostname of the rucio server, include http:// or https://
+    rucio_host: "https://cms-rucio-int.cern.ch"
+    # hostname of the rucio-auth server, include http:// or https://
+    rucio_auth_host: "https://cms-rucio-auth-int.cern.ch"
+    # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
+    hostname: "cms-rucio-newui-int.cern.ch"
+    project_url: "https://rucio.cern.ch"
+    multivo_enabled: "False"
+    # A csv string of vos containing their short names. For example: "def,atl,cms"
+    vo_list: "def"
+    vo_default: "def"
+    oidc_enabled: "False"
+    # A csv string of names of supported oidc providers that will be configured in the webui. For example: "cern,indico"
+    oidc_providers: ""
+
 
 proxy:
   rucioProxyScheme: "http"
