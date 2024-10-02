@@ -17,7 +17,7 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
     - "cms-rucio-newui.cern.ch"
-        
+
 config:
   webui:
     # hostname of the rucio server, include http:// or https://
@@ -54,3 +54,20 @@ service:
   allocateLoadBalancerNodePorts: false
 
 exposeErrorLogs: False
+
+secretMounts:
+  - secretFullName: hostcert
+    mountPath: /etc/grid-security/hostcert.pem
+    subPath: hostcert.pem
+  - secretFullName: hostkey
+    mountPath: /etc/grid-security/hostkey.pem
+    subPath: hostkey.pem
+
+additionalEnvs:
+  - name: RUCIO_CA_PATH
+    value: "/cvmfs/grid.cern.ch/etc/grid-security/certificates"
+  - name: RUCIO_WEBUI_SERVER_CA_BUNDLE
+    value: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/CERN-GridCA.pem"
+  - name: RUCIO_SSL_PROTOCOL
+    value: "-SSLv3 -TLSv1 -TLSv1.1 +TLSv1.2"
+
