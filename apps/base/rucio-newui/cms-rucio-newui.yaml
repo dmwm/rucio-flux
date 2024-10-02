@@ -67,7 +67,7 @@ additionalEnvs:
   - name: RUCIO_CA_PATH
     value: "/cvmfs/grid.cern.ch/etc/grid-security/certificates"
   - name: RUCIO_WEBUI_SERVER_CA_BUNDLE
-    value: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/CERN-GridCA.pem"
+    value: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/CERN-Root-2.pem"
   - name: RUCIO_SSL_PROTOCOL
     value: "-SSLv3 -TLSv1 -TLSv1.1 +TLSv1.2"
 
