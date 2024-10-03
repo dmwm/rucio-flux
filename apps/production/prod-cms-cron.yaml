@@ -1,5 +1,4 @@
 cronjobSettings:
-  daemonName: "daemons"
   instance: "prod"
 
 image:
