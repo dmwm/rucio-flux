@@ -3,7 +3,7 @@ consistency:
   defaultRoot: "/store/test/rucio/int/store"
   schema: "CMS_RUCIO_INT"
   prometheus_servers: "prometheus-prometheus-pushgateway.prometheus:9091"
-  prometheus_prefix: "rucio_int_"
+  prometheus_prefix: ""
   prometheus_labels: ""
   rucio_host: "http://cms-rucio-int.cern.ch"
   auth_host: "https://cms-rucio-auth-int.cern.ch"
