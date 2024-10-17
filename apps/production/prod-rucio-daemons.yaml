@@ -64,6 +64,11 @@ conveyorFinisher:
     requests:
       memory: 400Mi
 
+conveyorThrottler:
+  config:
+    common:
+      loglevel: "DEBUG"
+
 podLabels:
   rucioInstance: "prod"
 
