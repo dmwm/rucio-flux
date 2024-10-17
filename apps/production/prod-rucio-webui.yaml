@@ -1,3 +1,5 @@
+replicaCount: 4
+
 ingress:
   hosts: 
     - "cms-rucio-webui.cern.ch"
