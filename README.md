@@ -114,6 +114,7 @@ Set the kubectl context to your staging cluster and bootstrap Flux:
 
 ```sh
 flux bootstrap github \
+    --token-auth # New as of Flux 2.4  \ 
     --owner=${GITHUB_USER} \
     --repository=${GITHUB_REPO} \
     --branch=main \
