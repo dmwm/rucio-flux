@@ -11,7 +11,7 @@ spec:
     branch: int
   secretRef:
     name: flux-system
-  url: https://github.com/dmwm/rucio-flux.git
+  url: ssh://git@github.com/dmwm/rucio-flux
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
