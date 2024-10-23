@@ -26,7 +26,7 @@ minosTemporaryExpirationCount: 0
 conveyorTransferSubmitter:
   activities: "'Functional Test'"
   groupBulk: 10
-  archiveTimeout: 0
+  archiveTimeout: 3600
   ignoreAvailability: true
   threads: 1
 
