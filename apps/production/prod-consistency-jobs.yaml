@@ -1,13 +1,13 @@
 consistency:
   ignore:
-     - /store/backfill
-     - /store/test
-     - /store/unmerged
-     - /store/temp
-     - /store/mc/SAM
-     - /store/mc/HC
-     - /store/accounting
-     - /store/express/tier0_harvest
+    - /store/backfill
+    - /store/test
+    - /store/unmerged
+    - /store/temp
+    - /store/mc/SAM
+    - /store/mc/HC
+    - /store/accounting
+    - /store/express/tier0_harvest
   sites:
     T1_DE_KIT_Disk:
       interval: 7
@@ -19,10 +19,10 @@ consistency:
       server: cmsxrootd-kit-tape.gridka.de:1094
       server_root: /
       timeout: 3600
-    T2_US_Purdue:      
+    T2_US_Purdue:
       interval: 7
       server: af-a00.cms.rcac.purdue.edu
-    T2_BR_UERJ:      
+    T2_BR_UERJ:
       interval: 7
       server: xrootd2.hepgrid.uerj.br
     T1_ES_PIC_Disk:
@@ -97,8 +97,8 @@ consistency:
       server: se.cis.gov.pl:11000
       interval: 7
     #T2_EE_Estonia_Test:
-      #server: [2001:bb8:4004:ff:d::3]:1094
-      #interval: 1
+    #server: [2001:bb8:4004:ff:d::3]:1094
+    #interval: 1
     T2_UK_SGrid_RALPP:
       server: heplnx228.pp.rl.ac.uk:1094
       interval: 7

@@ -21,11 +21,11 @@ replicaRecoverer:
     - secretFullName: replica-recoverer-config
       mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
       subPath: suspicious_replica_recoverer.json
-    resources:
-      limits:
-        memory: 1Gi
-      requests:
-        memory: 400Mi
+  resources:
+    limits:
+      memory: 1Gi
+    requests:
+      memory: 400Mi
 
 reaper:
   includeRses: "reaper=True"
