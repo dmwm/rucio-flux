@@ -289,3 +289,6 @@ consistency:
       server: gfe02.grid.hep.ph.ic.ac.uk:1094
       server_root: /pnfs/hep.ph.ic.ac.uk/data/cms
       interval: 7
+    T3_KR_UOS:
+      server: cms.sscc.uos.ac.kr:1094
+      interval: 7
