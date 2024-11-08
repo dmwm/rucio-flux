@@ -6,7 +6,7 @@ conveyorTransferSubmitterCount: 3
 conveyorPollerCount: 4
 conveyorReceiverCount: 1
 conveyorFinisherCount: 4
-conveyorThrottlerCount: 2
+conveyorThrottlerCount: 1
 
 judgeEvaluatorCount: 2
 tracerKronosCount: 3
