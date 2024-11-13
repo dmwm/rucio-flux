@@ -3,7 +3,7 @@ consistency:
   defaultRoot: "/"
   schema: "CMS_RUCIO_PROD"
   prometheus_servers: "prometheus-prometheus-pushgateway.prometheus:9091"
-  prometheus_prefix: "rucio.prod.cc"
+  prometheus_prefix: "rucio.consistency.prod"
   rucio_host: "http://cms-rucio.cern.ch"
   auth_host: "https://cms-rucio-auth.cern.ch"
   auth_type: "x509_proxy"
@@ -14,7 +14,7 @@ reportStorageClass:
   osShareAccessID: 38a148e3-5377-4878-9ac0-e3a95c816684
 image:
   repository: registry.cern.ch/cmsrucio/rucio-consistency
-  tag: release-4.8.0
+  tag: release-4.8.1
 resources:
   requests:
     memory: 6000Mi
