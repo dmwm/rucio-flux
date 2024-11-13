@@ -60,7 +60,7 @@ conveyorFinisher:
   threads: 5
   resources:
     limits:
-      memory: 3000Mi
+      memory: 8000Mi
     requests:
       memory: 400Mi
 
