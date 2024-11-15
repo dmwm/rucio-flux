@@ -14,7 +14,7 @@ resources:
   - ../options/globus-daemons
 #  - ../options/loadtest
 #  - ../options/webdav-loadtest
-  - ../base/cms-rucio-consistency
+  # - ../base/cms-rucio-consistency
   - ../base/rucio-newui
 
 configMapGenerator:
