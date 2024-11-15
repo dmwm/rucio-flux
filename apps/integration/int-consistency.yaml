@@ -1,11 +1,11 @@
 consistency:
   instance: "int"
   defaultRoot: "/store/test/rucio/int/store"
-  schema: "CMS_RUCIO_INT"
   prometheus_servers: "prometheus-prometheus-pushgateway.prometheus:9091"
-  prometheus_prefix: "rucio.int.cc"
-  rucio_host: "http://cms-rucio-int.cern.ch"
-  auth_host: "https://cms-rucio-auth-int.cern.ch"
+  prometheus_prefix: "rucio.consistency"
+  prometheus_labels: '{"rucioInstance": "int"}'
+  rucio_host: "http://cms-rucio.cern.ch"
+  auth_host: "https://cms-rucio-auth.cern.ch"
   auth_type: "x509_proxy"
   ca_cert: "/etc/grid-security/certificates/"
   request_retries: "3"
@@ -14,4 +14,4 @@ reportStorageClass:
   osShareAccessID: 4eba641d-6a38-4e88-8e4b-b127e6c92867 
 image:
   repository: registry.cern.ch/cmsrucio/rucio-consistency
-  tag: release-4.7.1
+  tag: release-4.8.1

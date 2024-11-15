@@ -2,8 +2,3 @@ consistency:
   ignore:
     - /store/test/rucio/int/store/backfill
     - /store/test/rucio/int/store/test
-  sites:
-    T2_US_MIT_Int:
-      server: xrootd15.cmsaf.mit.edu:1094
-      server_root: /store/test/rucio/int
-      interval: 7
