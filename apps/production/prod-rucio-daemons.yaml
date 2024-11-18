@@ -60,9 +60,9 @@ conveyorFinisher:
   threads: 5
   resources:
     limits:
-      memory: 8000Mi
+      memory: 4000Mi
     requests:
-      memory: 400Mi
+      memory: 600Mi
 
 conveyorThrottler:
   config:

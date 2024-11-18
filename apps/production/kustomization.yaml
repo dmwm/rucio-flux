@@ -7,7 +7,7 @@ resources:
   - ../base/rucio-server
   - ../base/rucio-authserver
   - ../base/rucio-traceserver
-  # - ../base/rucio-daemons
+  - ../base/rucio-daemons
   - ../base/rucio-webui
   #  - ../base/rucio-newui
   - ../base/rucio-probes
