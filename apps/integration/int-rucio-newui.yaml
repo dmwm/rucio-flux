@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  tag: release-35.4.0
+  tag: release-35.5.0
 #  repository: registry.cern.ch/cmsrucio/rucio-webui
 
 ingress:
