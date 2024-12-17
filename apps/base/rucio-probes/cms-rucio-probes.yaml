@@ -70,3 +70,6 @@ voProbes:
   check_deletable_replicas:
     interval: 10
     voName: cms
+  check_rules_count_volume_per_rse_activity_state:
+    interval: 30
+    voName: cms
