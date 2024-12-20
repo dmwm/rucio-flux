@@ -1,5 +1,5 @@
 image:
-  tag: release-35.6.0.cms5
+  tag: release-35.6.0.cms6
 
 # FIXME: Maybe not the best place for this but everything may need it
 config:
