@@ -13,6 +13,7 @@ resources:
   - ../base/cms-rucio-cvmfs
   - ../options/globus-daemons
   - ../base/rucio-newui
+  - ../base/patches
 
 configMapGenerator:
   - name: instance-rucio-server
