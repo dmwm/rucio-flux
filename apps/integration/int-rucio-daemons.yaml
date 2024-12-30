@@ -4,12 +4,14 @@ conveyorFinisherCount: 1
 conveyorPreparerCount: 1
 darkReaperCount: 1
 cacheConsumerCount: 0
-tracerKronosCount: 0
 
 reaper:
   includeRses: "cms_type=int"
   greedy: 1
   threads: 1
+
+darkReaper:
+  includeRses: "T2_US_Purdue"
 
 conveyorTransferSubmitter:
   threads: 1
@@ -28,8 +30,10 @@ config:
     use_preparer: "True"
     transfertool: "fts3,globus"
     transfertype: "bulk"
-    scheme: "srm,gsiftp,root,http,https,globus"
+    scheme: "davs,root,gsiftp,srm,globus"
     globus_auth_app: "CMSRucioProduction"
+  messaging_hermes:
+    brokers: "cms-test-mb.cern.ch"
 
 conveyorPoller:
   config:
