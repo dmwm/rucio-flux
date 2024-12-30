@@ -53,5 +53,5 @@ curl -vvv -XPOST -H "Content-type: application/json" -H "Authorization: Bearer $
 
 - create the secret in the `rucio` namespace via:
 ```bash
-kubectl create secret -n rucio generic server-idpsecrets --from-file=./idpsecrets.json
+kubectl create secret -n rucio generic idpsecrets --from-file=./idpsecrets.json
 ```

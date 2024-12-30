@@ -9,7 +9,7 @@ resources:
   - ../base/rucio-traceserver
   - ../base/rucio-daemons
   - ../base/rucio-webui
-#  - ../base/rucio-newui
+  #  - ../base/rucio-newui
   - ../base/rucio-probes
   - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
@@ -17,7 +17,6 @@ resources:
   - ../options/tier0-reaper
   - ../options/loadtest-daemons
   - ../options/loadtest
-  - ../options/webdav-loadtest
 # Not ready yet
 #  - ../options/globus-daemons
 
@@ -55,9 +54,6 @@ configMapGenerator:
   - name: instance-loadtest
     files:
       - values.yaml=prod-loadtest.yaml
-  - name: webdav-loadtest
-    files:
-      - values.yaml=webdav-loadtest.yaml
   - name: instance-rucio-release
     files:
       - values.yaml=prod-release.yaml

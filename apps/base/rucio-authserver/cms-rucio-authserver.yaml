@@ -9,19 +9,18 @@ config:
     expected_audience: "rucio"
     admin_issuer: "cms"
     idpsecrets: "/opt/rucio/etc/idpsecrets.json"
-  monitor:
-    enable_metrics: "False"
-    metrics_port: "8088"
+  webui:
+    urls: "https://cms-rucio-newui.cern.ch"
 
 httpd_config:
   encoded_slashes: "True"
   legacy_dn: "True"
 
 secretMounts:
-  - secretFullName: hostcert
+  - secretFullName: server-server-hostcert
     mountPath: /etc/grid-security/hostcert.pem
     subPath: hostcert.pem
-  - secretFullName: hostkey
+  - secretFullName: server-server-hostkey
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
   - secretFullName: idpsecrets

@@ -8,9 +8,6 @@ resources:
   limits:
     memory: 1450Mi
 
-service:
-  allocateLoadBalancerNodePorts: false
-
 ingress:
   enabled: true
   ingressClassName: nginx
@@ -25,10 +22,10 @@ httpd_config:
   legacy_dn: "True"
 
 secretMounts:
-  - secretFullName: hostcert
+  - secretFullName: server-server-hostcert
     mountPath: /etc/grid-security/hostcert.pem
     subPath: hostcert.pem
-  - secretFullName: hostkey
+  - secretFullName: server-server-hostkey
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
 
@@ -37,5 +34,6 @@ persistentVolumes:
     name: csi-cvmfs-grid-pvc
     mountPath: /cvmfs/grid.cern.ch
 
-optional_config:
-  policy_pkg_path: /opt/rucio/policy
+service:
+  useSSL: true
+  port: 443
