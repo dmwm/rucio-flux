@@ -18,9 +18,6 @@ conveyorPreparerCount: 0
 conveyorPollerCount: 0
 conveyorFinisherCount: 0
 conveyorReceiverCount: 0
-conveyorThrottlerCount: 0
-replicaRecovererCount: 0
-minosTemporaryExpirationCount: 0
 reaperCount: 1
 
 reaper:

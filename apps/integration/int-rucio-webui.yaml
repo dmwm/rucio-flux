@@ -4,3 +4,13 @@ ingress:
 proxy:
   rucioProxy: "cms-rucio-int.cern.ch"
   rucioAuthProxy: "cms-rucio-auth-int.cern.ch:443"
+
+service:
+  type: NodePort
+  useSSL: true
+  port: 443
+  targetPort: https
+  portName: https
+
+httpd_config:
+  rucio_hostname: "cms-rucio-webui-int.cern.ch"

@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: kube-eagle
         namespace: flux-system
-  interval: 1h0m0s
+  interval: 5m0s
   valuesFrom:
     - kind: ConfigMap
       name: cms-eagle-values

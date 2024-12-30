@@ -3,7 +3,7 @@ image:
 
 abacusAccountCount: 1
 abacusRseCount: 1
-conveyorPreparerCount: 3
+#conveyorTransferSubmitterCount: 2
 conveyorTransferSubmitterCount: 3
 conveyorPollerCount: 2
 conveyorFinisherCount: 2
@@ -22,6 +22,9 @@ minosCount: 1
 necromancerCount: 1
 darkReaperCount: 1
 conveyorReceiverCount: 0
+replicaRecovererCount: 1
+minosTemporaryExpirationCount: 1
+conveyorThrottlerCount: 1
 
 automaticRestart:
   enabled: 1
@@ -29,11 +32,14 @@ automaticRestart:
   #Restart everything. Need to add deployment labels to get auto-restart working for not all pods
 
 secretMounts:
-  - secretFullName: server-rucio-x509up
+  - secretFullName: rucio-x509up
     mountPath: /opt/proxy
   - secretFullName: idpsecrets
     mountPath: /opt/rucio/etc/idpsecrets.json
     subPath: idpsecrets.json
+
+darkReaper:
+  includeRses: "T1_ES_PIC_Disk"
 
 abacusRse:
   threads: 2
@@ -49,6 +55,7 @@ reaper:
   greedy: 0
   threads: 4
   sleepTime: 120
+  skipCAVolume: true
   resources:
     requests:
       memory: 750Mi
@@ -61,24 +68,9 @@ reaper:
     - name: X509_USER_PROXY
       value: "/opt/proxy/x509up"
 
-darkReaper:
-  includeRses: "reaper=True"
-  resources:
-    limits:
-      cpu: 1000m
-      memory: 1000Mi
-  workers: 1
-  chunkSize: 100
-  podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-  additionalEnvs:
-    - name: X509_USER_PROXY
-      value: "/opt/proxy/x509up"
-
 conveyorTransferSubmitter:
   activities:
-    "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Data Rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions' 'User AutoApprove' 'Analysis TapeRecall' 'Manual Transfers'"
+    "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions' 'User AutoApprove'"
     # Same size or smaller than bulk which is 100
   groupBulk: 50
   sleepTime: 60
@@ -93,14 +85,6 @@ conveyorTransferSubmitter:
   additionalEnvs:
     - name: X509_USER_PROXY
       value: "/opt/proxy/x509up"
-  threads: 5
-
-conveyorPreparer:
-  podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-  threads: 5
-  ignoreAvailability: true
 
 conveyorFinisher:
   podAnnotations:
@@ -119,19 +103,10 @@ conveyorPoller:
       value: "/opt/proxy/x509up"
 
 conveyorReceiver:
+  threads: 4
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
-  config:
-    policy:
-      schema: "cms"
-      permission: "cms"
-  threads: 4
-  resources:
-    requests:
-      memory: 256Mi
-    limits:
-      memory: 512Mi
 
 hermes:
   threads: 3
@@ -232,13 +207,6 @@ config:
     voname: "cms"
     nonssl_port: "61113"
     use_ssl: "False"
-  bb8:
-    tolerance: 0.01
-    allowed_accounts: wmcore_output
-    total_source: static
-    disallowed_names: RelVal
-    target_rse_rebalance_volume: 0
-    min_expires_date_in_days: 15
 
 transmogrifier:
   threads: 4
@@ -306,7 +274,41 @@ undertaker:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8080"
 
+replicaRecoverer:
+  activeMode: "true"
+  secretMounts:
+    - secretFullName: replica-recoverer-config
+      mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
+      subPath: suspicious_replica_recoverer.json
+
 persistentVolumes:
   grid-cern-ch:
     name: csi-cvmfs-grid-pvc
     mountPath: /cvmfs/grid.cern.ch
+
+optional_config:
+  policy_pkg_path: /opt/rucio/policy
+
+ftsRenewal:
+  enabled: true
+  image:
+    repository: rucio/fts-cron
+    tag: latest
+    pullPolicy: Always
+  script: default
+  servers: "https://fts3-devel.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446,https://fts00.grid.hep.ph.ic.ac.uk:8446"
+  vos:
+    - vo: "cms"
+      voms: "cms:/cms/Role=production"
+  additionalEnvs:
+    - name: USERCERT_NAME
+      value: "rootcert.pem"
+    - name: USERKEY_NAME
+      value: "rootkey.pem"
+    - name: RUCIO_FTS_SECRETS
+      value: "rucio-x509up"
+  secretMounts:
+    - secretFullName: rootcert
+      mountPath: /opt/rucio/certs/
+    - secretFullName: rootkey
+      mountPath: /opt/rucio/keys/

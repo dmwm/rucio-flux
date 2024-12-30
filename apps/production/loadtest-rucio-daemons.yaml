@@ -19,20 +19,12 @@ conveyorPreparerCount: 0
 conveyorPollerCount: 0
 conveyorFinisherCount: 0
 conveyorReceiverCount: 0
-conveyorThrottlerCount: 0
-replicaRecovererCount: 0
-minosTemporaryExpirationCount: 0
 
 conveyorTransferSubmitter:
   activities: "'Functional Test'"
   groupBulk: 10
-  archiveTimeout: 3600
+  archiveTimeout: 0
   ignoreAvailability: true
-  threads: 1
 
 automaticRestart:
   enabled: 0
-
-# Ignore availability option is missing in conveyor helm charts for preparer
-config:
-  use_preparer: "false"

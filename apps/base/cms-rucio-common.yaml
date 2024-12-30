@@ -4,12 +4,12 @@ image:
 config:
   accounts:
     special_accounts: "tier0"
-  common:
-    logjson: true
   policy:
     package: CMSRucioPolicy
     lfn2pfn_algorithm_default: "identity"
     support: "https://its.cern.ch/jira/projects/CMSRUCIO/summary"
+    permission: "cms"
+    schema: "cms"
   messaging_hermes:
     brokers: "localhost"
     voname: "cms"
@@ -28,7 +28,6 @@ config:
     ftsmonhosts: "https://cmsfts3.fnal.gov:8449,https://fts3-cms.cern.ch:8449,https://lcgfts3.gridpp.rl.ac.uk:8449"
     bring_online: "2678400"
     scheme: "davs,root,gsiftp,srm"
-    use_preparer: "true"
   monitor:
     user_scope: rucio
 
@@ -41,27 +40,11 @@ config:
     pool_size: "5"
     pool_recycle: "600"
 
+monitoring:
+  enabled: true
+  serviceMonitorEnabled: false
+
 useDeprecatedImplicitSecrets: false
 
 optional_config:
   policy_pkg_path: /opt/rucio/policy
-
-# For whatever needs it
-ftsRenewal:
-  enabled: 0
-  image:
-    repository: rucio/fts-cron
-    tag: latest
-    pullPolicy: Always
-  script: default
-  servers: "https://fts3-devel.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446,https://fts00.grid.hep.ph.ic.ac.uk:8446"
-  vos:
-    - vo: "cms"
-      voms: "cms:/cms/Role=production"
-  additionalEnvs:
-    # - name: RUCIO_FTS_SECRETS
-    #   value: release-rucio-x509up
-    - name: USERCERT_NAME
-      value: "usercert.pem"
-    - name: USERKEY_NAME
-      value: "new_userkey.pem"

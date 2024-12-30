@@ -1,40 +1,34 @@
 # More reapers (or threads) than this cause issues for CERN Oracle, so use only temporarily. Reducing the sleep time is similar
-reaperCount: 8
+reaperCount: 4
 judgeInjectorCount: 2
 judgeRepairerCount: 2
 conveyorTransferSubmitterCount: 3
 conveyorPollerCount: 4
 conveyorReceiverCount: 1
 conveyorFinisherCount: 4
-conveyorThrottlerCount: 1
 
 judgeEvaluatorCount: 2
 tracerKronosCount: 3
 judgeCleanerCount: 2
-replicaRecovererCount: 1
-minosTemporaryExpirationCount: 1
 
-replicaRecoverer:
-  activeMode: true
-  limitSuspiciousFilesOnRse: 500
-  secretMounts:
-    - secretFullName: replica-recoverer-config
-      mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
-      subPath: suspicious_replica_recoverer.json
+darkReaper:
+  includeRses: "reaper=True"
   resources:
     limits:
-      memory: 1Gi
-    requests:
-      memory: 400Mi
+      cpu: 1000m
+      memory: 1000Mi
 
 reaper:
   includeRses: "reaper=True"
   chunkSize: 4000
   sleepTime: 120
 
+conveyorTransferSubmitter:
+  threads: 5
+
 conveyorPoller:
   threads: 5
-  resources:
+  resources: 
     limits:
       cpu: 2000m
       memory: 1000Mi
@@ -56,18 +50,13 @@ judgeRepairer:
 judgeInjector:
   threads: 3
 
-conveyorFinisher:
+conveyorFinisher: 
   threads: 5
   resources:
     limits:
-      memory: 8000Mi
+      memory: 1000Mi
     requests:
-      memory: 600Mi
-
-conveyorThrottler:
-  config:
-    common:
-      loglevel: "DEBUG"
+      memory: 400Mi
 
 podLabels:
   rucioInstance: "prod"
@@ -85,11 +74,12 @@ tracerKronos:
       loglevel: "DEBUG"
 
 config:
-  common:
-    loglevel: "INFO"
-  messaging_hermes:
-    port: "61313"
-    nonssl_port: "61313"
-  tracer_kronos:
-    chunksize: "5"
-    prefetch_size: "5"
+    common:
+        loglevel: "INFO"
+    messaging_hermes:
+        port: "61313"
+        nonssl_port: "61313"
+    tracer_kronos:
+      chunksize: "5"
+      prefetch_size: "5"
+

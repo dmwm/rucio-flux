@@ -7,16 +7,10 @@ httpd_config:
   legacy_dn: "True"
 
 secretMounts:
-  - secretFullName: server-server-hostcert
-    mountPath: /etc/grid-security/hostcert.pem
-    subPath: hostcert.pem
-  - secretFullName: server-server-hostkey
-    mountPath: /etc/grid-security/hostkey.pem
-    subPath: hostkey.pem
   - secretFullName: idpsecrets
     mountPath: /opt/rucio/etc/idpsecrets.json
     subPath: idpsecrets.json
-  - secretFullName: server-rucio-x509up
+  - secretFullName: rucio-x509up
     mountPath: /opt/proxy
 
 optional_config:
@@ -32,25 +26,9 @@ ingress:
   hosts:
     - cms-rucio.cern.ch
   tls:
-    - secretName: rucio-server.tls-secret
+    - secretName: host-tls-secret
 
 useSSL: false
-
-ftsRenewal:
-  enabled: true
-  # FIXME: Not clear we need the envs anymore, but putting them back
-  additionalEnvs:
-    - name: USERCERT_NAME
-      value: "usercert.pem"
-    - name: USERKEY_NAME
-      value: "new_userkey.pem"
-    - name: RUCIO_FTS_SECRETS
-      value: "server-rucio-x509up"
-  secretMounts:
-    - secretFullName: server-fts-cert
-      mountPath: /opt/rucio/certs/
-    - secretFullName: server-fts-key
-      mountPath: /opt/rucio/keys/
 
 serverResources:
   requests:
@@ -67,8 +45,9 @@ config:
     admin_issuer: "cms"
     expected_audience: "rucio"
     idpsecrets: "/opt/rucio/etc/idpsecrets.json"
-  webui:
-    urls: "https://cms-rucio-newui.cern.ch"
+  monitor:
+    enable_metrics: "False"
+    metrics_port: "8088"
 
 persistentVolumes:
   grid-cern-ch:

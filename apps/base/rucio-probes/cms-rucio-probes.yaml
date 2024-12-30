@@ -2,12 +2,12 @@ image:
   repository: registry.cern.ch/cmsrucio/rucio-probes
 
 secretMounts:
-  - secretFullName: server-rucio-x509up
+  - secretFullName: rucio-x509up
     mountPath: /opt/proxy
 
 # Can we get rid of this?
 probeSettings:
-  ftsProxySecret: server-rucio-x509up
+  ftsProxySecret: rucio-x509up
 
 config:
   nagios:
@@ -16,6 +16,11 @@ config:
   monitor:
     prometheus_servers: "prometheus-prometheus-pushgateway.prometheus:9091"
     prometheus_prefix: "rucio_"
+  client:
+    rucio_host: "http://cms-rucio-int.cern.ch"
+    auth_host: "https://cms-rucio-auth-int.cern.ch"
+    auth_type: "x509_proxy"
+    client_x509_proxy: "/opt/proxy/x509up"
 
 probes:
   check_fts_backlog:
@@ -40,6 +45,10 @@ probes:
     interval: 1
   check_updated_dids:
     interval: 1
+  check_obsolete_replicas:
+    interval: 10
+  check_deletable_replicas:
+    interval: 10
   check_expired_locked_rules:
     interval: 1
 voProbes:
@@ -58,18 +67,15 @@ voProbes:
   check_expected_total_number_of_files_per_rse:
     interval: 60
     voName: cms
+  check_rules_with_0_completion_volume:
+    interval: 1
+    voName: cms
   check_unlocked_replicas_per_rse:
     interval: 1
     voName: cms
   check_rse_files_rules:
     interval: 5
     voName: cms
-  check_obsolete_replicas:
-    interval: 10
-    voName: cms
-  check_deletable_replicas:
-    interval: 10
-    voName: cms
-  check_rules_count_volume_per_rse_activity_state:
-    interval: 30
-    voName: cms
+
+optional_config:
+  policy_pkg_path: /opt/rucio/policy
