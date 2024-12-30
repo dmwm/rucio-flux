@@ -99,10 +99,19 @@ monit_token="..." # Used to connect to FacOps MONIT pages for site status
 gitlab_token="..." # Token for SITECONF gitlab repositroy
 globus_client="..." # Not currently used
 globus_refresh="..." # Not currently used
-geoip_licence_key="..." # Used to connect to the MaxMind GeoIP database
 ```
 
 You will need to get these files or values from someone who has them for the server you are looking to setup.
+
+**Run the [create_flux_secrets.sh](./scripts/create_flux_secrets.sh) script**
+
+**Inject the following additional secrets into the cluster**
+ - Token authentication: IDP Secrets
+     - [Instuctions for generation the IDP Json from scratch](./scripts/create_iam_clients/README.md)
+ - Logging: Fluent bit:
+     - `cms opensearch creds` for integration
+     - `monit timber creds` for production
+
 
 Verify that your staging cluster satisfies the flux prerequisites with:
 
@@ -114,7 +123,6 @@ Set the kubectl context to your staging cluster and bootstrap Flux:
 
 ```sh
 flux bootstrap github \
-    --token-auth # New as of Flux 2.4  \ 
     --owner=${GITHUB_USER} \
     --repository=${GITHUB_REPO} \
     --branch=main \
@@ -155,18 +163,18 @@ $ flux get all -A
 
 Once you have verified changes working in your own cluster, make a PR against `dmwm/rucio-flux` to have the changes deployed in production (or the integration server).
 
-## Switching branches
 
-If you want to test out a new development without accepting a PR (maybe you aren't sure it will work). 
-Of course, this is only appropriate on a development server, not in production:
+**Label nodes to be used as ingress by running the [taint_ingress_nodes.sh](./scripts/taint_ingress_nodes.sh) script**
+    - This take the number of nodes to be used for ingress as argument
+    - Can be run in `dry-run` mode by passing `--dry-run` as an argument
+    - example usage: `./scripts/taint_ingress_nodes.sh 2`
 
-- Checkout your branch in git
-- Update clusters/CLUSTERNAME/flux-system/gotk-sync.yaml to set the value of `branch` to `MY_TEST_BRANCH` and commit and push it upstream
-- At the shell with KUBECONFIG set to your cluster: `flux suspend source git flux-system`
-- `kubectl edit GitRepository  flux-system  -n flux-system` and change the value of `branch` to `MY_TEST_BRANCH`. Exit the editor.
-- `flux resume source git flux-system`
-  
-Once testing is complete, repeat the above process but setting the branch back to its original value.
+
+**Configure landb loadbalancing by running the [configure_landb.sh](./scripts/configure_landb.sh) script**
+    - You need to authenticate with openstack before running this script
+    - This takes the cluster type and Starting number for the --load-${n}- suffix as arguments (to be used when an existing cluster already uses initial suffix numbers)
+    - Can be run in `dry-run` mode by passing `--dry-run` as an argument
+    - example usage: `./configure_landb.sh int 4`
 
 ## Mantainance
 

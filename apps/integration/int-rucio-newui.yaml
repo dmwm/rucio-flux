@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  tag: release-35.5.0
+#  repository: registry.cern.ch/cmsrucio/rucio-webui
+
+ingress:
+  enabled: true
+
+config:
+  webui:
+    # hostname of the rucio server, include http:// or https://
+    rucio_host: "https://cms-rucio.cern.ch"
+    # hostname of the rucio-auth server, include http:// or https://
+    rucio_auth_host: "https://cms-rucio-auth.cern.ch"
+    # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
+    hostname: "cms-rucio-newui.cern.ch"
+    project_url: "https://rucio.cern.ch"
+

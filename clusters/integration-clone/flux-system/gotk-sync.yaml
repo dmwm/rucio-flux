@@ -8,10 +8,10 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: int
+    branch: int_globus
   secretRef:
     name: flux-system
-  url: https://github.com/dmwm/rucio-flux.git
+  url: ssh://git@github.com/dmwm/rucio-flux
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/integration
+  path: ./clusters/integration-clone
   prune: true
   sourceRef:
     kind: GitRepository

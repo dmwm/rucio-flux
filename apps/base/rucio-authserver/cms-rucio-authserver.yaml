@@ -40,7 +40,7 @@ ingress:
   hosts:
     - cms-rucio-auth.cern.ch
   tls:
-    - secretName: rucio-server.tls-secret
+    - secretName: host-tls-secret
 
 useSSL: true
 

@@ -56,6 +56,10 @@ consistency:
     T2_DE_RWTH:
       server: grid-cms-xrootd.physik.rwth-aachen.de:1094
       interval: 7
+    T2_FR_GRIF_IRFU:
+      server: node12.datagrid.cea.fr
+      server_root: /cms/trivcat
+      interval: 7
     #T2_HU_Budapest_Test:
     #  server: grid143.kfki.hu:11000
     #  interval: 1
@@ -73,6 +77,9 @@ consistency:
     #  interval: 1
     T2_IT_Bari:
       server: ss-01.recas.ba.infn.it:8080
+      interval: 7
+    T2_FR_GRIF_LLR:
+      server: polgrid4.in2p3.fr:11001
       interval: 7
     T2_RU_JINR:
       server: lcgsexrd.jinr.ru:1095
@@ -97,8 +104,8 @@ consistency:
       server: se.cis.gov.pl:11000
       interval: 7
     #T2_EE_Estonia_Test:
-    #server: [2001:bb8:4004:ff:d::3]:1094
-    #interval: 1
+      #server: [2001:bb8:4004:ff:d::3]:1094
+      #interval: 1
     T2_UK_SGrid_RALPP:
       server: heplnx228.pp.rl.ac.uk:1094
       interval: 7
@@ -221,6 +228,9 @@ consistency:
     T2_EE_Estonia:
       server: xrootd.hep.kbfi.ee:1094
       interval: 7
+    T2_GR_Ioannina:
+      server: grid02.physics.uoi.gr 
+      interval: 7
     T2_HU_Budapest:
       server: grid143.kfki.hu:11000
       interval: 7
@@ -288,7 +298,4 @@ consistency:
     T2_UK_London_IC:
       server: gfe02.grid.hep.ph.ic.ac.uk:1094
       server_root: /pnfs/hep.ph.ic.ac.uk/data/cms
-      interval: 7
-    T3_KR_UOS:
-      server: cms.sscc.uos.ac.kr:1094
       interval: 7
