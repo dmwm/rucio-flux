@@ -1,6 +1,24 @@
 image:
   repository: registry.cern.ch/cmsrucio/rucio-daemons
 
+# Secret mounts and relevant patches
+secretMounts:
+  - secretFullName: server-rucio-x509up
+    mountPath: /opt/proxy
+  - secretFullName: idpsecrets
+    mountPath: /opt/rucio/etc/idpsecrets.json
+    subPath: idpsecrets.json
+# Patches for daemons go here
+  - secretFullName: rahul-1-patch
+    mountPath: /patch/rahul-1.patch
+    subPath: rahul-1.patch
+  - secretFullName: rahul-4-patch
+    mountPath: /patch/rahul-4.patch
+    subPath: rahul-4.patch
+  - secretFullName: 7170-deep-patch
+    mountPath: /patch/7170-deep.patch
+    subPath: 7170-deep.patch
+
 abacusAccountCount: 1
 abacusRseCount: 1
 conveyorPreparerCount: 3
@@ -28,12 +46,6 @@ automaticRestart:
   #selectorLabel: "auto-restart=true"
   #Restart everything. Need to add deployment labels to get auto-restart working for not all pods
 
-secretMounts:
-  - secretFullName: server-rucio-x509up
-    mountPath: /opt/proxy
-  - secretFullName: idpsecrets
-    mountPath: /opt/rucio/etc/idpsecrets.json
-    subPath: idpsecrets.json
 
 abacusRse:
   threads: 2
