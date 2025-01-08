@@ -2,11 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: rucio
 secretGenerator:
-  - name: rahul-1-patch
+  - name: 7300-overwrite-patch
     options:
       disableNameSuffixHash: true
     files:
-      -  rahul-1.patch
+      -  7300-overwrite.patch
   - name: rahul-4-patch
     options:
       disableNameSuffixHash: true

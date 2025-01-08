@@ -9,9 +9,9 @@ secretMounts:
     mountPath: /opt/rucio/etc/idpsecrets.json
     subPath: idpsecrets.json
 # Patches for daemons go here
-  - secretFullName: rahul-1-patch
-    mountPath: /patch/rahul-1.patch
-    subPath: rahul-1.patch
+  - secretFullName: 7300-overwrite-patch
+    mountPath: /patch/7300-overwrite.patch
+    subPath: 7300-overwrite.patch
   - secretFullName: rahul-4-patch
     mountPath: /patch/rahul-4.patch
     subPath: rahul-4.patch

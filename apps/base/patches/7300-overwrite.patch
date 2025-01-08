@@ -1,17 +1,18 @@
-From 71b20fa03fa4d6a23b55b2f16f47c50cf2eb9548 Mon Sep 17 00:00:00 2001
-From: Rahul Chauhan <omrahulchauhan@gmail.com>
-Date: Fri, 23 Aug 2024 18:45:25 +0200
-Subject: [PATCH] Fix dst file report for files that are on tape, SED LYF :(
+From 0e2811dd92c33676e10ee66309028165aa1d81c7 Mon Sep 17 00:00:00 2001
+From: Hasan Ozturk <haozturk@cern.ch>
+Date: Wed, 8 Jan 2025 13:07:15 +0300
+Subject: [PATCH] Make Rucio handle the new FTS error message coming with
+ overwrite-when-only-on-disk feature
 
 ---
  lib/rucio/transfertool/fts3.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/rucio/transfertool/fts3.py b/lib/rucio/transfertool/fts3.py
-index b5eefcde90..81846afc93 100644
+index f0b789afbb..9ef9e0d5b1 100644
 --- a/lib/rucio/transfertool/fts3.py
 +++ b/lib/rucio/transfertool/fts3.py
-@@ -685,7 +685,7 @@ def _is_recoverable_fts_overwrite_error(cls, request: dict[str, Any], reason: st
+@@ -686,7 +686,7 @@ def _is_recoverable_fts_overwrite_error(cls, request: dict[str, Any], reason: st
          dst_type = file_metadata.get('dst_type', None)
          METRICS.counter('overwrite.check.{rsetype}.{rse}').labels(rse=file_metadata["dst_rse"], rsetype=dst_type).inc()
 
