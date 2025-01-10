@@ -1,3 +1,6 @@
+# Rahul 4 is needed for Rucio 35 series
+# 7308 is the equivalent for Rucio 36. Can get rid of Rahul 4 on upgrade
+
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: rucio
@@ -7,13 +10,18 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  7300-overwrite.patch
-  - name: rahul-4-patch
+  - name: 7308-audience-patch
     options:
       disableNameSuffixHash: true
     files:
-      -  rahul-4.patch
+      -  7308-audience.patch
   - name: 7170-deep-patch
     options:
       disableNameSuffixHash: true
     files:
       -  7170-deep.patch
+  - name: rahul-4-patch
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  rahul-4.patch
