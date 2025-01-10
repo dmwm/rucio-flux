@@ -9,12 +9,13 @@ secretMounts:
     mountPath: /opt/rucio/etc/idpsecrets.json
     subPath: idpsecrets.json
 # Patches for daemons go here
-  - secretFullName: 7300-overwrite-patch
-    mountPath: /patch/7300-overwrite.patch
-    subPath: 7300-overwrite.patch
-  - secretFullName: rahul-4-patch
-    mountPath: /patch/rahul-4.patch
-    subPath: rahul-4.patch
+# Fixed in 36.1.0
+#  - secretFullName: 7300-overwrite-patch
+#    mountPath: /patch/7300-overwrite.patch
+#    subPath: 7300-overwrite.patch
+  - secretFullName: 7308-audience-patch
+    mountPath: /patch/7308-audience.patch
+    subPath: 7308-audience.patch
   - secretFullName: 7170-deep-patch
     mountPath: /patch/7170-deep.patch
     subPath: 7170-deep.patch
