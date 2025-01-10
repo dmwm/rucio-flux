@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: rucio-ui
-      version: ">=34.0 <36"
+      version: "<37.0"
       sourceRef:
         kind: HelmRepository
         name: rucio

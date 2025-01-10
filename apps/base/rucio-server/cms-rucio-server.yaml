@@ -19,9 +19,9 @@ secretMounts:
   - secretFullName: server-rucio-x509up
     mountPath: /opt/proxy
 # Patches for servers go here
-  - secretFullName: rahul-4-patch
-    mountPath: /patch/rahul-4.patch
-    subPath: rahul-4.patch
+  - secretFullName: 7308-audience-patch
+    mountPath: /patch/7308-audience.patch
+    subPath: 7308-audience.patch
   - secretFullName: 7170-deep-patch
     mountPath: /patch/7170-deep.patch
     subPath: 7170-deep.patch
