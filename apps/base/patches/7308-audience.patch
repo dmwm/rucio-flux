@@ -1,0 +1,215 @@
+From ea24b022e38c73f7b821c0bd68d4e6d1acbe13d1 Mon Sep 17 00:00:00 2001
+From: Eric Vaandering <ewv@fnal.gov>
+Date: Thu, 9 Jan 2025 16:34:15 -0600
+Subject: [PATCH] Should be equivalent of Rahul's patch 4.
+
+---
+ lib/rucio/core/oidc.py             |  2 +
+ lib/rucio/core/rse.py              | 66 ++++++++++++++++++++++++++++--
+ lib/rucio/daemons/reaper/reaper.py |  5 ++-
+ lib/rucio/transfertool/fts3.py     | 16 ++++++--
+ 4 files changed, 81 insertions(+), 8 deletions(-)
+
+diff --git a/lib/rucio/core/oidc.py b/lib/rucio/core/oidc.py
+index c40934ac09..dab003e208 100644
+--- a/lib/rucio/core/oidc.py
++++ b/lib/rucio/core/oidc.py
+@@ -152,6 +152,8 @@ def request_token(audience: str, scope: str, use_cache: bool = True) -> Optional
+
+     if use_cache:
+         _token_cache_set(key, token)
++    else:
++        METRICS.counter('token_cache.bypass').inc()
+
+     return token
+
+diff --git a/lib/rucio/core/rse.py b/lib/rucio/core/rse.py
+index fe57ca39a9..9e7f569466 100644
+--- a/lib/rucio/core/rse.py
++++ b/lib/rucio/core/rse.py
+@@ -13,10 +13,12 @@
+ # limitations under the License.
+
+ import json
++import logging
+ from datetime import datetime
+ from io import StringIO
+ from re import match
+ from typing import TYPE_CHECKING, Any, Generic, Literal, Optional, TypeVar, Union, overload
++from urllib.parse import urlparse
+
+ import sqlalchemy
+ from dogpile.cache.api import NO_VALUE
+@@ -29,7 +31,8 @@
+ from rucio.common.cache import MemcacheRegion
+ from rucio.common.checksum import CHECKSUM_KEY, GLOBALLY_SUPPORTED_CHECKSUMS
+ from rucio.common.config import get_lfn2pfn_algorithm_default
+-from rucio.common.constants import RSE_ALL_SUPPORTED_PROTOCOL_OPERATIONS, RSE_ATTRS_BOOL, RSE_ATTRS_STR, SUPPORTED_SIGN_URL_SERVICES_LITERAL, RseAttr
++from rucio.common.constants import (RSE_ALL_SUPPORTED_PROTOCOL_OPERATIONS, RSE_ATTRS_BOOL, RSE_ATTRS_STR,
++                                    SUPPORTED_SIGN_URL_SERVICES_LITERAL, RseAttr)
+ from rucio.common.utils import Availability
+ from rucio.core.rse_counter import add_counter, get_counter
+ from rucio.db.sqla import models
+@@ -52,6 +55,7 @@ class RseData:
+     """
+     Helper data class storing rse data grouped in one place.
+     """
++
+     def __init__(self, id_, name: "Optional[str]" = None, columns=None, attributes=None, info=None, usage=None, limits=None, transfer_limits=None):
+         self.id = id_
+         self._name = name
+@@ -1875,6 +1879,10 @@ def determine_audience_for_rse(rse_id: str) -> str:
+     # FIXME: At the time of writing, there does not appear to be a common
+     # agreement on how sites will configure their storages.  Rucio had requested
+     # that the protocol hostname be sufficient, but this may not come to pass.
++    use_wlcg_audience = get_rse_attribute(rse_id, 'use_wlcg_audience')
++    if use_wlcg_audience:
++        return 'https://wlcg.cern.ch/jwt/v1/any'
++
+     filtered_hostnames = {p['hostname']
+                           for p in rse_protocols['protocols']
+                           if p['scheme'] == 'davs'}
+@@ -1885,11 +1893,15 @@ def determine_scope_for_rse(
+     rse_id: str,
+     scopes: 'Iterable[str]',
+     extra_scopes: Optional['Iterable[str]'] = None,
++    file_path: Optional[str] = None,
+ ) -> str:
+     """Construct the Scope claim for an RSE."""
+     if extra_scopes is None:
+         extra_scopes = []
+     rse_protocols = get_rse_protocols(rse_id)
++    base_path = get_rse_attribute(rse_id, 'oidc_base_path', use_cache=False)
++    if file_path is not None and base_path is not None:
++        file_path = file_path.removeprefix(base_path)
+     filtered_prefixes = set()
+     for protocol in rse_protocols['protocols']:
+         # Token support is exclusive to WebDAV.
+@@ -1900,8 +1912,56 @@ def determine_scope_for_rse(
+         # a base which should be removed from the prefix (in order for '/' to
+         # mean the entire resource associated with that issuer).
+         prefix = protocol['prefix']
+-        if base_path := get_rse_attribute(rse_id, RseAttr.OIDC_BASE_PATH):  # type: ignore (session parameter missing)
++        if base_path is not None:
+             prefix = prefix.removeprefix(base_path)
+         filtered_prefixes.add(prefix)
+-    all_scopes = [f'{s}:{p}' for s in scopes for p in filtered_prefixes] + list(extra_scopes)
++    if file_path is None:
++        all_scopes = [f'{s}:{p}' for s in scopes for p in filtered_prefixes] + list(extra_scopes)
++    else:
++        # Do exactly as above, except if the scope is `storage.modify`, then use
++        # the (masked) file path instead of the RSE prefix.
++        all_scopes = []
++        for s in scopes:
++            for p in filtered_prefixes:
++                if s == 'storage.modify' or s == 'storage.read':
++                    all_scopes.append(f'{s}:{file_path}')
++                else:
++                    all_scopes.append(f'{s}:{file_path}')
++        all_scopes.extend(list(extra_scopes))
+     return ' '.join(sorted(all_scopes))
++
++
++def get_read_scope_for_tokens(fileurl, rws, logger):
++
++    file_path = urlparse(fileurl).path
++
++    path_parts = file_path.split('/')
++
++    # Find the last index of 'store'
++    try:
++        store_index = len(path_parts) - 1 - path_parts[::-1].index('store')
++        # Join the path back up to the last 'store'
++        return '/'.join(path_parts[:store_index + 1])
++    except ValueError:
++        return "Directory 'store' not found in the path."
++
++
++def get_modify_scope_for_tokens(fileurl, rws, logger):
++
++    file_path = urlparse(fileurl).path
++
++    if rws is None:
++        return file_path
++
++    if rws.scope.external == "cms":
++        dst_path = '/'.join(file_path.split('/')[:-2]) + '/'
++
++    # if the scope prefix is "user." or "group.", we need to remove the last 3 parts of the path
++    elif rws.scope.external.startswith("user.") or rws.scope.external.startswith("group."):
++        dst_path = '/'.join(file_path.split('/')[:-3]) + '/'
++
++    else:
++        dst_path = file_path
++        logger(logging.WARNING, 'Could not determine the dataset scope for %s', transfer.dest_url + ' ' + rws.scope.external)
++
++    return dst_path
+diff --git a/lib/rucio/daemons/reaper/reaper.py b/lib/rucio/daemons/reaper/reaper.py
+index ad6dc24924..c722522f59 100644
+--- a/lib/rucio/daemons/reaper/reaper.py
++++ b/lib/rucio/daemons/reaper/reaper.py
+@@ -46,7 +46,7 @@
+ from rucio.core.monitor import MetricManager
+ from rucio.core.oidc import request_token
+ from rucio.core.replica import delete_replicas, list_and_mark_unlocked_replicas
+-from rucio.core.rse import RseData, determine_audience_for_rse, determine_scope_for_rse, list_rses
++from rucio.core.rse import RseData, determine_audience_for_rse, determine_scope_for_rse, list_rses, get_modify_scope_for_tokens
+ from rucio.core.rse_expression_parser import parse_expression
+ from rucio.core.rule import get_evaluation_backlog
+ from rucio.core.vo import list_vos
+@@ -619,7 +619,8 @@ def _run_once(
+                 audience = determine_audience_for_rse(rse.id)
+                 # FIXME: At the time of writing, StoRM requires `storage.read`
+                 # in order to perform a stat operation.
+-                scope = determine_scope_for_rse(rse.id, scopes=['storage.modify', 'storage.read'])
++                file_path = get_modify_scope_for_tokens("/store", None, logger)
++                scope = determine_scope_for_rse(rse.id, scopes=['storage.modify', 'storage.read'], file_path=file_path)
+                 auth_token = request_token(audience, scope)
+                 if auth_token:
+                     logger(logging.INFO, 'Using a token to delete on RSE %s', rse.name)
+diff --git a/lib/rucio/transfertool/fts3.py b/lib/rucio/transfertool/fts3.py
+index f0b789afbb..925d590da5 100644
+--- a/lib/rucio/transfertool/fts3.py
++++ b/lib/rucio/transfertool/fts3.py
+@@ -38,7 +38,7 @@
+ from rucio.core.monitor import MetricManager
+ from rucio.core.oidc import request_token
+ from rucio.core.request import get_source_rse, get_transfer_error
+-from rucio.core.rse import determine_audience_for_rse, determine_scope_for_rse, get_rse_supported_checksums_from_attributes
++from rucio.core.rse import determine_audience_for_rse, determine_scope_for_rse, get_rse_supported_checksums_from_attributes, get_read_scope_for_tokens, get_modify_scope_for_tokens
+ from rucio.db.sqla.constants import RequestState
+ from rucio.transfertool.fts3_plugins import FTS3TapeMetadataPlugin
+ from rucio.transfertool.transfertool import TransferStatusReport, Transfertool, TransferToolBuilder
+@@ -1028,13 +1028,15 @@ def _file_from_transfer(self, transfer: "DirectTransfer", job_params: dict[str,
+             t_file['source_tokens'] = []
+             for source in transfer.sources:
+                 src_audience = determine_audience_for_rse(rse_id=source.rse.id)
+-                src_scope = determine_scope_for_rse(rse_id=source.rse.id, scopes=['storage.read'], extra_scopes=['offline_access'])
++                src_path = get_read_scope_for_tokens(transfer.source_url(source), rws, self.logger)
++                src_scope = determine_scope_for_rse(rse_id=source.rse.id, scopes=['storage.read'], extra_scopes=['offline_access'], file_path=src_path)
+                 t_file['source_tokens'].append(request_token(src_audience, src_scope))
+
+             dst_audience = determine_audience_for_rse(transfer.dst.rse.id)
+             # FIXME: At the time of writing, StoRM requires `storage.read` in
+             # order to perform a stat operation.
+-            dst_scope = determine_scope_for_rse(transfer.dst.rse.id, scopes=['storage.modify', 'storage.read'], extra_scopes=['offline_access'])
++            dst_path = get_modify_scope_for_tokens(transfer.dest_url, rws, self.logger)
++            dst_scope = determine_scope_for_rse(transfer.dst.rse.id, scopes=['storage.modify', 'storage.read'], extra_scopes=['offline_access'], file_path=dst_path)
+             t_file['destination_tokens'] = [request_token(dst_audience, dst_scope)]
+
+         if isinstance(self.scitags_exp_id, int):
+@@ -1097,6 +1099,14 @@ def submit(self, transfers: "Sequence[DirectTransfer]", job_params: dict[str, st
+         params_dict = {'files': files, 'params': job_params}
+         params_str = json.dumps(params_dict, cls=APIEncoder)
+
++        try:
++            myfile = files[0]
++            if myfile['activity'] == 'Debug':
++                self.logger(logging.WARNING, "Params: %s", params_str)
++
++        except Exception as error:
++            self.logger(logging.WARNING, "Could not print params: %s", str(error))
++
+         post_result = None
+         stopwatch = Stopwatch()
+         try:
