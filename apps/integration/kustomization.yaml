@@ -13,7 +13,8 @@ resources:
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
   - ../options/globus-daemons
-#  - ../options/loadtest
+  - ../base/rucio-newui
+  - ../base/patches
 
 configMapGenerator:
   - name: instance-rucio-server
