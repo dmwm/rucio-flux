@@ -2,3 +2,7 @@ replicaCount: 3
 ingress:
   hosts:
     - cms-rucio.cern.ch
+
+config:
+  common:
+    loglevel: "DEBUG"
