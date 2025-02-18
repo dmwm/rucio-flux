@@ -252,6 +252,8 @@ config:
     disallowed_names: RelVal
     target_rse_rebalance_volume: 0
     min_expires_date_in_days: 15
+  transfers:
+    fts3tape_metadata_plugins: tape_collocation
 
 transmogrifier:
   threads: 4
