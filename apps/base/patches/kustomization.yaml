@@ -25,3 +25,8 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  rahul-4.patch
+  - name: haozturk-4-patch
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  haozturk-4.patch
