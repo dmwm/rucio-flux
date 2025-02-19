@@ -31,6 +31,9 @@ reaper:
   includeRses: "reaper=True"
   chunkSize: 4000
   sleepTime: 120
+  config:
+    common:
+      loglevel: "DEBUG"
 
 conveyorPoller:
   threads: 5
