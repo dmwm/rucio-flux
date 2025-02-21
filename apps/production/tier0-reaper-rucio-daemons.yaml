@@ -24,6 +24,7 @@ minosTemporaryExpirationCount: 0
 reaperCount: 1
 
 reaper:
+  threads: 1
   includeRses: "T0_CH_CERN_Disk|T2_CH_CERN"
   chunkSize: 4000
   sleepTime: 120
