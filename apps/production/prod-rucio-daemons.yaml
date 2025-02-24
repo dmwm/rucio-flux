@@ -3,8 +3,8 @@ reaperCount: 8
 judgeInjectorCount: 2
 judgeRepairerCount: 2
 conveyorTransferSubmitterCount: 3
-conveyorPollerCount: 8
-conveyorReceiverCount: 1
+conveyorPollerCount: 4
+conveyorReceiverCount: 8
 conveyorFinisherCount: 4
 conveyorThrottlerCount: 1
 
