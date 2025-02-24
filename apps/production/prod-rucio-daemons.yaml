@@ -45,6 +45,9 @@ conveyorPoller:
     requests:
       cpu: 750m
       memory: 400Mi
+  config:
+    common:
+      loglevel: "DEBUG"
 
 judgeEvaluator:
   threads: 8
