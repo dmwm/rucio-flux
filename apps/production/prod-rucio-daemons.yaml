@@ -4,7 +4,7 @@ judgeInjectorCount: 2
 judgeRepairerCount: 2
 conveyorTransferSubmitterCount: 3
 conveyorPollerCount: 4
-conveyorReceiverCount: 8
+conveyorReceiverCount: 2
 conveyorFinisherCount: 4
 conveyorThrottlerCount: 1
 
@@ -45,9 +45,6 @@ conveyorPoller:
     requests:
       cpu: 750m
       memory: 400Mi
-  config:
-    common:
-      loglevel: "DEBUG"
 
 judgeEvaluator:
   threads: 8
