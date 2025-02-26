@@ -8,7 +8,7 @@ cacheConsumerCount: 0
 reaper:
   includeRses: "cms_type=int"
   greedy: 1
-  threads: 1
+  threads: 4
 
 darkReaper:
   includeRses: "T2_US_Purdue"
