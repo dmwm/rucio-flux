@@ -55,6 +55,11 @@ judgeEvaluator:
     requests:
       memory: 200Mi
 
+conveyorSubmitter:
+  config:
+    common:
+      loglevel: "DEBUG"
+
 judgeRepairer:
   threads: 2
 judgeInjector:
