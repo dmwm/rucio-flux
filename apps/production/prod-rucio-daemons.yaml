@@ -55,7 +55,7 @@ judgeEvaluator:
     requests:
       memory: 200Mi
 
-conveyorSubmitter:
+conveyorTransferSubmitter:
   config:
     common:
       loglevel: "DEBUG"
