@@ -79,6 +79,9 @@ podLabels:
 transmogrifier:
   threads: 4
   sleepTime: 30
+  config:
+    common:
+      loglevel: "DEBUG"
 
 tracerKronos:
   threads: 2
