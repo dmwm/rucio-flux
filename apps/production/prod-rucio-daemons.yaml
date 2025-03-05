@@ -28,7 +28,7 @@ replicaRecoverer:
       memory: 400Mi
 
 reaper:
-  threads: 1
+  threads: 4
   includeRses: "reaper=True"
   chunkSize: 4000
   sleepTime: 120
