@@ -19,9 +19,6 @@ secretMounts:
   - secretFullName: 7170-deep-patch
     mountPath: /patch/7170-deep.patch
     subPath: 7170-deep.patch
-  - secretFullName: haozturk-4-patch
-    mountPath: /patch/haozturk-4.patch
-    subPath: haozturk-4.patch
 
 abacusAccountCount: 1
 abacusRseCount: 1
