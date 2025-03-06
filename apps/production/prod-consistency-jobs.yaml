@@ -220,3 +220,5 @@ consistency:
       interval: 7
     T3_KR_UOS:
       interval: 7
+    T2_PL_Cyfronet:
+      interval: 7
