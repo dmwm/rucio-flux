@@ -84,6 +84,7 @@ podLabels:
 transmogrifier:
   threads: 8
   sleepTime: 30
+  bulk: 200
   config:
     common:
       loglevel: "DEBUG"
