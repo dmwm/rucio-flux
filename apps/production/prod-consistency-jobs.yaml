@@ -222,3 +222,5 @@ consistency:
       interval: 7
     T2_PL_Cyfronet:
       interval: 7
+    T3_US_Colorado:
+      interval: 7
