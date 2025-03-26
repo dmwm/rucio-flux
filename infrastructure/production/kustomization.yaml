@@ -5,4 +5,4 @@ resources:
   - ../base/prometheus
   - cm-prod-eagle.yaml
   - ../base/kube-eagle
-  - ../base/fluentbit
+#  - ../base/fluentbit
