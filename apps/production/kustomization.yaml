@@ -17,7 +17,7 @@ resources:
 #  - ../options/tier0-reaper
 #  - ../options/loadtest-daemons
 #  - ../options/loadtest
-#  - ../base/patches
+  - ../base/patches
 ## Not ready yet
 ##  - ../options/globus-daemons
 
