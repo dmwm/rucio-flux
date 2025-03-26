@@ -1,5 +1,6 @@
 image:
   tag: release-1.19.5
+imageRegistry: registry.cern.ch/docker.io
 
 config:
   accounts:
