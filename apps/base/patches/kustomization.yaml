@@ -25,3 +25,8 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  rahul-4.patch
+  - name: replica-recoverer-config
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  suspicious_replica_recoverer.json
