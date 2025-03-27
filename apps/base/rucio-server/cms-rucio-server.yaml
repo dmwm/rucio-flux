@@ -1,5 +1,4 @@
 replicaCount: 1
-imageRegistry: registry.cern.ch/docker.io
 image:
   repository: registry.cern.ch/cmsrucio/rucio-server
 
