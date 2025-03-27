@@ -4,6 +4,7 @@ conveyorFinisherCount: 1
 conveyorPreparerCount: 1
 darkReaperCount: 1
 cacheConsumerCount: 0
+replicaRecovererCount: 1
 
 reaper:
   includeRses: "cms_type=int"
@@ -18,6 +19,7 @@ conveyorTransferSubmitter:
 
 podLabels:
   rucioInstance: "int"
+
 
 config:
   common:

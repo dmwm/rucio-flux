@@ -31,3 +31,4 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  7690-audience.patch
+ 
