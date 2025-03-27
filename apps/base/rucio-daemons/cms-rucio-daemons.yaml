@@ -19,6 +19,9 @@ secretMounts:
   - secretFullName: 7170-deep-patch
     mountPath: /patch/7170-deep.patch
     subPath: 7170-deep.patch
+  - secretFullName: replica-recoverer-config
+    mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
+    subPath: suspicious_replica_recoverer.json
 
 abacusAccountCount: 1
 abacusRseCount: 1
