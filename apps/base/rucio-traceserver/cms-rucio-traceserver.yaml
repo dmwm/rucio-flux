@@ -2,7 +2,7 @@ image:
   repository: registry.cern.ch/cmsrucio/rucio-server
 
 # For NGINX ingress. Eventually becomes plain server
-
+exposeErrorLogs: False
 replicaCount: 1
 
 # Use http worker mode and elsewhere configure database connections for Oracle Database Resident Connection Pool (DRCP)
