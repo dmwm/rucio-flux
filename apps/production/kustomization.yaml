@@ -18,6 +18,7 @@ resources:
 #  - ../options/loadtest-daemons
 #  - ../options/loadtest
   - ../base/patches
+  - ../base/configs
 ## Not ready yet
 ##  - ../options/globus-daemons
 
