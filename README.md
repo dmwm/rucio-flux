@@ -155,6 +155,21 @@ $ flux get all -A
 
 Once you have verified changes working in your own cluster, make a PR against `dmwm/rucio-flux` to have the changes deployed in production (or the integration server).
 
+## Testing a new cluster
+
+You can bring up a new cluster slowly. 
+The crucial element is the proxy generating cron-jobs which are in the rucio-server helm chart.
+Before adding servers to the LanDB aliases in OpenStack (check the old nodes for the format and change the numbers to something unused),
+you can check that the server is responding correctly (testing the ingress and service) with this curl command:
+
+`curl -k  -H "Host: cms-rucio.cern.ch" http://[IP ADDRESS]/ping`
+
+The Host: is crucial as it forces the ingress to direct the traffic to the right pod. 
+IP ADDRESS is the address of a host in the new cluster with role=ingress.
+Performing this test from off-site also ensures the firewall is open.
+
+Once this is done, you can slowly add LanDB aliases for the new nodes and remove them for the old nodes.
+
 ## Switching branches
 
 If you want to test out a new development without accepting a PR (maybe you aren't sure it will work). 
