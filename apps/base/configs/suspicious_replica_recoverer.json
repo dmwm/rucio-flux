@@ -1,0 +1,12 @@
+[
+    {
+        "action": "ignore",
+        "datatype": ["/RAW", "/HC/", "/LHE/", "/GEN-SIM-DIGI-RAW-MINIAOD/", "/AODSIM/", "/MINIAODSIM/", "/GEN-SIM-RAW/", "/GEN-SIM-RECO/", "/GEN-SIM-RECODEBUG/", "/AOD/", "/MINIAOD/", "/ALCARECO/", "/USER/", "/RAW-RECO/", "/NANOAOD/", "/FEVT/", "/PREMIX/", "/GEN-SIM-DIGI-RAW-HLTDEBUG-RECO/", "/GEN-SIM/", "/GEN/", "/SIM/", "/GEN-SIM-DIGI-RAW/", "/GEN-SIM-DIGI/", "/GEN-SIM-DIGI-RAW-HLTDEBUG/", "/DQMIO/", "/DQM/", "/RECO/", "/RECODEBUG/", "/RAWAODSIM/", "/FEVTDEBUGHLT", "/NANOAODSIM/"],
+        "scope": []
+    },
+    {
+        "action": "declare bad",
+        "datatype": [],
+        "scope": []
+    }
+]
