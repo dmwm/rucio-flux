@@ -9,18 +9,18 @@ resources:
   - ../base/rucio-traceserver
   - ../base/rucio-daemons
   - ../base/rucio-webui
-#  #  - ../base/rucio-newui
+#  - ../base/rucio-newui
   - ../base/rucio-probes
   - ../base/cms-rucio-traces
-#  - ../base/cms-rucio-consistency
+  - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
   - ../options/tier0-reaper
   - ../options/loadtest-daemons
   - ../options/loadtest
   - ../base/patches
   - ../base/configs
-## Not ready yet
-##  - ../options/globus-daemons
+# Not ready yet
+#  - ../options/globus-daemons
 
 configMapGenerator:
   - name: instance-rucio-server
