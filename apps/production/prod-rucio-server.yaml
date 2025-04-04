@@ -6,7 +6,3 @@ ingress:
 config:
   common:
     loglevel: "DEBUG"
-
-ftsRenewal:
-  schedule: "30 9 * * *"
-    
