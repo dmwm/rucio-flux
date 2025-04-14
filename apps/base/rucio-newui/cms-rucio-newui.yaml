@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: registry.cern.ch/cmsrucio/rucio-webui
+  repository: docker.io/rucio/rucio-webui
 
 resources:
   limits:
