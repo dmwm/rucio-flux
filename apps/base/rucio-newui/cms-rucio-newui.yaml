@@ -1,8 +1,5 @@
 replicaCount: 1
 
-image:
-  repository: docker.io/rucio/rucio-webui
-
 resources:
   limits:
     memory: 4450Mi
