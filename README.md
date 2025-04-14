@@ -162,7 +162,8 @@ The crucial element is the proxy generating cron-jobs which are in the rucio-ser
 Before adding servers to the LanDB aliases in OpenStack (check the old nodes for the format and change the numbers to something unused),
 you can check that the server is responding correctly (testing the ingress and service) with this curl command:
 
-`curl -k  -H "Host: cms-rucio.cern.ch" http://[IP ADDRESS]/ping`
+`curl -H "Host: cms-rucio.cern.ch" http://[IP ADDRESS]/ping` and 
+`curl --resolve cms-rucio-auth.cern.ch:443:[IP address] https://cms-rucio-auth.cern.ch/ping` to test the auth server.
 
 The Host: is crucial as it forces the ingress to direct the traffic to the right pod. 
 IP ADDRESS is the address of a host in the new cluster with role=ingress.
