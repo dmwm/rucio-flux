@@ -9,7 +9,7 @@ resources:
   - ../base/rucio-traceserver
   - ../base/rucio-daemons
   - ../base/rucio-webui
-#  - ../base/rucio-newui
+  - ../base/rucio-newui
   - ../base/rucio-probes
   - ../base/cms-rucio-traces
   - ../base/cms-rucio-consistency
