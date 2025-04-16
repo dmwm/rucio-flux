@@ -29,7 +29,7 @@ replicaRecoverer:
 
 reaper:
   threads: 4
-  includeRses: "cms_type=real&reaper=True\\rse_type=TAPE\\tier=1\\tier0\\T2_CH_CERN"
+  includeRses: "cms_type=real&reaper=True\\rse_type=TAPE\\tier=1\\tier=0\\T2_CH_CERN"
   chunkSize: 4000
   sleepTime: 120
   config:
