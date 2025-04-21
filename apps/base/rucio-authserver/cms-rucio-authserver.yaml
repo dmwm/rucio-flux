@@ -1,5 +1,4 @@
 replicaCount: 1
-exposeErrorLogs: False
 image:
   repository: registry.cern.ch/cmsrucio/rucio-server
 
