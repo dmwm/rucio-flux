@@ -1,8 +1,5 @@
 replicaCount: 1
 
-image:
-  repository: registry.cern.ch/cmsrucio/rucio-webui
-
 resources:
   limits:
     memory: 4450Mi
