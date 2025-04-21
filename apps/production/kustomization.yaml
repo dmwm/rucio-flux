@@ -15,6 +15,8 @@ resources:
   - ../base/cms-rucio-consistency
   - ../base/cms-rucio-cron
   - ../options/tier0-reaper
+  - ../options/tier1-reaper 
+  - ../options/tape-reaper
   - ../options/loadtest-daemons
   - ../options/loadtest
   - ../base/patches
@@ -41,6 +43,12 @@ configMapGenerator:
   - name: tier0-reaper-rucio-daemons
     files:
       - values.yaml=tier0-reaper-rucio-daemons.yaml
+  - name: tier1-reaper-rucio-daemons
+    files:
+      - values.yaml=tier1-reaper-rucio-daemons.yaml
+  - name: tape-reaper-rucio-daemons
+    files:
+      - values.yaml=tape-reaper-rucio-daemons.yaml
   - name: instance-traces
     files:
       - values.yaml=prod-traces.yaml

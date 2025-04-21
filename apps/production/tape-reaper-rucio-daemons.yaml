@@ -21,11 +21,11 @@ conveyorReceiverCount: 0
 conveyorThrottlerCount: 0
 replicaRecovererCount: 0
 minosTemporaryExpirationCount: 0
-reaperCount: 2
+reaperCount: 4
 
 reaper:
   threads: 4
-  includeRses: "T0_CH_CERN_Disk|T2_CH_CERN"
+  includeRses: "cms_type=real&rse_type=TAPE&reaper=True"
   chunkSize: 4000
   sleepTime: 120
   config:
