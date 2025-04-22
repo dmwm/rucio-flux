@@ -24,6 +24,7 @@ persistentVolumes:
     mountPath: /cvmfs/grid.cern.ch
 
 service:
+  name: https
   port: 443
   targetPort: https
   portName: https
