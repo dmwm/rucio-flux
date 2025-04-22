@@ -37,4 +37,6 @@ persistentVolumes:
 service:
   useSSL: true
   port: 443
+  targetPort: https
+  name: https
   allocateLoadBalancerNodePorts: false
