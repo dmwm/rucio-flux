@@ -27,5 +27,6 @@ service:
   port: 443
   targetPort: https
   portName: https
+  allocateLoadBalancerNodePorts: false
 
 exposeErrorLogs: False
