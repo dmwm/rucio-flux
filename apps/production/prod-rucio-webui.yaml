@@ -13,3 +13,7 @@ config:
   react:
     rucioHost: "cms-rucio.cern.ch"
     rucioAuthHost: "cms-rucio-auth.cern.ch:443"
+
+httpd_config:
+  legacy_dn: "True"
+  rucio_hostname: "cms-rucio-webui.cern.ch"
