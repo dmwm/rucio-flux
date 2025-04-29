@@ -13,9 +13,9 @@ secretMounts:
 #  - secretFullName: 7300-overwrite-patch
 #    mountPath: /patch/7300-overwrite.patch
 #    subPath: 7300-overwrite.patch
-  - secretFullName: 7308-audience-patch
-    mountPath: /patch/7308-audience.patch
-    subPath: 7308-audience.patch
+  - secretFullName: 7690-audience-patch
+    mountPath: /patch/7690-audience.patch
+    subPath: 7690-audience.patch
   - secretFullName: 7170-deep-patch
     mountPath: /patch/7170-deep.patch
     subPath: 7170-deep.patch
