@@ -224,3 +224,5 @@ consistency:
       interval: 7
     T3_US_Colorado:
       interval: 7
+    T2_LB_HPC4L:
+      interval: 7
