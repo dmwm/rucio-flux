@@ -70,9 +70,9 @@ voProbes:
   check_deletable_replicas:
     interval: 10
     voName: cms
-  check_requests_count_volume:
-    interval: 15
-    voName: cms
+  # check_requests_count_volume:
+  #   interval: 15
+  #   voName: cms
   check_rse_settings_attributes:
     interval: 15
     voName: cms
