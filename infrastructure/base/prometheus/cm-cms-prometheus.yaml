@@ -14,10 +14,10 @@ data:
       remoteWrite:
         - url: http://cms-monitoring-ha1.cern.ch:30428/api/v1/write
           queue_config:
-            max_samples_per_send: 10000
+            max_samples_per_send: 7500
             max_shards: 30
         - url: http://cms-monitoring-ha2.cern.ch:30428/api/v1/write
           queue_config:
-            max_samples_per_send: 10000
+            max_samples_per_send: 7500
             max_shards: 30
 
