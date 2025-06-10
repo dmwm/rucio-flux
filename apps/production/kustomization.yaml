@@ -19,6 +19,7 @@ resources:
   - ../options/tape-reaper
   - ../options/loadtest-daemons
   - ../options/loadtest
+  - ../options/tape-ignore-availability-submitter
   - ../base/patches
   - ../base/configs
 # Not ready yet
@@ -40,6 +41,9 @@ configMapGenerator:
   - name: loadtest-rucio-daemons
     files:
       - values.yaml=loadtest-rucio-daemons.yaml
+  - name: tape-ignore-availability-submitter-rucio-daemons
+    files:
+      - values.yaml=tape-ignore-availability-submitter-rucio-daemons.yaml
   - name: tier0-reaper-rucio-daemons
     files:
       - values.yaml=tier0-reaper-rucio-daemons.yaml

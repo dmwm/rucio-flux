@@ -1,0 +1,32 @@
+abacusAccountCount: 0
+abacusRseCount: 0
+conveyorStagerCount: 0
+hermesCount: 0
+judgeCleanerCount: 0
+judgeEvaluatorCount: 0
+judgeInjectorCount: 0
+judgeRepairerCount: 0
+tracerKronosCount: 0
+transmogrifierCount: 0
+undertakerCount: 0
+darkReaperCount: 0
+reaperCount: 0
+reaper2Count: 0
+minosCount: 0
+necromancerCount: 0
+conveyorTransferSubmitterCount: 1
+conveyorPreparerCount: 0
+conveyorPollerCount: 0
+conveyorFinisherCount: 0
+conveyorReceiverCount: 0
+conveyorThrottlerCount: 0
+replicaRecovererCount: 0
+minosTemporaryExpirationCount: 0
+
+conveyorTransferSubmitter:
+  activities: "'Production Output' 'T0 Tape'"
+  ignoreAvailability: true
+  includeRses: "cms_type=real&rse_type=TAPE"
+  config:
+    common:
+      loglevel: "DEBUG"
