@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  tag: release-36.2.0
+  tag: release-37.1.0
 #  repository: registry.cern.ch/cmsrucio/rucio-webui
 
 ingress:
@@ -16,4 +16,4 @@ config:
     # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
     hostname: "cms-rucio-newui.cern.ch"
     project_url: "https://rucio.cern.ch"
-
+    server_ca_bundle: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/CERN-GridCA.pem"
