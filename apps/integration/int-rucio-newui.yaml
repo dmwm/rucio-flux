@@ -16,5 +16,4 @@ config:
     # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
     hostname: "cms-rucio-newui.cern.ch"
     project_url: "https://rucio.cern.ch"
-    server_ca_bundle: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/CERN-GridCA.pem"
-
+    server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
