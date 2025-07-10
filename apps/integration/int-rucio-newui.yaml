@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  tag: release-37.1.0
+  tag: release-37.2.0
 #  repository: registry.cern.ch/cmsrucio/rucio-webui
 
 ingress:
@@ -16,4 +16,18 @@ config:
     # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
     hostname: "cms-rucio-newui.cern.ch"
     project_url: "https://rucio.cern.ch"
+    multivo_enabled: "True"
+    # A csv string of vos containing their short names. For example: "def,atl,cms"
+    vo_list: "def,cms"
+    vo_default: "Default"
     server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
+  vo:
+    def:
+      name: "Default"
+      oidc_enabled: "False"
+      oidc_providers: ""
+    # Example of a second VO
+    cms:
+      name: "CMS"
+      oidc_enabled: "False"
+      oidc_providers: ""
