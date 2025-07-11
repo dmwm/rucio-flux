@@ -2,10 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: rucio
 resources:
-  - rucio-newui-helm.yaml
+  - rucio-int-newui-helm.yaml
 configMapGenerator:
-  - name: cms-rucio-newui
+  - name: cms-rucio-int-newui
     files:
-      - values.yaml=cms-rucio-newui.yaml
+      - values.yaml=cms-rucio-int-newui.yaml
 configurations:
   - kustomizeconfig.yaml
