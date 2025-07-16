@@ -13,7 +13,7 @@ resources:
   - ../base/cms-rucio-cvmfs
   - ../options/globus-daemons
   - ../base/rucio-newui
-  - ../base/rucio-int-newui
+  - ./rucio-int-newui
   - ../base/patches
   - ../base/configs
 
