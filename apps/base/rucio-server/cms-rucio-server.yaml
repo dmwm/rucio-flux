@@ -6,7 +6,6 @@ image:
 httpd_config:
   encoded_slashes: "True"
   legacy_dn: "True"
-  timeout: "300"
 
 secretMounts:
   - secretFullName: server-server-hostcert
