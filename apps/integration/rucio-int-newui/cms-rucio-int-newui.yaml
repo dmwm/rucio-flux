@@ -16,7 +16,7 @@ ingress:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
-    - "cms-rucio-newui.cern.ch"
+    - "cms-rucio-int-newui.cern.ch"
 
 config:
   webui:
