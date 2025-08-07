@@ -6,6 +6,8 @@ image:
 
 ingress:
   enabled: true
+  hosts:
+    - "cms-rucio-int-newui.cern.ch"
 
 config:
   webui:
