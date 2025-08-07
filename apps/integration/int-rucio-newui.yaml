@@ -10,11 +10,11 @@ ingress:
 config:
   webui:
     # hostname of the rucio server, include http:// or https://
-    rucio_host: "https://cms-rucio.cern.ch"
+    rucio_host: "https://cms-rucio-int.cern.ch"
     # hostname of the rucio-auth server, include http:// or https://
-    rucio_auth_host: "https://cms-rucio-auth.cern.ch"
+    rucio_auth_host: "https://cms-rucio-auth-int.cern.ch"
     # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
-    hostname: "cms-rucio-newui.cern.ch"
+    hostname: "cms-rucio-int-newui.cern.ch"
     project_url: "https://rucio.cern.ch"
     multivo_enabled: "True"
     # A csv string of vos containing their short names. For example: "def,atl,cms"
