@@ -13,7 +13,6 @@ resources:
   - ../base/cms-rucio-cvmfs
   - ../options/globus-daemons
   - ../base/rucio-newui
-  - ./rucio-int-newui
   - ../base/patches
   - ../base/configs
 
@@ -36,9 +35,6 @@ configMapGenerator:
   - name: instance-rucio-newui
     files:
       - values.yaml=int-rucio-newui.yaml
-  - name: instance-rucio-int-newui
-    files:
-      - values.yaml=int-rucio-int-newui.yaml
   - name: instance-rucio-probes
     files:
       - values.yaml=int-rucio-probes.yaml
