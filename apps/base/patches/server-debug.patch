@@ -1,7 +1,7 @@
 From aaaa55346f53e004d6d4ae4da59a53b18b4ff773 Mon Sep 17 00:00:00 2001
 From: Eric Vaandering <ewv@fnal.gov>
 Date: Wed, 20 Aug 2025 13:46:12 -0500
-Subject: [PATCH] New bit of code
+Subject: [PATCH 1/2] New bit of code
 
 ---
  lib/rucio/gateway/quarantined_replica.py | 2 ++
@@ -17,6 +17,31 @@ index f3cd31b8d4..ce73cf7643 100644
              rse_id = get_rse_id(rse, vo=vo, session=session)
 +            if not rse_id:
 +                raise exception.InputValidationError(f"Unable to validate RSE name {rse_id} from {rse} ")
+
+         auth_result = permission.has_permission(issuer, 'quarantine_file_replicas', {}, vo=vo, session=session)
+         if not auth_result.allowed:
+
+From 649079461a4c108151688fde80960aca4742af48 Mon Sep 17 00:00:00 2001
+From: Eric Vaandering <ewv@fnal.gov>
+Date: Wed, 20 Aug 2025 14:12:23 -0500
+Subject: [PATCH 2/2] Just try on Colorado
+
+---
+ lib/rucio/gateway/quarantined_replica.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/rucio/gateway/quarantined_replica.py b/lib/rucio/gateway/quarantined_replica.py
+index ce73cf7643..f7f37377bd 100644
+--- a/lib/rucio/gateway/quarantined_replica.py
++++ b/lib/rucio/gateway/quarantined_replica.py
+@@ -54,8 +54,8 @@ def quarantine_file_replicas(
+
+         if rse_id is None:
+             rse_id = get_rse_id(rse, vo=vo, session=session)
+-            if not rse_id:
+-                raise exception.InputValidationError(f"Unable to validate RSE name {rse_id} from {rse} ")
++            if 'Colorado' in rse:
++                raise exception.InputValidationError(f"EWV: rse{rse} rse_id{rse_id} vo{vo}")
 
          auth_result = permission.has_permission(issuer, 'quarantine_file_replicas', {}, vo=vo, session=session)
          if not auth_result.allowed:
