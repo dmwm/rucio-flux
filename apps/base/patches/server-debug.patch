@@ -1,0 +1,22 @@
+From aaaa55346f53e004d6d4ae4da59a53b18b4ff773 Mon Sep 17 00:00:00 2001
+From: Eric Vaandering <ewv@fnal.gov>
+Date: Wed, 20 Aug 2025 13:46:12 -0500
+Subject: [PATCH] New bit of code
+
+---
+ lib/rucio/gateway/quarantined_replica.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/lib/rucio/gateway/quarantined_replica.py b/lib/rucio/gateway/quarantined_replica.py
+index f3cd31b8d4..ce73cf7643 100644
+--- a/lib/rucio/gateway/quarantined_replica.py
++++ b/lib/rucio/gateway/quarantined_replica.py
+@@ -54,6 +54,8 @@ def quarantine_file_replicas(
+
+         if rse_id is None:
+             rse_id = get_rse_id(rse, vo=vo, session=session)
++            if not rse_id:
++                raise exception.InputValidationError(f"Unable to validate RSE name {rse_id} from {rse} ")
+
+         auth_result = permission.has_permission(issuer, 'quarantine_file_replicas', {}, vo=vo, session=session)
+         if not auth_result.allowed:
