@@ -1,120 +1,24 @@
-From aaaa55346f53e004d6d4ae4da59a53b18b4ff773 Mon Sep 17 00:00:00 2001
+From 52fabc15f0401c8edadd20e7cb061535639bcd16 Mon Sep 17 00:00:00 2001
 From: Eric Vaandering <ewv@fnal.gov>
 Date: Wed, 20 Aug 2025 13:46:12 -0500
-Subject: [PATCH 1/4] New bit of code
-
----
- lib/rucio/gateway/quarantined_replica.py | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/lib/rucio/gateway/quarantined_replica.py b/lib/rucio/gateway/quarantined_replica.py
-index f3cd31b8d4..ce73cf7643 100644
---- a/lib/rucio/gateway/quarantined_replica.py
-+++ b/lib/rucio/gateway/quarantined_replica.py
-@@ -54,6 +54,8 @@ def quarantine_file_replicas(
-
-         if rse_id is None:
-             rse_id = get_rse_id(rse, vo=vo, session=session)
-+            if not rse_id:
-+                raise exception.InputValidationError(f"Unable to validate RSE name {rse_id} from {rse} ")
-
-         auth_result = permission.has_permission(issuer, 'quarantine_file_replicas', {}, vo=vo, session=session)
-         if not auth_result.allowed:
-
-From 649079461a4c108151688fde80960aca4742af48 Mon Sep 17 00:00:00 2001
-From: Eric Vaandering <ewv@fnal.gov>
-Date: Wed, 20 Aug 2025 14:12:23 -0500
-Subject: [PATCH 2/4] Just try on Colorado
-
----
- lib/rucio/gateway/quarantined_replica.py | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/lib/rucio/gateway/quarantined_replica.py b/lib/rucio/gateway/quarantined_replica.py
-index ce73cf7643..f7f37377bd 100644
---- a/lib/rucio/gateway/quarantined_replica.py
-+++ b/lib/rucio/gateway/quarantined_replica.py
-@@ -54,8 +54,8 @@ def quarantine_file_replicas(
-
-         if rse_id is None:
-             rse_id = get_rse_id(rse, vo=vo, session=session)
--            if not rse_id:
--                raise exception.InputValidationError(f"Unable to validate RSE name {rse_id} from {rse} ")
-+            if 'Colorado' in rse:
-+                raise exception.InputValidationError(f"EWV: rse{rse} rse_id{rse_id} vo{vo}")
-
-         auth_result = permission.has_permission(issuer, 'quarantine_file_replicas', {}, vo=vo, session=session)
-         if not auth_result.allowed:
-
-From 69249f7af87b9595736b43ec2d3a07e6bb8efad3 Mon Sep 17 00:00:00 2001
-From: Eric Vaandering <ewv@fnal.gov>
-Date: Wed, 20 Aug 2025 14:23:02 -0500
-Subject: [PATCH 3/4] Relocate
-
----
- lib/rucio/core/quarantined_replica.py    | 6 ++++++
- lib/rucio/gateway/quarantined_replica.py | 2 +-
- 2 files changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/lib/rucio/core/quarantined_replica.py b/lib/rucio/core/quarantined_replica.py
-index 030f66d311..a72dd04609 100644
---- a/lib/rucio/core/quarantined_replica.py
-+++ b/lib/rucio/core/quarantined_replica.py
-@@ -19,6 +19,8 @@
- from sqlalchemy.sql.expression import false, insert
-
- from rucio.common.utils import chunks
-+from rucio.common import exception
-+
- from rucio.db.sqla import filter_thread_work, models
- from rucio.db.sqla.session import read_session, transactional_session
-
-@@ -85,6 +87,10 @@ def add_quarantined_replicas(rse_id: str, replicas: list[dict[str, Any]], *, ses
-     stmt = insert(
-         models.QuarantinedReplica
-     )
-+
-+    if '188186' in rse_id:
-+        raise exception.InputValidationError(f"EWV raising: rse_id {rse_id} statement {stmt} with values {values} ")
-+
-     session.execute(stmt, values)
-
-
-diff --git a/lib/rucio/gateway/quarantined_replica.py b/lib/rucio/gateway/quarantined_replica.py
-index f7f37377bd..47c703240b 100644
---- a/lib/rucio/gateway/quarantined_replica.py
-+++ b/lib/rucio/gateway/quarantined_replica.py
-@@ -54,7 +54,7 @@ def quarantine_file_replicas(
-
-         if rse_id is None:
-             rse_id = get_rse_id(rse, vo=vo, session=session)
--            if 'Colorado' in rse:
-+            if not rse_id:
-                 raise exception.InputValidationError(f"EWV: rse{rse} rse_id{rse_id} vo{vo}")
-
-         auth_result = permission.has_permission(issuer, 'quarantine_file_replicas', {}, vo=vo, session=session)
-
-From 2ed637ab892403bc15979ab5b970d734acfce625 Mon Sep 17 00:00:00 2001
-From: Eric Vaandering <ewv@fnal.gov>
-Date: Wed, 20 Aug 2025 14:34:19 -0500
-Subject: [PATCH 4/4] Don't call database if there is nothing to do
+Subject: [PATCH] Don't call database if there are no replicas to quarantine
 
 ---
  lib/rucio/core/quarantined_replica.py | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/lib/rucio/core/quarantined_replica.py b/lib/rucio/core/quarantined_replica.py
-index a72dd04609..e3fac830bf 100644
+index 030f66d311..edd3160190 100644
 --- a/lib/rucio/core/quarantined_replica.py
 +++ b/lib/rucio/core/quarantined_replica.py
-@@ -77,7 +77,9 @@ def add_quarantined_replicas(rse_id: str, replicas: list[dict[str, Any]], *, ses
+@@ -75,7 +75,9 @@ def add_quarantined_replicas(rse_id: str, replicas: list[dict[str, Any]], *, ses
      )
      quarantine_replicas = [(path, rseid) for path, rseid in session.execute(stmt).all()]
      replicas = [replica for replica in replicas if (replica['path'], rse_id) not in quarantine_replicas]
 -
 +    if not replicas:
 +        return
-+
++    
      values = [{'rse_id': rse_id,
                 'path': replica['path'],
                 'scope': replica.get('scope'),
