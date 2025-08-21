@@ -7,3 +7,4 @@ resources:
   - rucio.yaml
   - cms-rucio.yaml
   - fluentbit.yaml
+  - crontab-probes.yaml
