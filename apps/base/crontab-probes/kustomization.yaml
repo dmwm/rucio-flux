@@ -3,9 +3,9 @@ kind: Kustomization
 namespace: rucio
 resources:
   - rucio-probes-ewv.yaml
-#configMapGenerator:
-#  - name: cms-rucio-probes
-#    files:
-#      - values.yaml=cms-rucio-probes.yaml
+configMapGenerator:
+  - name: cms-rucio-probes-cron
+    files:
+      - values.yaml=cms-rucio-probes-cron.yaml
 #configurations:
 #  - kustomizeconfig.yaml
