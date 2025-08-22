@@ -23,9 +23,6 @@ spec:
       name: instance-rucio-release
     - kind: ConfigMap
       name: cms-rucio-probes
-# This should go away, using to set things false for now
-    - kind: ConfigMap
-      name: cms-rucio-probes-cron
     - kind: ConfigMap
       name: instance-rucio-probes
     - kind: Secret
