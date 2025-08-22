@@ -5,10 +5,11 @@
 #  - secretFullName: server-rucio-x509up
 #    mountPath: /opt/proxy
 #
-## Can we get rid of this?
-#probeSettings:
-#  ftsProxySecret: server-rucio-x509up
-#
+
+probeSettings:
+  ftsProxySecret: server-rucio-x509up
+  useJobber: false
+
 #config:
 #  nagios:
 #    fts_vo: "cms"
