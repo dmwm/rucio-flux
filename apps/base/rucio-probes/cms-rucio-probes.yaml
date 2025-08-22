@@ -8,7 +8,6 @@ secretMounts:
 # Can we get rid of this?
 probeSettings:
   ftsProxySecret: server-rucio-x509up
-  detDelay: DeterminisicDelay
 
 config:
   nagios:
