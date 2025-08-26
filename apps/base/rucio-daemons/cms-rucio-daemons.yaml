@@ -256,7 +256,7 @@ config:
     target_rse_rebalance_volume: 0
     min_expires_date_in_days: 15
   transfers:
-    fts3tape_metadata_plugins: tape_colocation
+    fts3tape_metadata_plugins: tape_metadata
 
 transmogrifier:
   threads: 4
