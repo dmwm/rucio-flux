@@ -2,7 +2,7 @@ loadtest:
   rucioHome: "/opt/rucio-prod/"
   proxySecret: "server-rucio-x509up"
   sourceExpression: "loadtest=True"
-  destinationExpression: "loadtest=True"
+  destinationExpression: "loadtest=True\\\\rse_type=TAPE"
 
 image:
   repository: registry.cern.ch/cmsrucio/rucio-loadtest-client
