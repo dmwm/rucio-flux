@@ -13,5 +13,5 @@ image:
   repository: registry.cern.ch/cmsrucio/rucio_client
   tag: "latest"
 
-wf-dashboard:
+wfDashboard:
   enabled: true
