@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: rucio-probes
-      version: "<37.0"
+      version: "<39.0"
       sourceRef:
         kind: HelmRepository
         name: rucio
