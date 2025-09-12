@@ -6,6 +6,8 @@ cronjobSettings:
       value: "rootcert.pem"
     - name: USERKEY_NAME
       value: "rootkey.pem"
+    - name: RUCIO_ACCOUNT
+      value: "transfer_ops"
 oidc:
   iamServer: https://cms-auth.cern.ch/
 
