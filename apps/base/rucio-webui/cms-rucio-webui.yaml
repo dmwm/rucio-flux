@@ -20,6 +20,7 @@ proxy:
 
 httpd_config:
   legacy_dn: "True"
+  encoded_slashes: "True"
 
 secretMounts:
   - secretFullName: server-server-hostcert
