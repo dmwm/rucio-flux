@@ -10,3 +10,5 @@ httpd_config:
 config:
   common:
     loglevel: "DEBUG"
+  webui:
+    urls: "https://cms-rucio-newui.cern.ch,https://cms-rucio-int-newui.cern.ch"
