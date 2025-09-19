@@ -75,9 +75,12 @@ voProbes:
   check_requests_count_volume:
     interval: 1
     voName: cms
-  check_rules_count_per_acc_st_exp_sexp_act:
+#  check_rules_count_per_acc_st_exp_sexp_act:   Renamed more verbosely two below
+#    interval: 15
+#    voName: cms
+  check_rse_settings_attributes:
     interval: 15
     voName: cms
-  check_rse_settings_attributes:
+  check_rule_counts_by_account_activity_state_rses:
     interval: 15
     voName: cms
