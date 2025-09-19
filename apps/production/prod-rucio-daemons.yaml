@@ -32,9 +32,6 @@ reaper:
   includeRses: "reaper=True\\rse_type=TAPE\\tier=1\\tier=0\\T2_CH_CERN"
   chunkSize: 4000
   sleepTime: 120
-  config:
-    common:
-      loglevel: "DEBUG"
 
 conveyorPoller:
   threads: 5
@@ -55,11 +52,6 @@ judgeEvaluator:
     requests:
       memory: 200Mi
 
-conveyorTransferSubmitter:
-  config:
-    common:
-      loglevel: "DEBUG"
-
 judgeRepairer:
   threads: 2
 judgeInjector:
@@ -73,11 +65,6 @@ conveyorFinisher:
     requests:
       memory: 600Mi
 
-conveyorThrottler:
-  config:
-    common:
-      loglevel: "DEBUG"
-
 podLabels:
   rucioInstance: "prod"
 
@@ -85,17 +72,11 @@ transmogrifier:
   threads: 8
   sleepTime: 30
   bulk: 400
-  config:
-    common:
-      loglevel: "DEBUG"
 
 tracerKronos:
   threads: 2
   sleepTimeFiles: 120
   sleepTimeDatasets: 30
-  config:
-    common:
-      loglevel: "DEBUG"
 
 config:
   common:

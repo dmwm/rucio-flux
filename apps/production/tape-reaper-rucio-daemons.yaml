@@ -28,9 +28,6 @@ reaper:
   includeRses: "cms_type=real&rse_type=TAPE&reaper=True"
   chunkSize: 4000
   sleepTime: 120
-  config:
-    common:
-      loglevel: "DEBUG"
 
 automaticRestart:
   enabled: 1

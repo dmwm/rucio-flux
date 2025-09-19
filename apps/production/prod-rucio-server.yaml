@@ -5,4 +5,4 @@ ingress:
 
 config:
   common:
-    loglevel: "DEBUG"
+    loglevel: "INFO"
