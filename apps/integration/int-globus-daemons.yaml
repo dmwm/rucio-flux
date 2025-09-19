@@ -29,8 +29,9 @@ cacheConsumerCount: 0
 
 config:
     common:
-#        loglevel: "DEBUG"
         loglevel: "INFO"
+    oidc:
+        admin_issuer: "def"
     conveyor:
       use_preparer: "True"
       scheme: "srm,gsiftp,root,http,https"
@@ -39,6 +40,7 @@ config:
 
 conveyorTransferSubmitter:
   activities: "'User Subscriptions'"
+    # Same size or smaller than bulk which is 100
   threads: 1
   bulk: 50
   groupBulk: 50

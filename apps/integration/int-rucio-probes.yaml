@@ -5,6 +5,3 @@ probes:
 config:
   monitor:
     prometheus_labels: '{"rucioInstance": "int"}'
-
-image:
-  tag: release-1.29.8.cms2
