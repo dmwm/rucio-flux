@@ -6,9 +6,18 @@ cronjobSettings:
       value: "rootcert.pem"
     - name: USERKEY_NAME
       value: "rootkey.pem"
+    - name: RUCIO_ACCOUNT
+      value: "transfer_ops"
 oidc:
   iamServer: https://cms-auth.cern.ch/
 
 image:
   repository: registry.cern.ch/cmsrucio/rucio_client
   tag: "latest"
+
+wfDashboard:
+  enabled: true
+  persistentVolumes:
+    grid-cern-ch:
+      name: csi-cvmfs-grid-pvc
+      mountPath: /cvmfs/grid.cern.ch
