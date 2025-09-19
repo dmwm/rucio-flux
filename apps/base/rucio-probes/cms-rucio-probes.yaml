@@ -56,7 +56,7 @@ voProbes:
     interval: 1
     voName: cms
   check_expected_total_number_of_files_per_rse:
-    interval: 60
+    interval: 30
     voName: cms
   check_unlocked_replicas_per_rse:
     interval: 1

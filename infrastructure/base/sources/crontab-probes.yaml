@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+      name: probes-crontab
+spec:
+      interval: 1m0s # How often to check for updates
+      url: https://github.com/ericvaandering/helm-charts.git
+      ref:
+        branch: crontab # Or the branch containing your charts
