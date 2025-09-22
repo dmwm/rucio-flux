@@ -8,20 +8,16 @@ secretMounts:
   - secretFullName: idpsecrets
     mountPath: /opt/rucio/etc/idpsecrets.json
     subPath: idpsecrets.json
+  - secretFullName: replica-recoverer-config
+    mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
+    subPath: suspicious_replica_recoverer.json
 # Patches for daemons go here
-# Fixed in 36.1.0
-#  - secretFullName: 7300-overwrite-patch
-#    mountPath: /patch/7300-overwrite.patch
-#    subPath: 7300-overwrite.patch
   - secretFullName: 7690-audience-patch
     mountPath: /patch/7690-audience.patch
     subPath: 7690-audience.patch
   - secretFullName: 7170-deep-patch
     mountPath: /patch/7170-deep.patch
     subPath: 7170-deep.patch
-  - secretFullName: replica-recoverer-config
-    mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
-    subPath: suspicious_replica_recoverer.json
 
 abacusAccountCount: 1
 abacusRseCount: 1
