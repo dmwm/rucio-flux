@@ -1,0 +1,24 @@
+From 52fabc15f0401c8edadd20e7cb061535639bcd16 Mon Sep 17 00:00:00 2001
+From: Eric Vaandering <ewv@fnal.gov>
+Date: Wed, 20 Aug 2025 13:46:12 -0500
+Subject: [PATCH] Don't call database if there are no replicas to quarantine
+
+---
+ lib/rucio/core/quarantined_replica.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/lib/rucio/core/quarantined_replica.py b/lib/rucio/core/quarantined_replica.py
+index 030f66d311..edd3160190 100644
+--- a/lib/rucio/core/quarantined_replica.py
++++ b/lib/rucio/core/quarantined_replica.py
+@@ -75,7 +75,9 @@ def add_quarantined_replicas(rse_id: str, replicas: list[dict[str, Any]], *, ses
+     )
+     quarantine_replicas = [(path, rseid) for path, rseid in session.execute(stmt).all()]
+     replicas = [replica for replica in replicas if (replica['path'], rse_id) not in quarantine_replicas]
+-
++    if not replicas:
++        return
++    
+     values = [{'rse_id': rse_id,
+                'path': replica['path'],
+                'scope': replica.get('scope'),
