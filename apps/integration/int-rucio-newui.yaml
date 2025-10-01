@@ -19,7 +19,7 @@ config:
     hostname: "cms-rucio-int-newui.cern.ch"
     project_url: "https://cms.cern"
     # if you want to add your own custom logo to the webui's login page, set this to the url of the logo
-    community_logo_url: "https://cms-docdb.cern.ch/cgi-bin/PublicDocDB/RetrieveFile?docid=3045&filename=CMSlogo_color_nolabel_128_May2014.png&version=3"
+    community_logo_url: "https://cms.cern/sites/default/files/inline-images/cms_logo.png"
     multivo_enabled: "True"
     # A csv string of vos containing their short names. For example: "def,atl,cms"
     vo_list: "def,cms"
