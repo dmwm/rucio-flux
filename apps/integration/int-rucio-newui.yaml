@@ -35,3 +35,6 @@ config:
       name: "CMS"
       oidc_enabled: "False"
       oidc_providers: ""
+
+httpd_config:
+  legacy_dn: "False"

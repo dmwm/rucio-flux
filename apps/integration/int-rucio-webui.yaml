@@ -14,3 +14,4 @@ service:
 
 httpd_config:
   rucio_hostname: "cms-rucio-webui-int.cern.ch"
+  legacy_dn: "False"

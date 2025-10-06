@@ -5,6 +5,7 @@ ingress:
 
 httpd_config:
   grid_site_enabled: "True"
+  legacy_dn: "False"
 
 config:
   common:
