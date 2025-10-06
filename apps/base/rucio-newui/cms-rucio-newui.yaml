@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  tag: release-36.2.0
+  tag: release-38.1.0
 #  repository: registry.cern.ch/cmsrucio/rucio-webui
 
 resources:
@@ -25,8 +25,8 @@ config:
     # hostname of the rucio-auth server, include http:// or https://
     rucio_auth_host: "https://cms-rucio-auth.cern.ch"
     # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
-    hostname: "cms-rucio-newui-int.cern.ch"
-    project_url: "https://rucio.cern.ch"
+    hostname: "cms-rucio-newui.cern.ch"
+    project_url: "https://cms.cern"
     multivo_enabled: "False"
     # A csv string of vos containing their short names. For example: "def,atl,cms"
     vo_list: "def"
@@ -34,7 +34,8 @@ config:
     oidc_enabled: "False"
     # A csv string of names of supported oidc providers that will be configured in the webui. For example: "cern,indico"
     oidc_providers: ""
-
+    # if you want to add your own custom logo to the webui's login page, set this to the url of the logo
+    community_logo_url: "https://cms.cern/sites/default/files/inline-images/cms_logo.png"
 
 proxy:
   rucioProxyScheme: "http"

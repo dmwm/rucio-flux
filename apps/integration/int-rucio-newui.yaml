@@ -14,6 +14,12 @@ config:
     # hostname of the rucio-auth server, include http:// or https://
     rucio_auth_host: "https://cms-rucio-auth.cern.ch"
     # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
-    hostname: "cms-rucio-newui.cern.ch"
-    project_url: "https://rucio.cern.ch"
+    hostname: "cms-rucio-int-newui.cern.ch"
+    project_url: "https://cms.cern"
+    # if you want to add your own custom logo to the webui's login page, set this to the url of the logo
+    community_logo_url: "https://cms-docdb.cern.ch/cgi-bin/PublicDocDB/RetrieveFile?docid=3045&filename=CMSlogo_color_nolabel_128_May2014.png&version=3"
+    multivo_enabled: "True"
+    # A csv string of vos containing their short names. For example: "def,atl,cms"
+    vo_list: "def,cms"
+    vo_default: "Default"
     server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
