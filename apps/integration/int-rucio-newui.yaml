@@ -1,7 +1,8 @@
 replicaCount: 1
 
 image:
-  tag: release-38.1.0
+  repository: lucapacioselli/rucio-webui
+  tag: test-issue-666
 #  repository: registry.cern.ch/cmsrucio/rucio-webui
 
 ingress:
