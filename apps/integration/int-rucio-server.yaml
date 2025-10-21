@@ -13,3 +13,6 @@ optional_config:
 
 ftsRenewal:
   schedule: "30 */12 * * *"
+
+httpd_config:
+  legacy_dn: "False"

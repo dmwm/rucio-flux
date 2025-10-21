@@ -20,3 +20,6 @@ config:
     # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
     hostname: "cms-rucio-newui.cern.ch"
     server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
+
+httpd_config:
+  legacy_dn: "False"

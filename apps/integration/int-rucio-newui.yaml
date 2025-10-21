@@ -23,3 +23,16 @@ config:
     vo_list: "def,cms"
     vo_default: "Default"
     server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
+  vo:
+    def:
+      name: "Default"
+      oidc_enabled: "False"
+      oidc_providers: ""
+    # Example of a second VO
+    cms:
+      name: "CMS"
+      oidc_enabled: "False"
+      oidc_providers: ""
+
+httpd_config:
+  legacy_dn: "False"

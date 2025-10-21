@@ -18,5 +18,5 @@ config:
     rucioAuthHost: "cms-rucio-auth.cern.ch:443"
 
 httpd_config:
-  legacy_dn: "True"
+  legacy_dn: "False"
   rucio_hostname: "cms-rucio-webui.cern.ch"

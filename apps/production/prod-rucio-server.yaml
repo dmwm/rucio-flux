@@ -6,3 +6,6 @@ ingress:
 config:
   common:
     loglevel: "INFO"
+
+httpd_config:
+  legacy_dn: "False"
