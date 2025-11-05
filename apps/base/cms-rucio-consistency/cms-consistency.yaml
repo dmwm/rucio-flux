@@ -2,7 +2,7 @@ scratchStorageClass:
   create: true
 consistency:
   rucioCfgSecret: "server-rucio-server.cfg"
-  useCron: 1
+  useCron: true
 
 persistentVolumes:
   grid-cern-ch:
