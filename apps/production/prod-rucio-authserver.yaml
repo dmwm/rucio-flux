@@ -3,6 +3,10 @@ ingress:
   hosts:
     - cms-rucio-auth.cern.ch
 
+config:
+  common:
+    loglevel: "DEBUG"
+
 httpd_config:
   grid_site_enabled: "True"
   legacy_dn: "False"

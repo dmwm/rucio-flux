@@ -31,7 +31,7 @@ conveyorTransferSubmitter:
   threads: 1
 
 automaticRestart:
-  enabled: 0
+  enabled: 1
 
 # Ignore availability option is missing in conveyor helm charts for preparer
 config:

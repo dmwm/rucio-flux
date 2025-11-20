@@ -1,7 +1,6 @@
 image:
   tag: release-38.5.1.cms1
 
-
 # Sometimes we need to explicitly note the database schema name
 config:
   database:
