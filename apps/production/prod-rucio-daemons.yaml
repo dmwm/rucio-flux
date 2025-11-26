@@ -43,11 +43,6 @@ conveyorPoller:
       cpu: 750m
       memory: 400Mi
 
-conveyorTransferSubmitter:
-  config:
-    common:
-      loglevel: "DEBUG"
-
 judgeEvaluator:
   threads: 8
   didLimit: 1000
