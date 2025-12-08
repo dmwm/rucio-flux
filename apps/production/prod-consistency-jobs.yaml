@@ -204,10 +204,8 @@ consistency:
     #   server: ccxrootdcms.in2p3.fr:1094
     #   server_root: /pnfs/in2p3.fr/data/cms/data
     #   interval: 7
-    #T1_FR_CCIN2P3_Disk:
-    #  server: ccxrootdcms.in2p3.fr:1094
-    #  server_root: /pnfs/in2p3.fr/data/cms/disk/data
-    #  interval: 7
+    T1_FR_CCIN2P3_Disk:
+     interval: 7
     T1_RU_JINR_Disk:
       interval: 7
     T2_BE_UCL:
