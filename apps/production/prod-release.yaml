@@ -1,5 +1,5 @@
 image:
-  tag: release-38.5.1.cms2
+  tag: release-38.5.1.cms3
 ftsRenewal:
   image:
     tag: 38.5.1
