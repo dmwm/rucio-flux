@@ -13,7 +13,7 @@ oidc:
 
 image:
   repository: registry.cern.ch/cmsrucio/rucio_client
-  tag: "latest"
+  tag: release-39.0.0.cmstest1
 
 wfDashboard:
   enabled: true
