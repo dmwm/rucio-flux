@@ -20,6 +20,6 @@ spec:
     - kind: ConfigMap
       name: cms-cron
     - kind: ConfigMap
-      name: instance-rucio-cron
-    - kind: ConfigMap
       name: instance-rucio-release
+    - kind: ConfigMap
+      name: instance-rucio-cron
