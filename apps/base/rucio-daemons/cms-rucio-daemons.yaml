@@ -15,9 +15,9 @@ secretMounts:
   - secretFullName: 7690-audience-patch
     mountPath: /patch/7690-audience.patch
     subPath: 7690-audience.patch
-  - secretFullName: 7170-deep-patch
-    mountPath: /patch/7170-deep.patch
-    subPath: 7170-deep.patch
+  - secretFullName: 8316-deep-patch
+    mountPath: /patch/8316-deep.patch
+    subPath: 8316-deep.patch
 
 abacusAccountCount: 1
 abacusRseCount: 1
