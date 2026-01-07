@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: charts/rucio-probes
-      version: "<38.0"
+      version: "39.0.0"
       sourceRef:
         kind: GitRepository
         name: probes-crontab
