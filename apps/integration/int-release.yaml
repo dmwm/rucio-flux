@@ -1,8 +1,8 @@
 image:
-  tag: release-38.5.1.cms1
+  tag: release-39.0.0.cmstest2
 ftsRenewal:
   image:
-    tag: 38.5.1
+    tag: 39.0.0
 
 # Sometimes we need to explicitly note the database schema name
 config:
