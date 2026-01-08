@@ -9,20 +9,36 @@ consistency:
     - /store/accounting
     - /store/express/tier0_harvest
   sites:
+    T0_CH_CERN_Disk:
+      interval: 7
     T1_DE_KIT_Disk:
       interval: 7
     T1_DE_KIT_Tape:
       interval: 7
-    T2_US_Purdue:
-      interval: 7
-    T2_BR_UERJ:
-      interval: 7
     T1_ES_PIC_Disk:
+      interval: 7
+    #T1_FR_CCIN2P3_Disk:
+    #  server: ccxrootdcms.in2p3.fr:1094
+    #  server_root: /pnfs/in2p3.fr/data/cms/disk/data
+    #  interval: 7
+    #T1_FR_CCIN2P3_Tape:
+    #   server: ccxrootdcms.in2p3.fr:1094
+    #   server_root: /pnfs/in2p3.fr/data/cms/data
+    #   interval: 7
+    T1_IT_CNAF_Disk:
+      interval: 7
+    T1_PL_NCBJ_Disk:
+      interval: 7
+    T1_RU_JINR_Disk:
       interval: 7
     T1_UK_RAL_Tape:
       interval: 0
       maxdarkfraction: "0.0000001"
     T1_US_FNAL_Disk:
+      interval: 7
+    T2_US_Purdue:
+      interval: 7
+    T2_BR_UERJ:
       interval: 7
     T2_TW_NCHC:
       interval: 7
@@ -66,8 +82,6 @@ consistency:
     #  server: ntugrid6.phys.ntu.edu.tw:11000
     #  interval: 1
     T2_BE_IIHE:
-      interval: 7
-    T2_PL_Swierk:
       interval: 7
     #T2_EE_Estonia_Test:
     #server: [2001:bb8:4004:ff:d::3]:1094
@@ -118,6 +132,8 @@ consistency:
       interval: 7
     T2_CH_CSCS:
       interval: 7
+    T2_FR_GRIF:
+      interval: 7
     T2_FR_IPHC:
       interval: 7
     T2_AT_Vienna:
@@ -164,8 +180,6 @@ consistency:
     #  interval: 1
     T3_US_Rutgers:
       interval: 7
-    T1_IT_CNAF_Disk:
-      interval: 7
     T2_BR_SPRACE:
       interval: 7
     T2_CN_Beijing:
@@ -197,16 +211,6 @@ consistency:
     T2_US_Vanderbilt:
       interval: 7
     T2_CH_CERN:
-      interval: 7
-    T0_CH_CERN_Disk:
-      interval: 7
-    #T1_FR_CCIN2P3_Tape:
-    #   server: ccxrootdcms.in2p3.fr:1094
-    #   server_root: /pnfs/in2p3.fr/data/cms/data
-    #   interval: 7
-    T1_FR_CCIN2P3_Disk:
-     interval: 7
-    T1_RU_JINR_Disk:
       interval: 7
     T2_BE_UCL:
       interval: 7
