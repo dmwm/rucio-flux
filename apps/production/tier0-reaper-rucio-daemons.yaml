@@ -21,7 +21,7 @@ conveyorReceiverCount: 0
 conveyorThrottlerCount: 0
 replicaRecovererCount: 0
 minosTemporaryExpirationCount: 0
-reaperCount: 0
+reaperCount: 2
 
 reaper:
   threads: 4
