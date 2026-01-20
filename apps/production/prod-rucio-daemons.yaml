@@ -2,7 +2,7 @@
 reaperCount: 8
 judgeInjectorCount: 2
 judgeRepairerCount: 2
-conveyorTransferSubmitterCount: 3
+conveyorTransferSubmitterCount: 4
 conveyorPollerCount: 4
 conveyorReceiverCount: 2
 conveyorFinisherCount: 4
@@ -42,6 +42,13 @@ conveyorPoller:
     requests:
       cpu: 750m
       memory: 400Mi
+
+conveyorTransferSubmitter:
+  groupBulk: 200
+  bulk: 400
+  sleepTime: 60
+  threads: 5
+  sourceStrategy: throughput
 
 judgeEvaluator:
   threads: 8
