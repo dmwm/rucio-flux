@@ -4,21 +4,21 @@ namespace: rucio
 resources:
   - ../base
   - ../base/cms-rucio-cvmfs
-#  - ../base/rucio-server
-#  - ../base/rucio-authserver
-#  - ../base/rucio-traceserver
-#  - ../base/rucio-daemons
+  - ../base/rucio-server
+  - ../base/rucio-authserver
+  - ../base/rucio-traceserver
+  - ../base/rucio-daemons
 #  - ../base/rucio-webui
 #  - ../base/rucio-newui
 #  - ../base/rucio-probes
-#  - ../base/cms-rucio-traces
-#  - ../base/cms-rucio-consistency
-#  - ../base/cms-rucio-cron
-#  - ../options/tier0-reaper
-#  - ../options/tier1-reaper
-#  - ../options/tape-reaper
-#  - ../options/loadtest-daemons
-#  - ../options/loadtest
+  - ../base/cms-rucio-traces
+  - ../base/cms-rucio-consistency
+  - ../base/cms-rucio-cron
+  - ../options/tier0-reaper
+  - ../options/tier1-reaper 
+  - ../options/tape-reaper
+  - ../options/loadtest-daemons
+  - ../options/loadtest
   - ../base/patches
   - ../base/configs
 # Not ready yet
