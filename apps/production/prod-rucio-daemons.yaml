@@ -1,13 +1,3 @@
-abacusAccountCount: 0
-abacusRseCount: 0
-conveyorPreparerCount: 0
-darkReaperCount: 0
-hermesCount: 0
-minosCount: 0
-necromancerCount: 0
-transmogrifierCount: 0
-undertakerCount: 0
-
 # More reapers (or threads) than this cause issues for CERN Oracle, so use only temporarily. Reducing the sleep time is similar
 reaperCount: 0
 judgeInjectorCount: 0
