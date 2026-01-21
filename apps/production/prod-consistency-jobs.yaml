@@ -17,14 +17,12 @@ consistency:
       interval: 7
     T1_ES_PIC_Disk:
       interval: 7
-    #T1_FR_CCIN2P3_Disk:
-    #  server: ccxrootdcms.in2p3.fr:1094
-    #  server_root: /pnfs/in2p3.fr/data/cms/disk/data
-    #  interval: 7
+    T1_FR_CCIN2P3_Disk:
+      interval: 7
     #T1_FR_CCIN2P3_Tape:
+    #   interval: 7
     #   server: ccxrootdcms.in2p3.fr:1094
     #   server_root: /pnfs/in2p3.fr/data/cms/data
-    #   interval: 7
     T1_IT_CNAF_Disk:
       interval: 7
     T1_PL_NCBJ_Disk:
