@@ -2,11 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: rucio
 secretGenerator:
-  - name: 7170-deep-patch
+  - name: 8316-deep-patch
     options:
       disableNameSuffixHash: true
     files:
-      -  7170-deep.patch
+      -  8316-deep.patch
   - name: 7690-audience-patch
     options:
       disableNameSuffixHash: true

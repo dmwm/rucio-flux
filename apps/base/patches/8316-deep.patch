@@ -1,0 +1,54 @@
+From 3d125bc58f2f2e5110ce1641968b792bacf4873f Mon Sep 17 00:00:00 2001
+From: Eric Vaandering <ewv@fnal.gov>
+Date: Fri, 15 Nov 2024 09:51:57 -0600
+Subject: [PATCH 1/2] Simple patch to get rid of non-deep mode
+
+---
+ lib/rucio/core/replica.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/rucio/core/replica.py b/lib/rucio/core/replica.py
+index d59a14c5ca..55aa78e385 100644
+--- a/lib/rucio/core/replica.py
++++ b/lib/rucio/core/replica.py
+@@ -3261,7 +3261,7 @@ def list_dataset_replicas(
+               with associated metrics and timestamps
+     """
+
+-    if not deep:
++    if False:   # was `not deep`
+         stmt = select(
+             models.CollectionReplica.scope,
+             models.CollectionReplica.name,
+
+From 1d0b987a2dd7f0ef77cb49fa5589e45a4eaa788d Mon Sep 17 00:00:00 2001
+From: Eric Vaandering <ewv@fnal.gov>
+Date: Mon, 10 Feb 2025 14:26:00 -0600
+Subject: [PATCH 2/2] Not deep for Rucio 39
+
+---
+ lib/rucio/web/rest/flaskapi/v1/replicas.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/rucio/web/rest/flaskapi/v1/replicas.py b/lib/rucio/web/rest/flaskapi/v1/replicas.py
+index f8f5f4740a..9a1bab0b16 100644
+--- a/lib/rucio/web/rest/flaskapi/v1/replicas.py
++++ b/lib/rucio/web/rest/flaskapi/v1/replicas.py
+@@ -1378,7 +1378,7 @@ def generate(_deep, vo):
+                 for row in list_dataset_replicas(scope=scope, name=name, deep=_deep, vo=vo):
+                     yield dumps(row, cls=APIEncoder) + '\n'
+
+-            deep = param_get_bool(request.args, 'deep', default=False)
++            deep = True
+
+             return try_stream(generate(_deep=deep, vo=request.environ['vo']))
+         except ValueError as error:
+@@ -1528,7 +1528,7 @@ def generate(_deep, vo):
+                 for row in list_dataset_replicas_vp(scope=scope, name=name, deep=_deep, vo=vo):
+                     yield dumps(row, cls=APIEncoder) + '\n'
+
+-            deep = param_get_bool(request.args, 'deep', default=False)
++            deep = True
+
+             return try_stream(generate(_deep=deep, vo=request.environ['vo']))
+         except ValueError as error:
