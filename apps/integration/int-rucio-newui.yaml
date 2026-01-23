@@ -26,6 +26,7 @@ config:
     multivo_enabled: "True"
     # A csv string of vos containing their short names. For example: "def,atl,cms"
     vo_list: "cms"
+    vo_default: "cms"
     server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
   vo:
     cms:
