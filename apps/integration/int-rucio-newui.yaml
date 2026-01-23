@@ -25,9 +25,14 @@ config:
     community_logo_url: "https://cms.cern/sites/default/files/inline-images/cms_logo.png"
     multivo_enabled: "True"
     # A csv string of vos containing their short names. For example: "def,atl,cms"
-    vo_list: "cms"
+    vo_list: "def,cms"
+    vo_default: "Default"
     server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
   vo:
+    def:
+      name: "Default"
+      oidc_enabled: "False"
+      oidc_providers: ""
     cms:
       name: "CMS"
       oidc_enabled: "False"
