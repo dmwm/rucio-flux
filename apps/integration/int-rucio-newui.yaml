@@ -1,14 +1,16 @@
 replicaCount: 1
 
 image:
-  repository: lucapacioselli/rucio-webui
-  tag: test-issue-666
-#  repository: registry.cern.ch/cmsrucio/rucio-webui
+  repository: rucio/rucio-webui
+  tag: release-39.2.0
 
 ingress:
   enabled: true
   hosts:
     - "cms-rucio-int-newui.cern.ch"
+
+optionalConfig:
+  rucio_webui_nextauth_url: "https://cms-rucio-int-newui.cern.ch"
 
 config:
   webui:
@@ -23,15 +25,9 @@ config:
     community_logo_url: "https://cms.cern/sites/default/files/inline-images/cms_logo.png"
     multivo_enabled: "True"
     # A csv string of vos containing their short names. For example: "def,atl,cms"
-    vo_list: "def,cms"
-    vo_default: "Default"
+    vo_list: "cms"
     server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
   vo:
-    def:
-      name: "Default"
-      oidc_enabled: "False"
-      oidc_providers: ""
-    # Example of a second VO
     cms:
       name: "CMS"
       oidc_enabled: "False"
