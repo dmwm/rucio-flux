@@ -1,8 +1,8 @@
 image:
-  tag: release-39.0.0.cms1
+  tag: release-39.1.0.cms1
 ftsRenewal:
   image:
-    tag: 39.0.0
+    tag: 39.1.0
 
 # FIXME: Maybe not the best place for this but everything may need it
 config:
