@@ -32,6 +32,9 @@ reaper:
   includeRses: "reaper=True\\rse_type=TAPE\\tier=1\\tier=0\\T2_CH_CERN"
   chunkSize: 4000
   sleepTime: 120
+  config:
+    common:
+      loglevel: "DEBUG"
 
 conveyorPoller:
   threads: 5
