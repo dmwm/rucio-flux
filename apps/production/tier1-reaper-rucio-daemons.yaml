@@ -28,6 +28,9 @@ reaper:
   includeRses: "cms_type=real&rse_type=DISK&tier=1&reaper=True"
   chunkSize: 4000
   sleepTime: 120
+  config:
+    common:
+      loglevel: "DEBUG"
 
 automaticRestart:
   enabled: 1
