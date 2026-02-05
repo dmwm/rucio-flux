@@ -25,7 +25,7 @@ reaperCount: 4
 
 reaper:
   threads: 4
-  includeRses: "cms_type=real&rse_type=DISK&tier=1&reaper=True"
+  includeRses: "rse_type=DISK&tier=1&reaper=True"
   chunkSize: 4000
   sleepTime: 120
   config:
