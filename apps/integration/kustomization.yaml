@@ -15,7 +15,6 @@ resources:
   - ../base/rucio-newui
   - ../base/patches
   - ../base/configs
-  - ../base/crontab-probes
 
 configMapGenerator:
   - name: instance-rucio-server
