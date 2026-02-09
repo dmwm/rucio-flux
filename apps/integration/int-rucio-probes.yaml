@@ -5,3 +5,7 @@ probes:
 config:
   monitor:
     prometheus_labels: '{"rucioInstance": "int"}'
+
+probeSettings:
+  useJobber: false
+  useCron: true
