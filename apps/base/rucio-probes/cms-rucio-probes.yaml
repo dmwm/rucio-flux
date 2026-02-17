@@ -8,6 +8,8 @@ secretMounts:
 # Can we get rid of this?
 probeSettings:
   ftsProxySecret: server-rucio-x509up
+  useJobber: false
+  useCron: true
 
 config:
   nagios:
