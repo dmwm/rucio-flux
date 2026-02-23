@@ -8,6 +8,8 @@ secretMounts:
 # Can we get rid of this?
 probeSettings:
   ftsProxySecret: server-rucio-x509up
+  useJobber: false
+  useCron: true
 
 config:
   nagios:
@@ -56,7 +58,7 @@ voProbes:
     interval: 1
     voName: cms
   check_expected_total_number_of_files_per_rse:
-    interval: 60
+    interval: 30
     voName: cms
   check_unlocked_replicas_per_rse:
     interval: 1
