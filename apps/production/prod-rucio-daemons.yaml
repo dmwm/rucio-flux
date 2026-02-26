@@ -36,6 +36,11 @@ reaper:
     common:
       loglevel: "DEBUG"
 
+hermes:
+  config:
+    common:
+      loglevel: "DEBUG"
+
 conveyorPoller:
   threads: 5
   resources:
