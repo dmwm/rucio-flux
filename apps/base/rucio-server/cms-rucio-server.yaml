@@ -68,7 +68,7 @@ serverResources:
   requests:
     memory: 500Mi
   limits:
-    memory: 1500Mi
+    memory: 4500Mi
 
 config:
   common:
