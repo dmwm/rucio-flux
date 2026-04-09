@@ -7,6 +7,11 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  8316-deep.patch
+  - name: 7636-deep-patch
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  7636-deep.patch
   - name: 7690-audience-patch
     options:
       disableNameSuffixHash: true

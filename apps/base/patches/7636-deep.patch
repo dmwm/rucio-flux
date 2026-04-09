@@ -1,0 +1,626 @@
+From 2a173cc3edbed0de38b55ba0bf569163b8951eb2 Mon Sep 17 00:00:00 2001
+From: Christos Emmanouil <chris19973@gmail.com>
+Date: Wed, 2 Apr 2025 19:27:23 +0200
+Subject: [PATCH 1/6] RSE Decommissioner: add cms profile
+
+---
+ .../rsedecommissioner/profiles/__init__.py    |   4 +-
+ .../daemons/rsedecommissioner/profiles/cms.py | 259 ++++++++++++++++++
+ 2 files changed, 262 insertions(+), 1 deletion(-)
+ create mode 100644 lib/rucio/daemons/rsedecommissioner/profiles/cms.py
+
+diff --git a/lib/rucio/daemons/rsedecommissioner/profiles/__init__.py b/lib/rucio/daemons/rsedecommissioner/profiles/__init__.py
+index a588b365e3..0497eb050d 100644
+--- a/lib/rucio/daemons/rsedecommissioner/profiles/__init__.py
++++ b/lib/rucio/daemons/rsedecommissioner/profiles/__init__.py
+@@ -15,10 +15,12 @@
+ """Decommissioning profile definitions."""
+ 
+ from .atlas import atlas_move
++from .cms import cms_decommissioner
+ from .generic import generic_delete, generic_move
+ 
+ PROFILE_MAP = {
+     'generic_delete': generic_delete,
+     'generic_move': generic_move,
+-    'atlas_move': atlas_move
++    'atlas_move': atlas_move,
++    'cms_decommissioner': cms_decommissioner,
+ }
+diff --git a/lib/rucio/daemons/rsedecommissioner/profiles/cms.py b/lib/rucio/daemons/rsedecommissioner/profiles/cms.py
+new file mode 100644
+index 0000000000..c9e2cac560
+--- /dev/null
++++ b/lib/rucio/daemons/rsedecommissioner/profiles/cms.py
+@@ -0,0 +1,259 @@
++# Copyright European Organization for Nuclear Research (CERN) since 2012
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#    http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++"""CMS-specific decommissioning profiles."""
++
++import logging
++from typing import TYPE_CHECKING, Any
++
++from sqlalchemy.exc import NoResultFound
++
++from rucio.common.exception import Duplicate, RucioException, InvalidRSEExpression
++from rucio.core.lock import get_replica_locks_for_rule_id
++from rucio.core.rse import add_rse_attribute
++from rucio.core.rse_expression_parser import parse_expression
++
++from . import generic
++from .types import DecommissioningProfile, HandlerOutcome
++
++if TYPE_CHECKING:
++    from rucio.common.types import LoggerFunction
++    
++WM_ACCOUNTS = [
++    'wma_prod', 'wmccorma', 'wmcore_output', 'wmcore_pileup', 'wmcore_transferor'
++]
++
++def cms_decommissioner(rse: dict[str, Any], config: dict[str, Any]) -> DecommissioningProfile:
++    """Return a profile for moving rules that satisfy conditions to a specific destination.
++
++    The "CMS decommissioner" profile lists out all rules that are locking replicas
++    at the given RSE and acts on them based on the following conditions:
++
++    - Test rules will be deleted.
++    - CRAB TapeRecall rules will be skipped. Manual operations are needed.
++    - WM rules will be skipped. Manual operations are needed.
++    - Rules with trivial RSE expression (the RSE name itself) will be moved to the destination.
++    - Rules with complex RSE expression will be moved by excluding the target RSE.
++
++    :param rse: RSE to decommission.
++    :param config: Decommissioning configuration dictionary.
++    :returns: A decommissioning profile dictionary.
++    """
++    
++    destination = str(config.get('destination', None))
++    move_to_destination = CMSRuleMover(destination)
++    
++    return DecommissioningProfile(
++        rse = rse,
++        initializer = _cms_initialize,
++        discoverer = generic._generic_discover,
++        
++        handlers = [
++            (generic._is_locked, generic._call_for_attention),
++            (generic._is_being_deleted, generic._count_as_processed),
++            (generic._has_child_rule_id, generic._count_as_processed),
++            
++            # Rules under 'Functional Test' activity are test rules. These rules can be removed. 
++            # Test rules with the underlined RSE as source are not handled! Implementing a dedicated 
++            # discoverer to fetch these kind of rules may be possible. However, the existence of them 
++            # will not introduce a major problem and if needed operators can act.
++            (_is_test_rule, generic._delete_rule),
++            
++            # Rules under 'Analysis TapeRecall' activity are created with users' accounts using CRAB.
++            # These rules need operators attention. Operators should inform CRAB before take any action.
++            # Rules under 'Analysis Input' are created with the 'crab_input' account and can be handled 
++            # as any other rule
++            (_is_crab_taperecall_rule, generic._call_for_attention),
++            
++            # Moving rules created by WM account could cause operational and monitoring issues in DM
++            # and WM. WM uses rules ids to track rules and delete them when certain conditions are made.
++            # Moving rules will result in a different rule id that WM is not aware of. Best way to 
++            # handle these rules is to wait for their expiration.
++            (_is_wm_rule, generic._call_for_attention),
++            
++            # Every other rule should moved.
++            (_has_replicas_on_rse, move_to_destination)
++        ],
++        
++        # TODO: should moc protocol be added ? (introduced since 2020 by OscarFernandoGarzonMiguez)
++        # https://twiki.cern.ch/twiki/bin/view/CMSPublic/RseConfiguration#Decommissioning_Procedure
++        # TODO: should rse be deleted ?
++        finalizer = generic._generic_finalize
++    )
++
++def _cms_initialize(
++    rse: dict[str, Any],
++    *,
++    logger: "LoggerFunction" = logging.log,
++) -> None:
++    """Initializer function that sets the RSE availability flags and the decommissioning status.
++
++    When an RSE is initialized for decommissioning, the availability flags are set as follows:
++
++    - `availability_read=True`
++    - `availability_write=False`
++    - `availability_delete=True`
++
++    and the following attributes are set:
++
++    - 'update_from_json=False'
++    - `skip_site_availability_update=True`
++    - `loadtest=False`
++    - `greedyDeletion=True`
++
++    :param rse: RSE table entry as a dictionary.
++    :param logger: Logging function.
++    """
++    logger(logging.INFO,
++        '(%s) Setting update_from_json=false.',
++        rse['rse'])
++    
++    try:
++        add_rse_attribute(rse['id'], 'update_from_json', False)
++    except Duplicate:
++        pass
++    
++    logger(logging.INFO,
++        '(%s) Setting loadtest=false.',
++        rse['rse'])
++    
++    try:
++        add_rse_attribute(rse['id'], 'loadtest', False)
++    except Duplicate:
++        pass
++    
++    logger(logging.INFO,
++           '(%s) Setting skip_site_availability_update=true.',
++           rse['rse'])
++    
++    try:
++        add_rse_attribute(rse['id'], 'skip_site_availability_update', True)
++    except Duplicate:
++        pass
++    
++    generic._generic_initialize(rse)
++    
++    logger(logging.INFO,
++        '(%s) Setting reaper=true.',
++        rse['rse'])
++    
++    try:
++        add_rse_attribute(rse['id'], 'reaper', True)
++    except Duplicate:
++        pass
++    
++def _is_test_rule(
++    rule: dict[str, Any],
++    rse: dict[str, Any],
++    *,
++    logger: "LoggerFunction" = logging.log
++) -> bool:
++    """Check if test rule (rse is the destination only)."""
++    return rule['activity'] == 'Functional Test'
++
++def _is_crab_taperecall_rule(
++    rule: dict[str, Any],
++    rse: dict[str, Any],
++    *,
++    logger: "LoggerFunction" = logging.log
++) -> bool:
++    """Check if rule's activity is 'Analysis TapeRecall'"""
++    return rule['activity'] == 'Analysis TapeRecall'
++
++def _is_wm_rule(
++    rule: dict[str, Any],
++    rse: dict[str, Any],
++    *,
++    logger: "LoggerFunction" = logging.log
++) -> bool:
++    """Check if rule's activity is 'Analysis TapeRecall'"""
++    return rule['account'] in WM_ACCOUNTS
++
++def _has_replicas_on_rse(
++    rule: dict[str, Any],
++    rse: dict[str, Any],
++    *,
++    logger: "LoggerFunction" = logging.log
++) -> bool:
++    """Check if there are replicas on the RSE."""
++    # Check the list of RSEs that the replicas locked by this rule reside on.
++    try:
++        locks = get_replica_locks_for_rule_id(rule['id'])
++    except NoResultFound:
++        # No replica is locked to begin with -> treat as having the last replica on this RSE
++        return True
++
++    replica_rse_ids = set(lock['rse_id'] for lock in locks)
++
++    return rse['id'] in replica_rse_ids
++
++def _has_trivial_rse_expression(
++    rule: dict[str, Any],
++    rse: dict[str, Any],
++    *,
++    logger: "LoggerFunction" = logging.log
++) -> bool:
++    """Check for a trivial rse_expression."""
++    return (rule['rse_expression'] == rse['rse']) or rule['rse_expression'] == f"rse={rse['rse']}"
++    
++class CMSRuleMover(generic.RuleMover):
++    """RuleMover with dynamic destination logic for CMS-specific rules."""
++
++    def __call__(
++        self,
++        rule: dict[str, Any],
++        rse: dict[str, Any],
++        *,
++        logger: "LoggerFunction" = logging.log
++    ) -> HandlerOutcome:
++        """Move the rule after dynamically resolving the destination."""
++        logger(logging.DEBUG, '(%s) Preparing to move rule %s', rse['rse'], rule['id'])
++
++        if not self._update_destination(rule, rse, logger=logger):
++            logger(logging.INFO,
++                   '(%s) Cannot safely move rule %s. Calling for operator attention.',
++                   rse['rse'], rule['id'])
++            return HandlerOutcome.NEED_ATTENTION
++
++        return super().__call__(rule, rse, logger=logger)
++
++    def _update_destination(
++        self,
++        rule: dict[str, Any],
++        rse: dict[str, Any],
++        *,
++        logger: "LoggerFunction"
++    ) -> bool:
++        """Update the destination based on rule and RSE conditions.
++        Returns True if destination is valid; False if operator attention is needed.
++        """
++        if not _has_trivial_rse_expression(rule, rse):
++            combined_expr = f"{rule['rse_expression']}\\{rse['rse']}"
++            resolved_rses = parse_expression(combined_expr)
++            required_copies = rule['copies']
++            if len(resolved_rses) < required_copies:
++                logger(logging.WARNING,
++                       'Expression "%s" resolves to %d RSE(s), but %d copies are required.',
++                       combined_expr, len(resolved_rses), required_copies)
++                return False
++            
++            self.destination = combined_expr
++        else:
++            if self.destination == str(None):
++                logger(logging.WARNING,
++                       'No default destination set for trivial RSE expression on rule %s',
++                       rule['id'])
++                return False
++
++        return True
+
+From c3c6d4c4ec4ff9ca7b52f2bec638bd3a4c18ad71 Mon Sep 17 00:00:00 2001
+From: Christos Emmanouil <chris19973@gmail.com>
+Date: Wed, 19 Nov 2025 16:21:48 +0100
+Subject: [PATCH 2/6] RSE Decommissioner: fix to allow rse expressions as
+ destinations in attributes
+
+---
+ lib/rucio/daemons/rsedecommissioner/config.py | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/lib/rucio/daemons/rsedecommissioner/config.py b/lib/rucio/daemons/rsedecommissioner/config.py
+index e04fb1156c..28db2a2c57 100644
+--- a/lib/rucio/daemons/rsedecommissioner/config.py
++++ b/lib/rucio/daemons/rsedecommissioner/config.py
+@@ -54,7 +54,11 @@ def attr_to_config(attr: str) -> dict[str, Any]:
+     :returns: Decommissioning configuration dictionary.
+     """
+     # The decommission attribute is a comma-separated list of key=value settings
+-    config: dict[str, Any] = dict(map(lambda s: s.split('='), attr.split(',')))
++    config: dict[str, Any] = dict(map(lambda s: s.split('=', 1), attr.split(',')))
++    for key, value in config.items():
++        if isinstance(value, str):
++            config[key] = value.strip().strip('"')
++    
+     if 'status' in config:
+         try:
+             config['status'] = DecommissioningStatus[config['status'].upper()]
+
+From 67889e098bee99ecccefe771bfc3d4341f105aa3 Mon Sep 17 00:00:00 2001
+From: Christos Emmanouil <chris19973@gmail.com>
+Date: Wed, 19 Nov 2025 16:42:44 +0100
+Subject: [PATCH 3/6] RSE Decommissioner: CMS initializer should add a mock
+ deletion protocol
+
+---
+ .../daemons/rsedecommissioner/profiles/cms.py | 32 ++++++++++++++++---
+ 1 file changed, 28 insertions(+), 4 deletions(-)
+
+diff --git a/lib/rucio/daemons/rsedecommissioner/profiles/cms.py b/lib/rucio/daemons/rsedecommissioner/profiles/cms.py
+index c9e2cac560..3d73e80d42 100644
+--- a/lib/rucio/daemons/rsedecommissioner/profiles/cms.py
++++ b/lib/rucio/daemons/rsedecommissioner/profiles/cms.py
+@@ -21,7 +21,7 @@
+ 
+ from rucio.common.exception import Duplicate, RucioException, InvalidRSEExpression
+ from rucio.core.lock import get_replica_locks_for_rule_id
+-from rucio.core.rse import add_rse_attribute
++from rucio.core.rse import add_rse_attribute, add_protocol
+ from rucio.core.rse_expression_parser import parse_expression
+ 
+ from . import generic
+@@ -86,8 +86,6 @@ def cms_decommissioner(rse: dict[str, Any], config: dict[str, Any]) -> Decommiss
+             (_has_replicas_on_rse, move_to_destination)
+         ],
+         
+-        # TODO: should moc protocol be added ? (introduced since 2020 by OscarFernandoGarzonMiguez)
+-        # https://twiki.cern.ch/twiki/bin/view/CMSPublic/RseConfiguration#Decommissioning_Procedure
+         # TODO: should rse be deleted ?
+         finalizer = generic._generic_finalize
+     )
+@@ -105,12 +103,14 @@ def _cms_initialize(
+     - `availability_write=False`
+     - `availability_delete=True`
+ 
+-    and the following attributes are set:
++    the following attributes are set:
+ 
+     - 'update_from_json=False'
+     - `skip_site_availability_update=True`
+     - `loadtest=False`
+     - `greedyDeletion=True`
++    
++    and a mock deletion protocol is added.
+ 
+     :param rse: RSE table entry as a dictionary.
+     :param logger: Logging function.
+@@ -152,7 +152,31 @@ def _cms_initialize(
+         add_rse_attribute(rse['id'], 'reaper', True)
+     except Duplicate:
+         pass
++
++    logger(logging.INFO,
++        '(%s) Adding mock deletion protocol.',
++        rse['rse'])
+     
++    try:
++        add_protocol(rse['rse'], {
++            'scheme': 'mock',
++            'hostname': 'mock',
++            'prefix': '/',
++            'impl': 'rucio.rse.protocols.mock.Default',
++            'domains': {
++                'wan': {
++                    "read": 0,
++                    "write": 0,
++                    "delete": 1, 
++                    "third_party_copy_read": 0, 
++                    "third_party_copy_write": 0
++                    }
++                }
++            }
++                     )
++    except Duplicate:
++        pass
++
+ def _is_test_rule(
+     rule: dict[str, Any],
+     rse: dict[str, Any],
+
+From c5ff9d8ce1dbcbd46ece0b565f98af8631d27e19 Mon Sep 17 00:00:00 2001
+From: Christos Emmanouil <chris19973@gmail.com>
+Date: Wed, 19 Nov 2025 18:25:06 +0100
+Subject: [PATCH 4/6] RSE Decommissioner: fix CMS profile desination and
+ protocol
+
+---
+ .../daemons/rsedecommissioner/profiles/cms.py | 30 ++++++++++---------
+ 1 file changed, 16 insertions(+), 14 deletions(-)
+
+diff --git a/lib/rucio/daemons/rsedecommissioner/profiles/cms.py b/lib/rucio/daemons/rsedecommissioner/profiles/cms.py
+index 3d73e80d42..b540e37004 100644
+--- a/lib/rucio/daemons/rsedecommissioner/profiles/cms.py
++++ b/lib/rucio/daemons/rsedecommissioner/profiles/cms.py
+@@ -51,7 +51,7 @@ def cms_decommissioner(rse: dict[str, Any], config: dict[str, Any]) -> Decommiss
+     :returns: A decommissioning profile dictionary.
+     """
+     
+-    destination = str(config.get('destination', None))
++    destination = str(config.get('move_dest', None))
+     move_to_destination = CMSRuleMover(destination)
+     
+     return DecommissioningProfile(
+@@ -158,22 +158,24 @@ def _cms_initialize(
+         rse['rse'])
+     
+     try:
+-        add_protocol(rse['rse'], {
+-            'scheme': 'mock',
+-            'hostname': 'mock',
+-            'prefix': '/',
+-            'impl': 'rucio.rse.protocols.mock.Default',
+-            'domains': {
+-                'wan': {
+-                    "read": 0,
+-                    "write": 0,
+-                    "delete": 1, 
+-                    "third_party_copy_read": 0, 
+-                    "third_party_copy_write": 0
++        add_protocol(
++            rse['id'],
++            {
++                'scheme': 'mock',
++                'hostname': 'mock',
++                'prefix': '/',
++                'impl': 'rucio.rse.protocols.mock.Default',
++                'domains': {
++                    'wan': {
++                        "read": 0,
++                        "write": 0,
++                        "delete": 1, 
++                        "third_party_copy_read": 0, 
++                        "third_party_copy_write": 0
+                     }
+                 }
+             }
+-                     )
++        )
+     except Duplicate:
+         pass
+ 
+
+From aaad19d2f7e570eb2eae2cee80b925bd955641df Mon Sep 17 00:00:00 2001
+From: Christos Emmanouil <chris19973@gmail.com>
+Date: Wed, 19 Nov 2025 18:26:06 +0100
+Subject: [PATCH 5/6] RSE Decommissioner: fix attribute-confing-attribute
+ convertion [skip ci]
+
+---
+ lib/rucio/daemons/rsedecommissioner/config.py | 41 ++++++++++---------
+ .../rsedecommissioner/profiles/types.py       |  5 +--
+ .../rsedecommissioner/rse_decommissioner.py   |  4 +-
+ 3 files changed, 26 insertions(+), 24 deletions(-)
+
+diff --git a/lib/rucio/daemons/rsedecommissioner/config.py b/lib/rucio/daemons/rsedecommissioner/config.py
+index 28db2a2c57..4f85449b15 100644
+--- a/lib/rucio/daemons/rsedecommissioner/config.py
++++ b/lib/rucio/daemons/rsedecommissioner/config.py
+@@ -14,6 +14,7 @@
+ 
+ """Functions to manage decommissioning configurations."""
+ 
++import json
+ from enum import Enum
+ from typing import Any
+ 
+@@ -39,12 +40,11 @@ def config_to_attr(config: dict[str, Any]) -> str:
+     :param config: Decommissioning configuration dictionary.
+     :returns: Comma-separated key-value string encoding the configuration.
+     """
+-    attr = f'profile={config["profile"].value}'
+-    if config.get('move_dest'):
+-        attr += f',move_dest={config["move_dest"]}'
+-    attr += f',status={config["status"].value}'
++    json_compat = config.copy()
++    if isinstance(json_compat.get("status"), DecommissioningStatus):
++        json_compat["status"] = json_compat["status"].value
+ 
+-    return attr
++    return json.dumps(json_compat, separators=(',', ':'))
+ 
+ 
+ def attr_to_config(attr: str) -> dict[str, Any]:
+@@ -53,19 +53,21 @@ def attr_to_config(attr: str) -> dict[str, Any]:
+     :param attr: Comma-separated key-value string encoding the configuration.
+     :returns: Decommissioning configuration dictionary.
+     """
+-    # The decommission attribute is a comma-separated list of key=value settings
+-    config: dict[str, Any] = dict(map(lambda s: s.split('=', 1), attr.split(',')))
+-    for key, value in config.items():
+-        if isinstance(value, str):
+-            config[key] = value.strip().strip('"')
+-    
+-    if 'status' in config:
++    config: dict[str, Any]
++
++    try:
++        config = json.loads(attr)
++    except json.JSONDecodeError:
++        config = dict(map(lambda s: s.split('=', 1), attr.split(',')))
++        config = {k: v.strip().strip('"') for k, v in config.items()}
++
++    if "status" in config:
+         try:
+-            config['status'] = DecommissioningStatus[config['status'].upper()]
+-        except KeyError as exc:
+-            raise InvalidStatusName() from exc
++            config["status"] = DecommissioningStatus[config["status"].upper()]
++        except KeyError:
++            raise InvalidStatusName(config["status"])
+     else:
+-        config['status'] = DecommissioningStatus.PROCESSING
++        config["status"] = DecommissioningStatus.PROCESSING
+ 
+     return config
+ 
+@@ -79,7 +81,8 @@ def set_status(
+     :param rse_id: RSE ID.
+     :param status: RSE decommissioning status.
+     """
+-    config = attr_to_config(get_rse_attribute(rse_id, RseAttr.DECOMMISSION))  # type: ignore (get_rse_attribute could return None)
+-    config['status'] = status
+-    # add_rse_attribute can handle updating existing entries too
++    config_raw: str | None = get_rse_attribute(rse_id, RseAttr.DECOMMISSION)
++    config_str: str = config_raw if config_raw is not None else '{}'
++    config = attr_to_config(config_str)
++    config["status"] = status
+     add_rse_attribute(rse_id, RseAttr.DECOMMISSION, config_to_attr(config))
+diff --git a/lib/rucio/daemons/rsedecommissioner/profiles/types.py b/lib/rucio/daemons/rsedecommissioner/profiles/types.py
+index e39187d20b..7e0d8f9aa6 100644
+--- a/lib/rucio/daemons/rsedecommissioner/profiles/types.py
++++ b/lib/rucio/daemons/rsedecommissioner/profiles/types.py
+@@ -66,6 +66,7 @@ def discover(
+ 
+     def process(
+         self,
++        rse: dict[str, Any],
+         rule: dict[str, Any],
+         *,
+         logger: "LoggerFunction" = logging.log
+@@ -79,9 +80,7 @@ def process(
+             if condition(rule, self.rse, logger=logger):
+                 return action(rule, self.rse, logger=logger)
+ 
+-        logger(logging.INFO,
+-               '(%s) No handler matched rule %s for %s:%s',
+-               rule['rse'], rule['id'], rule['scope'], rule['name'])
++        logger(logging.INFO,'(%s) No handler matched rule %s', rse['rse'], rule['id'])
+         return HandlerOutcome.NEED_ATTENTION
+ 
+     def finalize(
+diff --git a/lib/rucio/daemons/rsedecommissioner/rse_decommissioner.py b/lib/rucio/daemons/rsedecommissioner/rse_decommissioner.py
+index 05d0a17407..da78a1ec16 100644
+--- a/lib/rucio/daemons/rsedecommissioner/rse_decommissioner.py
++++ b/lib/rucio/daemons/rsedecommissioner/rse_decommissioner.py
+@@ -106,7 +106,7 @@ def run_once(
+ 
+         if config['status'] != DecommissioningStatus.PROCESSING:
+             logger(logging.INFO, 'Skipping RSE %s which has decommissioning status "%s"',
+-                   config['status'])
++                   rse['rse'], config['status'].value)
+             continue
+ 
+         try:
+@@ -228,7 +228,7 @@ def decommission_rse(
+     # Iterate over rules locking datasets / replicas at the RSE.
+     stop_reason = None
+     for rule in profile.discover(logger=logger):
+-        outcome = profile.process(rule, logger=logger)
++        outcome = profile.process(rse, rule, logger=logger)
+ 
+         if outcome == HandlerOutcome.UNTOUCHED:
+             num_untouched += 1
+
+From 0f82990c10850b7585aaab523ff16407fe47feda Mon Sep 17 00:00:00 2001
+From: Christos Emmanouil <chris19973@gmail.com>
+Date: Fri, 21 Nov 2025 15:29:02 +0100
+Subject: [PATCH 6/6] RSE Decommissioner: fix locked condition [skip ci]
+
+---
+ lib/rucio/daemons/rsedecommissioner/profiles/generic.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/lib/rucio/daemons/rsedecommissioner/profiles/generic.py b/lib/rucio/daemons/rsedecommissioner/profiles/generic.py
+index ec6bd7a850..4bb3bc46b3 100644
+--- a/lib/rucio/daemons/rsedecommissioner/profiles/generic.py
++++ b/lib/rucio/daemons/rsedecommissioner/profiles/generic.py
+@@ -313,10 +313,12 @@ def _is_locked(
+     *,
+     logger: "LoggerFunction" = logging.log
+ ) -> bool:
+-    logger(logging.INFO,
++    if str(rule.get("locked", "0")) in ("1", "True", "true"):
++        logger(logging.INFO,
+            '(%s) Rule %s for %s:%s is locked',
+            rse['rse'], rule['id'], rule['scope'], rule['name'])
+-    return rule['locked']
++        return True
++    return False
+ 
+ 
+ def _is_being_deleted(

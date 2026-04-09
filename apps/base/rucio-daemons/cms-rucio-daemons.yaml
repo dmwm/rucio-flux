@@ -18,6 +18,9 @@ secretMounts:
   - secretFullName: 8316-deep-patch
     mountPath: /patch/8316-deep.patch
     subPath: 8316-deep.patch
+  - secretFullName: 7636-deep-patch
+    mountPath: /patch/7636-deep.patch
+    subPath: 7636-deep-patch
 
 abacusAccountCount: 1
 abacusRseCount: 1
