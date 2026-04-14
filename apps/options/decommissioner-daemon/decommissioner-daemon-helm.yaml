@@ -9,7 +9,7 @@ spec:
       chart: ./charts/rucio-daemons
       sourceRef:
         kind: GitRepository
-        name: rucio-git
+        name: rucio-decommissioner-git
         namespace: flux-system
   interval: 30m
   install:
