@@ -1,10 +1,13 @@
+# Controls the release of all the compenents except the new WebUI which follows a different timetable
 image:
-  tag: release-39.3.0.cms1
+  tag: release-39.4.1.cms1
+
+# Always set the FTS renewal release the same unless there are issues
 ftsRenewal:
   image:
-    tag: 39.3.0
+    tag: 39.4.1
 
-# FIXME: Maybe not the best place for this but everything may need it
+# Here because it's needed for all the different components
 config:
   database:
     schema: "CMS_RUCIO_PROD"
