@@ -1,13 +1,13 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: rucio-git
+  name: rucio-decommissioner-git
   namespace: flux-system
 spec:
   interval: 30m
   url: https://github.com/juanpablosalas/helm-charts.git
   ref:
-    branch: master
+    branch: rsedecommissioner-daemon
   ignore: |
     # exclude all
     /*
