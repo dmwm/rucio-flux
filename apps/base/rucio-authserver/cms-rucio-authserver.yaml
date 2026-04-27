@@ -26,6 +26,10 @@ secretMounts:
   - secretFullName: idpsecrets
     mountPath: /opt/rucio/etc/idpsecrets.json
     subPath: idpsecrets.json
+  # Patches for servers go here
+  - secretFullName: hash-tokens-patch
+    mountPath: /patch/hash-tokens.patch
+    subPath: hash-tokens.patch
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
