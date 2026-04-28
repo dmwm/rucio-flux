@@ -17,3 +17,8 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  server-debug.patch
+  - name: hash-tokens-patch
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  hash-tokens.patch
