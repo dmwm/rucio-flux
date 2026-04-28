@@ -22,3 +22,8 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  hash-tokens.patch
+  - name: no-json-patch
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  no_json.patch
