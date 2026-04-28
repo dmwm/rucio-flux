@@ -26,4 +26,4 @@ secretGenerator:
     options:
       disableNameSuffixHash: true
     files:
-      -  no_json.patch
+      -  no-json.patch
