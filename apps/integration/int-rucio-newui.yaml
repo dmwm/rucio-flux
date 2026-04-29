@@ -1,42 +1,67 @@
-replicaCount: 1
+valuesFrom:
+    - kind: Secret
+      name: newui-oidc-client
+      valuesKey: client_id
+      targetPath: config.oidc_providers.cms.client_id
+    - kind: Secret
+      name: newui-oidc-client
+      valuesKey: client_secret
+      targetPath: config.oidc_providers.cms.client_secret
 
-image:
-  repository: rucio/rucio-webui
-  tag: release-39.2.0
+values:
+  replicaCount: 1
 
-ingress:
-  enabled: true
-  hosts:
-    - "cms-rucio-int-newui.cern.ch"
+  image:
+    repository: rucio/rucio-webui
+    tag: release-39.2.0
 
-optionalConfig:
-  rucio_webui_nextauth_url: "https://cms-rucio-int-newui.cern.ch"
+  ingress:
+    enabled: true
+    hosts:
+      - "cms-rucio-int-newui.cern.ch"
 
-config:
-  webui:
-    # hostname of the rucio server, include http:// or https://
-    rucio_host: "https://cms-rucio-int.cern.ch"
-    # hostname of the rucio-auth server, include http:// or https://
-    rucio_auth_host: "https://cms-rucio-auth-int.cern.ch"
-    # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
-    hostname: "cms-rucio-int-newui.cern.ch"
-    project_url: "https://cms.cern"
-    # if you want to add your own custom logo to the webui's login page, set this to the url of the logo
-    community_logo_url: "https://cms.cern/sites/default/files/inline-images/cms_logo.png"
-    multivo_enabled: "True"
-    # A csv string of vos containing their short names. For example: "def,atl,cms"
-    vo_list: "def,cms"
-    vo_default: "Default"
-    server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
-  vo:
-    def:
-      name: "Default"
-      oidc_enabled: "False"
-      oidc_providers: ""
-    cms:
-      name: "CMS"
-      oidc_enabled: "False"
-      oidc_providers: ""
+  config:
+    webui:
+      nextauth_url: "https://cms-rucio-int-newui.cern.ch"
+      auth_trust_host: "True"
+      # hostname of the rucio server, include http:// or https://
+      rucio_host: "https://cms-rucio-int.cern.ch"
+      # hostname of the rucio-auth server, include http:// or https://
+      rucio_auth_host: "https://cms-rucio-auth-int.cern.ch"
+      # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
+      hostname: "cms-rucio-int-newui.cern.ch"
+      project_url: "https://cms.cern"
+      # if you want to add your own custom logo to the webui's login page, set this to the url of the logo
+      community_logo_url: "https://cms.cern/sites/default/files/inline-images/cms_logo.png"
+      multivo_enabled: "False"
+      # A csv string of vos containing their short names. For example: "def,atl,cms"
+      vo_list: "def"
+      vo_default: "Default"
+      oidc_enabled: "True"
+        # A csv string of names of supported oidc providers that will be configured in the webui. For example: "cern,indico"
+      oidc_providers: "cms"
+      oidc_expected_audience: "rucio"
+      server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
+    
+    oidc_providers:
+        cms:
+          issuer: "https://cms-auth.cern.ch/"
+          # Icon showed next to OIDC auth in login page
+          icon_url: "https://raw.githubusercontent.com/rucio/webui/refs/heads/master/public/experiment-logo.png"
+          ### client id and secret are passed via secret ###
+          client_id: ""
+          client_secret: ""
+          redirect_url: "https://cms-rucio-int-newui.cern.ch/api/auth/callback/cms" # this is set in the IAM client
+          authorization_url: "https://cms-auth.cern.ch/authorize"
+          token_url: "https://cms-auth.cern.ch/token"
+          scopes: "openid,profile,wlcg"
+          userinfo_url: "https://cms-auth.cern.ch/userinfo"
 
-httpd_config:
-  legacy_dn: "False"
+    vo:
+      def:
+        name: "Default"
+        oidc_enabled: "True"
+        oidc_providers: "cms"
+
+  httpd_config:
+    legacy_dn: "False"
