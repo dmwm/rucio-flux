@@ -9,11 +9,10 @@ ingress:
   hosts:
     - "cms-rucio-int-newui.cern.ch"
 
-optionalConfig:
-  rucio_webui_nextauth_url: "https://cms-rucio-int-newui.cern.ch"
-
 config:
   webui:
+    nextauth_url: "https://cms-rucio-int-newui.cern.ch"
+    auth_trust_host: "True"
     # hostname of the rucio server, include http:// or https://
     rucio_host: "https://cms-rucio-int.cern.ch"
     # hostname of the rucio-auth server, include http:// or https://
@@ -23,20 +22,35 @@ config:
     project_url: "https://cms.cern"
     # if you want to add your own custom logo to the webui's login page, set this to the url of the logo
     community_logo_url: "https://cms.cern/sites/default/files/inline-images/cms_logo.png"
-    multivo_enabled: "True"
+    multivo_enabled: "False"
     # A csv string of vos containing their short names. For example: "def,atl,cms"
-    vo_list: "def,cms"
+    vo_list: "def"
     vo_default: "Default"
+    oidc_enabled: "True"
+      # A csv string of names of supported oidc providers that will be configured in the webui. For example: "cern,indico"
+    oidc_providers: "cms"
+    oidc_expected_audience: "rucio"
     server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
+  
+  oidc_providers:
+      cms:
+        issuer: "https://cms-auth.cern.ch/"
+        # Icon showed next to OIDC auth in login page
+        icon_url: "https://raw.githubusercontent.com/rucio/webui/refs/heads/master/public/experiment-logo.png"
+        # client id and secret are passed via secret
+        client_id: ""
+        client_secret: ""
+        redirect_url: "https://cms-rucio-int-newui.cern.ch/api/auth/callback/cms" # this is set in the IAM client
+        authorization_url: "https://cms-auth.cern.ch/authorize"
+        token_url: "https://cms-auth.cern.ch/token"
+        scopes: "openid,profile,wlcg"
+        userinfo_url: "https://cms-auth.cern.ch/userinfo"
+
   vo:
     def:
       name: "Default"
-      oidc_enabled: "False"
-      oidc_providers: ""
-    cms:
-      name: "CMS"
-      oidc_enabled: "False"
-      oidc_providers: ""
+      oidc_enabled: "True"
+      oidc_providers: "cms"
 
 httpd_config:
   legacy_dn: "False"
