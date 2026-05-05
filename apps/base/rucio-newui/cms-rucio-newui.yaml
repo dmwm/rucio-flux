@@ -58,10 +58,10 @@ service:
 exposeErrorLogs: False
 
 secretMounts:
-  - secretFullName: hostcert
+  - secretFullName: webui-hostcert
     mountPath: /etc/grid-security/hostcert.pem
     subPath: hostcert.pem
-  - secretFullName: hostkey
+  - secretFullName: webui-hostkey
     mountPath: /etc/grid-security/hostkey.pem
     subPath: hostkey.pem
   - secretFullName: ca-bundle
