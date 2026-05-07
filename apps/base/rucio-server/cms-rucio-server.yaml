@@ -29,9 +29,6 @@ secretMounts:
   - secretFullName: server-debug-patch
     mountPath: /patch/server-debug.patch
     subPath: server-debug.patch
-  - secretFullName: hash-tokens-patch
-    mountPath: /patch/hash-tokens.patch
-    subPath: hash-tokens.patch
   - secretFullName: no-json-patch
     mountPath: /patch/no-json.patch
     subPath: no-json.patch
