@@ -17,8 +17,3 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  server-debug.patch
-  - name: no-json-patch
-    options:
-      disableNameSuffixHash: true
-    files:
-      -  no-json.patch
