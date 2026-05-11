@@ -1,5 +1,5 @@
 image:
-  tag: release-38.3.0
+  tag: release-40.0.0
 
 ingress:
   enabled: true
