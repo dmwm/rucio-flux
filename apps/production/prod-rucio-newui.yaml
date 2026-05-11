@@ -13,6 +13,7 @@ proxy:
 
 config:
   webui:
+    nextauth_url: "https://cms-rucio-newui.cern.ch"
     # hostname of the rucio server, include http:// or https://
     rucio_host: "https://cms-rucio.cern.ch"
     # hostname of the rucio-auth server, include http:// or https://
@@ -20,6 +21,7 @@ config:
     # hostname of the webui ( without http:// or https://, just the hostname, no port or scheme required)
     hostname: "cms-rucio-newui.cern.ch"
     server_ca_bundle: "/etc/grid-security/CERN-bundle.pem"
+    community_logo_url: "https://cms-docdb.cern.ch/cgi-bin/PublicDocDB/RetrieveFile?docid=3045&filename=CMSlogo_color_nolabel_128_May2014.png&version=3"
 
 httpd_config:
   legacy_dn: "False"
