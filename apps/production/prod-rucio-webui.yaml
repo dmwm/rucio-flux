@@ -1,8 +1,5 @@
 replicaCount: 4
 
-image:
-  tag: release-38.1.0.cms1
-
 ingress:
   hosts:
     - "cms-rucio-webui.cern.ch"
