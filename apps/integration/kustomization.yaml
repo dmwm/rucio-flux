@@ -15,6 +15,7 @@ resources:
   - ../base/rucio-newui
   - ../base/patches
   - ../base/configs
+  - int-rucio-sa-read-only.yaml
 
 configMapGenerator:
   - name: instance-rucio-server
