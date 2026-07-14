@@ -2,6 +2,7 @@ conveyorTransferSubmitterCount: 1
 conveyorPollerCount: 1
 conveyorFinisherCount: 1
 conveyorPreparerCount: 1
+rseDecommissionerCount: 1
 darkReaperCount: 1
 cacheConsumerCount: 0
 replicaRecovererCount: 1
@@ -41,3 +42,8 @@ conveyorPoller:
   config:
     conveyor:
       transfertool: "fts3"
+
+rseDecommissioner:
+  config:
+    max_rules: 10
+    max_locks: 100
