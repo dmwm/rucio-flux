@@ -35,4 +35,5 @@ automaticRestart:
 
 # Ignore availability option is missing in conveyor helm charts for preparer
 config:
-  use_preparer: false
+  conveyor:
+    use_preparer: "false"
