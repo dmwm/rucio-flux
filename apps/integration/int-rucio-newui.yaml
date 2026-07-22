@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: rucio/rucio-webui
-  tag: release-40.0.0
+  tag: release-41.0.0
 
 ingress:
   enabled: true
