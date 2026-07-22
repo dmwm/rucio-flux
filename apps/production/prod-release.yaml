@@ -1,11 +1,11 @@
 # Controls the release of all the compenents except the new WebUI which follows a different timetable
 image:
-  tag: release-40.3.0.cms1
+  tag: release-40.4.1.cms2
 
 # Always set the FTS renewal release the same unless there are issues
 ftsRenewal:
   image:
-    tag: 40.3.0
+    tag: 40.4.0
 
 # Here because it's needed for all the different components
 config:
