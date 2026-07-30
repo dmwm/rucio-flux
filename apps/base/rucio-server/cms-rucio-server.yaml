@@ -29,6 +29,9 @@ secretMounts:
   - secretFullName: server-debug-patch
     mountPath: /patch/server-debug.patch
     subPath: server-debug.patch
+  - secretFullName: auth-challenge-token-patch
+    mountPath: /patch/auth-challenge-token.patch
+    subPath: auth-challenge-token.patch
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"
