@@ -238,11 +238,10 @@ config:
     prefetch_size: "50"
   messaging_fts3:
     username: "cmsrucio"
-    port: "61123"
     destination: "/queue/Consumer.cmsrucio.transfer.fts_monitoring_complete"
     brokers: "dashb-mb.cern.ch"
     voname: "cms"
-    nonssl_port: "61113"
+    port: "61113"
     use_ssl: "False"
   bb8:
     tolerance: 0.01
