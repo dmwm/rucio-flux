@@ -17,8 +17,3 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  server-debug.patch
-  - name: auth-challenge-token-patch
-    options:
-      disableNameSuffixHash: true
-    files:
-      -  auth-challenge-token.patch
