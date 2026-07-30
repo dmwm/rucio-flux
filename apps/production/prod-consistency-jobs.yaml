@@ -29,6 +29,8 @@ consistency:
       interval: 7
     T1_RU_JINR_Disk:
       interval: 7
+    T1_UK_RAL_Disk:
+      interval: 1
     T1_UK_RAL_Tape:
       interval: 0
       maxdarkfraction: "0.0000001"
