@@ -93,3 +93,5 @@ persistentVolumes:
 additionalEnvs:
   - name: X509_USER_PROXY
     value: "/opt/proxy/x509up"
+  - name: RUCIO_HTTPD_ENCODED_SLASHES_NO_DECODE
+    value: "true"
