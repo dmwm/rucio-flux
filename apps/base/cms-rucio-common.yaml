@@ -65,3 +65,10 @@ ftsRenewal:
       value: "usercert.pem"
     - name: USERKEY_NAME
       value: "new_userkey.pem"
+  resources:
+    limits:
+      cpu: 1250m
+      memory: 2Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi
