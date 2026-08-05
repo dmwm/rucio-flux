@@ -29,3 +29,11 @@ spec:
       name: rucio-secrets
       valuesKey: db_string
       targetPath: config.database.default
+    - kind: Secret
+      name: newui-oidc-client
+      valuesKey: client_id
+      targetPath: config.oidc_providers.cms.client_id
+    - kind: Secret
+      name: newui-oidc-client
+      valuesKey: client_secret
+      targetPath: config.oidc_providers.cms.client_secret
