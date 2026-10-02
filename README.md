@@ -97,8 +97,6 @@ kronos_password="..."  # Used to connect to the message broker
 trace_password="..." # Used to connect to the message broker
 monit_token="..." # Used to connect to FacOps MONIT pages for site status
 gitlab_token="..." # Token for SITECONF gitlab repositroy
-globus_client="..." # Not currently used
-globus_refresh="..." # Not currently used
 geoip_licence_key="..." # Used to connect to the MaxMind GeoIP database
 ```
 

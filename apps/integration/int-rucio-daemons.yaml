@@ -28,16 +28,5 @@ config:
   tracer_kronos:
     brokers: "cms-test-mb.cern.ch"
     queue: "/topic/cms.rucio.tracer"
-  conveyor:
-    use_preparer: "True"
-    transfertool: "fts3,globus"
-    transfertype: "bulk"
-    scheme: "davs,root,gsiftp,srm,globus"
-    globus_auth_app: "CMSRucioProduction"
   messaging_hermes:
     brokers: "cms-test-mb.cern.ch"
-
-conveyorPoller:
-  config:
-    conveyor:
-      transfertool: "fts3"
