@@ -9,6 +9,8 @@ persistentVolumes:
     name: csi-cvmfs-grid-pvc
     mountPath: /cvmfs/grid.cern.ch
 
-  secretMounts:
-    - secretFullName: idpsecrets
-      mountPath: /opt/rucio/etc/idpsecrets.json
+secretMounts:
+  - secretFullName: idpsecrets
+    mountPath: /opt/rucio/etc/idpsecrets.json
+  - secretFullName: server-rucio-x509up
+    mountPath: /opt/proxy-through-secret
