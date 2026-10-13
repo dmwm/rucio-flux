@@ -22,3 +22,8 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  no-json.patch
+  - name: sense-dmm-patch
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  sense-dmm.patch

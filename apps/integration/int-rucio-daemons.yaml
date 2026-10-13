@@ -16,9 +16,33 @@ darkReaper:
 
 conveyorTransferSubmitter:
   threads: 1
+  # The list in cms-rucio-daemons.yaml plus 'Sense Test', the activity of DMM's rules
+  activities:
+    "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Data Rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions' 'User AutoApprove' 'Analysis TapeRecall' 'Manual Transfers' 'Sense Test'"
 
 podLabels:
   rucioInstance: "int"
+
+# Helm replaces lists, so this repeats the mounts of cms-rucio-daemons.yaml and adds the SENSE patch
+secretMounts:
+  - secretFullName: server-rucio-x509up
+    mountPath: /opt/proxy
+  - secretFullName: idpsecrets
+    mountPath: /opt/rucio/etc/idpsecrets.json
+    subPath: idpsecrets.json
+  - secretFullName: replica-recoverer-config
+    mountPath: /opt/rucio/etc/suspicious_replica_recoverer.json
+    subPath: suspicious_replica_recoverer.json
+# Patches for daemons go here
+  - secretFullName: 7690-audience-patch
+    mountPath: /patch/7690-audience.patch
+    subPath: 7690-audience.patch
+  - secretFullName: 8316-deep-patch
+    mountPath: /patch/8316-deep.patch
+    subPath: 8316-deep.patch
+  - secretFullName: sense-dmm-patch
+    mountPath: /patch/sense-dmm.patch
+    subPath: sense-dmm.patch
 
 
 config:
@@ -36,6 +60,10 @@ config:
     globus_auth_app: "CMSRucioProduction"
   messaging_hermes:
     brokers: "cms-test-mb.cern.ch"
+  # Read by the SENSE transfertool from sense-dmm.patch
+  dmm:
+    url: "http://dmm.rucio.svc.cluster.local:8080"
+    activities: "Sense Test"
 
 conveyorPoller:
   config:
