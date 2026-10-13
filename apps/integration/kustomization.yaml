@@ -12,6 +12,7 @@ resources:
   - ../base/cms-rucio-cron
   - ../base/cms-rucio-cvmfs
   - ../options/globus-daemons
+  - ../options/dmm
   - ../base/rucio-newui
   - ../base/patches
   - ../base/configs
