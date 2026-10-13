@@ -1,0 +1,124 @@
+# Rucio's conveyor reaches this at http://dmm.rucio.svc.cluster.local:8080 ([dmm] url)
+apiVersion: v1
+kind: Service
+metadata:
+  name: dmm
+  labels:
+    app.kubernetes.io/name: dmm
+spec:
+  selector:
+    app.kubernetes.io/name: dmm
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+---
+# DMM logs to files, not just stdout, so keep them across restarts
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dmm-logs
+  labels:
+    app.kubernetes.io/name: dmm
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dmm
+  labels:
+    app.kubernetes.io/name: dmm
+spec:
+  replicas: 1
+  # Two DMMs would provision and cancel the same SENSE circuits
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dmm
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: dmm
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "80"
+    spec:
+      containers:
+        - name: dmm
+          image: aaarora/dmm:dev
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: DMM_LOG_FILE
+              value: /var/log/dmm/dmm.log
+            - name: DMM_LOG_MAX_BYTES
+              value: "20971520"
+            - name: DMM_LOG_BACKUP_COUNT
+              value: "50"
+          # Only whether the process serves: /health also checks the database and
+          # SENSE sites, and restarting for those would drop in-flight circuits
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 2Gi
+            limits:
+              cpu: 4000m
+              memory: 4Gi
+          volumeMounts:
+            - name: logs
+              mountPath: /var/log/dmm
+            - name: dmm-config
+              mountPath: /opt/dmm/dmm.cfg
+              subPath: dmm.cfg
+            - name: dmm-rucio-config
+              mountPath: /opt/rucio/etc/rucio.cfg
+              subPath: rucio.cfg
+            - name: dmm-sense-config
+              mountPath: /root/.sense-o-auth.yaml
+              subPath: .sense-o-auth.yaml
+            # [fts] cert and key in dmm.cfg
+            - name: dmm-certs
+              mountPath: /opt/certs
+              readOnly: true
+            - name: grid-cern-ch
+              mountPath: /cvmfs/grid.cern.ch
+              readOnly: true
+            # DMM verifies FTS against this fixed path
+            - name: grid-cern-ch
+              mountPath: /etc/grid-security/certificates
+              subPath: etc/grid-security/certificates
+              readOnly: true
+      volumes:
+        - name: logs
+          persistentVolumeClaim:
+            claimName: dmm-logs
+        - name: dmm-config
+          secret:
+            secretName: dmm-config
+        - name: dmm-rucio-config
+          secret:
+            secretName: dmm-rucio-config
+        - name: dmm-sense-config
+          secret:
+            secretName: dmm-sense-config
+        - name: dmm-certs
+          secret:
+            secretName: dmm-certs
+            defaultMode: 0400
+        - name: grid-cern-ch
+          persistentVolumeClaim:
+            claimName: csi-cvmfs-grid-pvc
+            readOnly: true

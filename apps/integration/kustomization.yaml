@@ -11,6 +11,7 @@ resources:
   - ../base/rucio-probes
   - ../base/cms-rucio-cron
   - ../base/cms-rucio-cvmfs
+  - ../options/dmm
   - ../base/rucio-newui
   - ../base/patches
   - ../base/configs
