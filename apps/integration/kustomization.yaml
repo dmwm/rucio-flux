@@ -11,7 +11,6 @@ resources:
   - ../base/rucio-probes
   - ../base/cms-rucio-cron
   - ../base/cms-rucio-cvmfs
-  - ../options/globus-daemons
   - ../base/rucio-newui
   - ../base/patches
   - ../base/configs
@@ -51,8 +50,5 @@ configMapGenerator:
   - name: instance-rucio-cron
     files:
       - values.yaml=int-cms-cron.yaml
-  - name: globus-rucio-daemons
-    files:
-      - values.yaml=int-globus-daemons.yaml
 configurations:
   - kustomizeconfig.yaml
