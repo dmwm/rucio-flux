@@ -24,8 +24,8 @@ config:
     brokers: "localhost"
     voname: "cms"
   conveyor:
-    ftshosts: "https://fts4-cms.cern.ch:8446,https://fts4-pilot.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446"
-    ftsmonhosts: "https://fts4-cms.cern.ch:8449,https://fts4-pilot.cern.ch:8449,https://cmsfts3.fnal.gov:8449,https://fts3-cms.cern.ch:8449,https://lcgfts3.gridpp.rl.ac.uk:8449"
+    ftshosts: "https://fts4-preprod.cern.ch:8446,https://fts4-cms.cern.ch:8446,https://fts4-pilot.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446"
+    ftsmonhosts: "https://fts4-preprod.cern.ch:8449,https://fts4-cms.cern.ch:8449,https://fts4-pilot.cern.ch:8449,https://cmsfts3.fnal.gov:8449,https://fts3-cms.cern.ch:8449,https://lcgfts3.gridpp.rl.ac.uk:8449"
     bring_online: "2678400"
     scheme: "davs,root,gsiftp,srm"
     use_preparer: "true"
@@ -54,7 +54,7 @@ ftsRenewal:
     tag: 38.5.1
     pullPolicy: Always
   script: default
-  servers: "https://fts4-cms.cern.ch:8446,https://fts4-pilot.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446,https://fts00.grid.hep.ph.ic.ac.uk:8446"
+  servers: "https://fts4-preprod.cern.ch:8446,https://fts4-cms.cern.ch:8446,https://fts4-pilot.cern.ch:8446,https://cmsfts3.fnal.gov:8446,https://fts3-cms.cern.ch:8446,https://lcgfts3.gridpp.rl.ac.uk:8446,https://fts3-pilot.cern.ch:8446,https://fts00.grid.hep.ph.ic.ac.uk:8446"
   vos:
     - vo: "cms"
       voms: "cms:/cms/Role=production"
