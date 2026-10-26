@@ -82,9 +82,34 @@ config:
         Keep_Log On
         K8S-Logging.Exclude On
 
+    # Retag records from the main rucio-server container for dedicated access-log parsing.
+    # Matching records are moved to logs.server.* and parsed there.
+    [FILTER]
+        Name rewrite_tag
+        Match kube.*
+        Rule $kubernetes['container_name'] ^rucio-server$ logs.server.$TAG false
+
+    # Parse Apache access-style lines emitted by server/authserver/traceserver pods.
+    # Non-matching records under logs.server.* are left unchanged.
+    [FILTER]
+        Name parser
+        Match logs.server.*
+        Key_Name message
+        Parser rucio_server_access
+        Reserve_Data On
+        Preserve_Key On
+
     [FILTER]
         Name record_modifier
         Match kube.*
+        Record producer cmsrucio
+        Record type logs
+        Remove_key annotations
+        Remove_key labels
+
+    [FILTER]
+        Name record_modifier
+        Match logs.server.*
         Record producer cmsrucio
         Record type logs
         Remove_key annotations
@@ -99,13 +124,20 @@ config:
         Time_Format %Y-%m-%dT%H:%M:%S.%L%z
         Time_Keep   On
 
+    # Apache logFormat used by rucio-server chart:
+    # [%{%Y-%m-%d %H:%M:%S}t]\t%v\t%h\t%{X-Forwarded-For}i\t%{X-Rucio-RequestId}i\t%>s\t%I\t%B\t%D\t"%r"\t"%{X-Rucio-Account}i"\t"%{User-Agent}i"\t%{X-Rucio-Script}i
+    [PARSER]
+        Name rucio_server_access
+        Format regex
+        Regex ^\[(?<request_time>[^\]]+)\]\t(?<vhost>[^\t]+)\t(?<remote_host>[^\t]+)\t(?<x_forwarded_for>[^\t]+)\t(?<request_id>[^\t]+)\t(?<status_code>\d{3})\t(?<bytes_in>(?:\d+|-))\t(?<bytes_out>(?:\d+|-))\t(?<duration_us>(?:\d+|-))\t\"(?<http_method>[A-Z]+)\s+(?<http_path>[^\s\"]+)\s+(?<http_version>[^\"]+)\"\t\"(?<rucio_account>[^\"]*)\"\t\"(?<http_user_agent>[^\"]*)\"\t(?<rucio_script>.*)$
+
   outputs: |
     [OUTPUT]
-        Name HTTP 
+        Name HTTP
         Match *
-        Host ${timberHost} 
-        Port ${timberPort} 
-        URI ${timberPath} 
+        Host ${timberHost}
+        Port ${timberPort}
+        URI ${timberPath}
         HTTP_User ${timberUser}
         HTTP_Passwd ${timberPassword}
         Format json
