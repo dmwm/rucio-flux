@@ -4,5 +4,5 @@ namespace: rucio
 # Data Movement Manager for Rucio-SENSE (https://github.com/aashayarora/rucio-sense-dmm)
 # Its secrets are created out of band by scripts/create_dmm_secrets.sh
 resources:
-  - dmm-postgres.yaml
-  - dmm.yaml
+  - dmm-source.yaml
+  - dmm-helm.yaml

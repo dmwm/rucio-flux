@@ -51,5 +51,8 @@ configMapGenerator:
   - name: instance-rucio-cron
     files:
       - values.yaml=int-cms-cron.yaml
+  - name: instance-dmm
+    files:
+      - values.yaml=int-dmm.yaml
 configurations:
   - kustomizeconfig.yaml

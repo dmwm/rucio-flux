@@ -1,0 +1,9 @@
+# The DMM chart (etc/helm in https://github.com/aashayarora/rucio-sense-dmm), released by
+# chart-releaser to GitHub releases and indexed on its GitHub Pages, like the Rucio charts
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: dmm
+spec:
+  interval: 30m
+  url: https://aashayarora.github.io/rucio-sense-dmm

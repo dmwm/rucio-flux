@@ -1,0 +1,16 @@
+tolerations: []
+
+ingress:
+  enabled: false
+
+# The secrets made by scripts/create_dmm_secrets.sh, plus the daemons' FTS proxy
+secrets:
+  dmmConfig: dmm-config
+  rucioClientConfig: dmm-rucio-config
+  senseConfig: dmm-sense-config
+  certs: server-rucio-x509up
+  caBundle: dmm-grid-certificates
+
+certs:
+  mountDir: /opt/proxy
+  mountSecret: true
