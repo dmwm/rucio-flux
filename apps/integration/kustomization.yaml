@@ -11,6 +11,7 @@ resources:
   - ../base/rucio-probes
   - ../base/cms-rucio-cron
   - ../base/cms-rucio-cvmfs
+  - ../options/dmm
   - ../base/rucio-newui
   - ../base/patches
   - ../base/configs
@@ -50,5 +51,8 @@ configMapGenerator:
   - name: instance-rucio-cron
     files:
       - values.yaml=int-cms-cron.yaml
+  - name: instance-dmm
+    files:
+      - values.yaml=int-dmm.yaml
 configurations:
   - kustomizeconfig.yaml
