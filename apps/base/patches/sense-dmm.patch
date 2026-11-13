@@ -1,0 +1,178 @@
+diff --git a/lib/rucio/core/transfer.py b/lib/rucio/core/transfer.py
+index abe14376d..35b7e3d46 100644
+--- a/lib/rucio/core/transfer.py
++++ b/lib/rucio/core/transfer.py
+@@ -44,6 +44,7 @@ from rucio.db.sqla.session import read_session, stream_session, transactional_se
+ from rucio.rse import rsemanager as rsemgr
+ from rucio.transfertool.bittorrent import BittorrentTransfertool
+ from rucio.transfertool.fts3 import FTS3Transfertool
++from rucio.transfertool.fts3_sense import SenseFTS3Transfertool
+ from rucio.transfertool.globus import GlobusTransferTool
+ from rucio.transfertool.mock import MockTransfertool
+ 
+@@ -75,7 +76,7 @@ WEBDAV_TRANSFER_MODE = config_get('conveyor', 'webdav_transfer_mode', False, Non
+ DEFAULT_MULTIHOP_TOMBSTONE_DELAY = int(datetime.timedelta(hours=2).total_seconds())
+ 
+ TRANSFERTOOL_CLASSES_BY_NAME: "dict[str, type[Transfertool]]" = {
+-    FTS3Transfertool.external_name: FTS3Transfertool,
++    SenseFTS3Transfertool.external_name: SenseFTS3Transfertool,
+     GlobusTransferTool.external_name: GlobusTransferTool,
+     MockTransfertool.external_name: MockTransfertool,
+     BittorrentTransfertool.external_name: BittorrentTransfertool,
+diff --git a/lib/rucio/daemons/conveyor/submitter.py b/lib/rucio/daemons/conveyor/submitter.py
+index 30e1058f1..f31308a89 100644
+--- a/lib/rucio/daemons/conveyor/submitter.py
++++ b/lib/rucio/daemons/conveyor/submitter.py
+@@ -33,7 +33,7 @@ from rucio.core.transfer import DEFAULT_MULTIHOP_TOMBSTONE_DELAY, TRANSFERTOOL_C
+ from rucio.daemons.common import ProducerConsumerDaemon, db_workqueue
+ from rucio.daemons.conveyor.common import get_conveyor_rses, pick_and_prepare_submission_path, submit_transfer
+ from rucio.db.sqla.constants import RequestState, RequestType
+-from rucio.transfertool.fts3 import FTS3Transfertool
++from rucio.transfertool.fts3_sense import SenseFTS3Transfertool
+ from rucio.transfertool.globus import GlobusTransferTool
+ 
+ if TYPE_CHECKING:
+@@ -261,7 +261,7 @@ def submitter(
+         rse_ids = None
+ 
+     transfertool_kwargs = {
+-        FTS3Transfertool: {
++        SenseFTS3Transfertool: {
+             'group_policy': group_policy,
+             'group_bulk': group_bulk,
+             'source_strategy': source_strategy,
+diff --git a/lib/rucio/transfertool/fts3_sense.py b/lib/rucio/transfertool/fts3_sense.py
+new file mode 100644
+index 000000000..5c197f3f5
+--- /dev/null
++++ b/lib/rucio/transfertool/fts3_sense.py
+@@ -0,0 +1,129 @@
++# Copyright European Organization for Nuclear Research (CERN) since 2012
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#    http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++"""
++FTS3 transfertool with SENSE network routing.
++
++DMM (the SENSE Data Movement Manager) provisions a network circuit per rule and
++assigns the rule its own endpoint at each end. FTS link limits are configured on
++those endpoints, so the source and destination URLs handed to FTS have to name
++them instead of the storage's usual host. The rewrite happens only in the FTS
++job: Rucio keeps the original URLs in its database.
++"""
++
++import logging
++from typing import TYPE_CHECKING, Any, Optional
++from urllib.parse import urlparse, urlunparse
++
++import requests
++
++from rucio.common.config import config_get
++from rucio.transfertool.fts3 import FTS3Transfertool
++
++if TYPE_CHECKING:
++    from collections.abc import Sequence
++
++    from rucio.core.request import DirectTransfer
++
++DMM_TIMEOUT = 5
++
++
++def _replace_netloc(url: str, netloc: str) -> str:
++    return urlunparse(urlparse(url)._replace(netloc=netloc))
++
++
++class SenseFTS3Transfertool(FTS3Transfertool):
++    """
++    FTS3Transfertool which routes transfers of SENSE rules over their circuit.
++
++    It keeps the 'fts3' external name, so it can replace FTS3Transfertool in the
++    transfertool registry without touching requests, RSE attributes or daemon
++    options. With no [dmm] url configured it only adds rule_id to the file metadata.
++    """
++
++    def __init__(self, external_host: str, *args, **kwargs):
++        super().__init__(external_host, *args, **kwargs)
++        self.dmm_url = config_get('dmm', 'url', False, None)
++        activities = config_get('dmm', 'activities', False, 'sense test')
++        self.sense_activities = {activity.strip().lower() for activity in activities.split(',')}
++        # rule_id -> DMM allocation, or None when DMM has none. An instance lives
++        # for one submission cycle, so this never outlasts an allocation for long.
++        self.dmm_allocations: dict[str, Optional[dict[str, str]]] = {}
++        self.dmm_unavailable = False
++
++    def submit(self, transfers: "Sequence[DirectTransfer]", job_params: dict[str, str], timeout: Optional[int] = None) -> str:
++        self._fetch_dmm_allocations(transfers)
++        return super().submit(transfers, job_params, timeout)
++
++    def _file_from_transfer(self, transfer: "DirectTransfer", job_params: dict[str, str]) -> dict[str, Any]:
++        t_file = super()._file_from_transfer(transfer, job_params)
++        # DMM finds the transfers of a rule in FTS monitoring by this field
++        t_file['metadata']['rule_id'] = transfer.rws.rule_id
++
++        allocation = self.dmm_allocations.get(transfer.rws.rule_id)
++        if allocation:
++            self._route_over_sense(transfer, t_file, allocation)
++        return t_file
++
++    def _is_sense_transfer(self, transfer: "DirectTransfer") -> bool:
++        return bool(transfer.rws.rule_id) and (transfer.rws.activity or '').lower() in self.sense_activities
++
++    def _fetch_dmm_allocations(self, transfers: "Sequence[DirectTransfer]") -> None:
++        """
++        Ask DMM, in one request, for the allocations of all SENSE rules in this job.
++        """
++        if not self.dmm_url or self.dmm_unavailable:
++            return
++
++        rule_ids = sorted({t.rws.rule_id for t in transfers if self._is_sense_transfer(t)} - self.dmm_allocations.keys())
++        if not rule_ids:
++            return
++
++        try:
++            response = requests.get(f'{self.dmm_url}/query', params={'rule_id': rule_ids}, timeout=DMM_TIMEOUT)
++            response.raise_for_status()
++            allocations = response.json()
++            if not isinstance(allocations, dict):
++                raise ValueError(f'expected a JSON object, got {type(allocations).__name__}')
++        except (requests.RequestException, ValueError) as error:
++            # One slow or dead DMM must not stall every job of the cycle
++            self.dmm_unavailable = True
++            self.logger(logging.WARNING, 'DMM query failed, submitting without SENSE routing for the rest of this cycle: %s', error)
++            return
++
++        for rule_id in rule_ids:
++            allocation = allocations.get(rule_id)
++            if isinstance(allocation, dict) and all(isinstance(allocation.get(key), str) for key in ('source', 'destination', 'src_rse', 'dst_rse')):
++                self.dmm_allocations[rule_id] = allocation
++                self.logger(logging.DEBUG, 'DMM allocation for rule %s: %s -> %s', rule_id, allocation['source'], allocation['destination'])
++            else:
++                self.dmm_allocations[rule_id] = None
++                self.logger(logging.INFO, 'No DMM allocation for rule %s yet, submitting without SENSE routing', rule_id)
++
++    def _route_over_sense(self, transfer: "DirectTransfer", t_file: dict[str, Any], allocation: dict[str, str]) -> None:
++        """
++        Point the source and destination URLs of the file at the rule's SENSE endpoints.
++        """
++        src_rse, dst_rse = transfer.src.rse.name, transfer.dst.rse.name
++        # The circuit only joins the two RSEs DMM allocated it for (a multihop leg, for instance, doesn't qualify)
++        if (src_rse, dst_rse) != (allocation['src_rse'], allocation['dst_rse']):
++            self.logger(logging.WARNING, 'SENSE allocation for rule %s is %s -> %s, not rerouting transfer %s -> %s of request %s',
++                        transfer.rws.rule_id, allocation['src_rse'], allocation['dst_rse'], src_rse, dst_rse, transfer.rws.request_id)
++            return
++
++        old_src, old_dst = t_file['sources'][0], t_file['destinations'][0]
++        t_file['sources'][0] = _replace_netloc(old_src, allocation['source'])
++        t_file['destinations'][0] = _replace_netloc(old_dst, allocation['destination'])
++        self.logger(logging.INFO, 'SENSE routing request %s of rule %s: %s -> %s, %s -> %s',
++                    transfer.rws.request_id, transfer.rws.rule_id, old_src, t_file['sources'][0], old_dst, t_file['destinations'][0])
