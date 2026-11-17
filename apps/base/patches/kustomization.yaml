@@ -27,3 +27,8 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  sense-dmm.patch
+  - name: 8581-decommissioner-patch
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  8581-decommissioner.patch

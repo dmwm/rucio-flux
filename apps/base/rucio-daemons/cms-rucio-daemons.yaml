@@ -18,6 +18,9 @@ secretMounts:
   - secretFullName: 8316-deep-patch
     mountPath: /patch/8316-deep.patch
     subPath: 8316-deep.patch
+  - secretFullName: 8581-decommissioner-patch
+    mountPath: /patch/8581-decommissioner.patch
+    subPath: 8581-decommissioner.patch
 
 abacusAccountCount: 1
 abacusRseCount: 1
@@ -323,3 +326,14 @@ persistentVolumes:
   grid-cern-ch:
     name: csi-cvmfs-grid-pvc
     mountPath: /cvmfs/grid.cern.ch
+
+rseDecommissioner:
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+  additionalEnvs:
+    - name: X509_USER_PROXY
+      value: "/opt/proxy/x509up"
+  config:
+    rse-decommissioner:
+      custom_profile: "cms_decommissioner"
