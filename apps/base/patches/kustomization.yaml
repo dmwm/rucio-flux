@@ -22,3 +22,8 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  fts4-tape.patch
+  - name: 8581-decommissioner-patch
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  8581-decommissioner.patch
