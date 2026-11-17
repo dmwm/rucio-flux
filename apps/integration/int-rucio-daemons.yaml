@@ -5,6 +5,7 @@ conveyorPreparerCount: 1
 darkReaperCount: 1
 cacheConsumerCount: 0
 replicaRecovererCount: 1
+rseDecommissionerCount: 1
 
 reaper:
   includeRses: "cms_type=int"
@@ -43,6 +44,9 @@ secretMounts:
   - secretFullName: sense-dmm-patch
     mountPath: /patch/sense-dmm.patch
     subPath: sense-dmm.patch
+  - secretFullName: 8581-decommissioner-patch
+    mountPath: /patch/8581-decommissioner.patch
+    subPath: 8581-decommissioner.patch
 
 
 config:
