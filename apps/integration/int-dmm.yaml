@@ -3,6 +3,15 @@ tolerations: []
 ingress:
   enabled: false
 
+# DMM's database is an external, CERB DBOD PostgreSQL, set in dmm.cfg [db]
+postgres:
+  enabled: false
+
+dmm:
+  logs:
+    persistence:
+      enabled: false
+
 # The secrets made by scripts/create_dmm_secrets.sh, plus the daemons' FTS proxy
 secrets:
   dmmConfig: dmm-config
