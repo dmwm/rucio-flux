@@ -7,6 +7,11 @@ ingress:
 postgres:
   enabled: false
 
+dmm:
+  logs:
+    persistence:
+      enabled: false
+
 # The secrets made by scripts/create_dmm_secrets.sh, plus the daemons' FTS proxy
 secrets:
   dmmConfig: dmm-config
