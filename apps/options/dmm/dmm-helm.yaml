@@ -18,7 +18,3 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: instance-dmm
-    - kind: Secret
-      name: dmm-db
-      valuesKey: password
-      targetPath: postgres.env.password
