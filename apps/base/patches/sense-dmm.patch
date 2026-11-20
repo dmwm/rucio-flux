@@ -104,7 +104,7 @@ index 000000000..5c197f3f5
 +    def __init__(self, external_host: str, *args, **kwargs):
 +        super().__init__(external_host, *args, **kwargs)
 +        self.dmm_url = config_get('dmm', 'url', False, None)
-+        activities = config_get('dmm', 'activities', False, 'sense test')
++        activities = config_get('dmm', 'activities', False, 'SENSE test')
 +        self.sense_activities = {activity.strip().lower() for activity in activities.split(',')}
 +        # rule_id -> DMM allocation, or None when DMM has none. An instance lives
 +        # for one submission cycle, so this never outlasts an allocation for long.
