@@ -17,9 +17,9 @@ darkReaper:
 
 conveyorTransferSubmitter:
   threads: 1
-  # The list in cms-rucio-daemons.yaml plus 'Sense Test', the activity of DMM's rules
+  # The list in cms-rucio-daemons.yaml plus 'SENSE Test', the activity of DMM's rules
   activities:
-    "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Data Rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions' 'User AutoApprove' 'Analysis TapeRecall' 'Manual Transfers' 'Sense Test'"
+    "'Data Challenge' 'Data Consolidation' 'Recovery' 'Data Brokering' 'Data rebalancing' 'Data Rebalancing' 'Debug' 'Express' 'Group Subscriptions' 'Production Input' 'Production Output' 'Analysis Input' 'Analysis Output' 'Staging' 'T0 Export' 'T0 Tape' 'Upload/Download (Job)' 'Upload/Download (User)' 'User Subscriptions' 'User AutoApprove' 'Analysis TapeRecall' 'Manual Transfers' 'SENSE Test'"
 
 podLabels:
   rucioInstance: "int"
@@ -61,4 +61,4 @@ config:
   # Read by the SENSE transfertool from sense-dmm.patch
   dmm:
     url: "http://dmm.rucio.svc.cluster.local:8080"
-    activities: "Sense Test"
+    activities: "SENSE Test"
