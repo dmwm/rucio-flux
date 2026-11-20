@@ -97,3 +97,5 @@ config:
   tracer_kronos:
     chunksize: "5"
     prefetch_size: "5"
+  conveyor:
+    scheme: "davs,https"
