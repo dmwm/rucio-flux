@@ -12,6 +12,11 @@ secretGenerator:
       disableNameSuffixHash: true
     files:
       -  7690-audience.patch
+  - name: tape-archive-tokens-patch
+    options:
+      disableNameSuffixHash: true
+    files:
+      -  tape-archive-tokens.patch
   - name: server-debug-patch
     options:
       disableNameSuffixHash: true

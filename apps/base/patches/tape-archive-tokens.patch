@@ -1,0 +1,50 @@
+diff --git a/lib/rucio/transfertool/fts3.py b/lib/rucio/transfertool/fts3.py
+index 7aef2ac82..850ae2860 100644
+--- a/lib/rucio/transfertool/fts3.py
++++ b/lib/rucio/transfertool/fts3.py
+@@ -312,6 +312,10 @@ def _use_tokens(transfer_hop: "DirectTransfer") -> bool:
+         if (endpoint.rse.attributes.get(RseAttr.OIDC_SUPPORT) is not True
+                 or endpoint.scheme != 'davs'):
+             return False
++    # Prohibit staging from tape with tokens.
++    for endpoint in transfer_hop.sources:
++        if endpoint.rse.is_tape_or_staging_required():
++            return False
+     return True
+ 
+ 
+@@ -1056,6 +1060,8 @@ class FTS3Transfertool(Transfertool):
+         :param timeout:      Timeout in seconds.
+         :returns:            FTS transfer identifier.
+         """
++        job_params = job_params.copy()
++
+         files = []
+         for transfer in transfers:
+             files.append(self._file_from_transfer(transfer, job_params))
+@@ -1068,12 +1074,24 @@ class FTS3Transfertool(Transfertool):
+         transfer_id = None
+         expected_transfer_id = None
+         if self.deterministic_id:
+-            job_params = job_params.copy()
+             job_params["id_generator"] = "deterministic"
+             job_params["sid"] = files[0]['metadata']['request_id']
+             expected_transfer_id = self.__get_deterministic_id(job_params["sid"])
+             self.logger(logging.DEBUG, "Submit bulk transfers in deterministic mode, sid %s, expected transfer id: %s", job_params["sid"], expected_transfer_id)
+ 
++        # For tape operations, the tokens are at the level of an FTS job.
++        # Consequently, the source (or destination) RSE of all files must be
++        # identical. In this preliminary phase, it is required to avoid
++        # distributed rules (if using the default ‘rule’ group policy in the
++        # Submitter).
++
++        if (self.token and 'archive_timeout' in job_params):
++            rse_id = files[-1]['metadata']['dest_rse_id']
++            audience = determine_audience_for_rse(rse_id=rse_id)
++            # FIXME: Replace scope with `storage.poll` once supported by all sites.
++            scope = determine_scope_for_rse(rse_id=rse_id, scopes=[], extra_scopes=['offline_access', 'storage.read:/'])
++            job_params['archive_poll_access_token'] = request_token(audience, scope)
++
+         # bulk submission
+         params_dict = {'files': files, 'params': job_params}
+         params_str = json.dumps(params_dict, cls=APIEncoder)
