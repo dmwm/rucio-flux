@@ -29,9 +29,6 @@ secretMounts:
   - secretFullName: server-debug-patch
     mountPath: /patch/server-debug.patch
     subPath: server-debug.patch
-  - secretFullName: fts4-tape-patch
-    mountPath: /patch/fts4-tape.patch
-    subPath: fts4-tape.patch
 
 optional_config:
   rucio_ca_path: "/cvmfs/grid.cern.ch/etc/grid-security/certificates/"

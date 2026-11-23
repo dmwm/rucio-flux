@@ -18,9 +18,6 @@ secretMounts:
   - secretFullName: 8316-deep-patch
     mountPath: /patch/8316-deep.patch
     subPath: 8316-deep.patch
-  - secretFullName: fts4-tape-patch
-    mountPath: /patch/fts4-tape.patch
-    subPath: fts4-tape.patch
 
 abacusAccountCount: 1
 abacusRseCount: 1
