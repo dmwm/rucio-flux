@@ -22,7 +22,7 @@ index 7aef2ac82..850ae2860 100644
          files = []
          for transfer in transfers:
              files.append(self._file_from_transfer(transfer, job_params))
-@@ -1068,12 +1074,24 @@ class FTS3Transfertool(Transfertool):
+@@ -1068,12 +1074,28 @@ class FTS3Transfertool(Transfertool):
          transfer_id = None
          expected_transfer_id = None
          if self.deterministic_id:
@@ -41,9 +41,13 @@ index 7aef2ac82..850ae2860 100644
 +        if (self.token and 'archive_timeout' in job_params):
 +            rse_id = files[-1]['metadata']['dest_rse_id']
 +            audience = determine_audience_for_rse(rse_id=rse_id)
-+            # FIXME: Replace scope with `storage.poll` once supported by all sites.
-+            scope = determine_scope_for_rse(rse_id=rse_id, scopes=[], extra_scopes=['offline_access', 'storage.read:/'])
-+            job_params['archive_poll_access_token'] = request_token(audience, scope)
++            # FIXME: Replace scope with `storage.poll` once supported by IAM and all sites.
++            scope = determine_scope_for_rse(rse_id=rse_id, scopes=[], extra_scopes=['offline_access', 'storage.read:/store'])
++            poll_token = request_token(audience, scope)
++            if poll_token:
++                job_params['archive_poll_access_token'] = poll_token
++            else:
++                self.logger(logging.WARNING, 'Could not get archive poll token for RSE %s (aud=%s, scope=%s)', rse_id, audience, scope)
 +
          # bulk submission
          params_dict = {'files': files, 'params': job_params}
